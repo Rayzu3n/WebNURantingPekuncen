@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\News;
+use App\Models\NewsCategory;
 use App\Models\User;
 
 test('profile page is displayed', function () {
@@ -75,6 +77,36 @@ test('correct password must be provided to delete account', function () {
         ->from('/profile')
         ->delete('/profile', [
             'password' => 'wrong-password',
+        ]);
+
+    $response
+        ->assertSessionHasErrorsIn('userDeletion', 'password')
+        ->assertRedirect('/profile');
+
+    $this->assertNotNull($user->fresh());
+});
+
+test('account deletion is blocked while the user is an author', function () {
+    $user = User::factory()->create(['role' => 'admin']);
+    $category = NewsCategory::create([
+        'name' => 'Test Category',
+        'slug' => 'test-category',
+    ]);
+
+    News::create([
+        'category_id' => $category->id,
+        'author_id' => $user->id,
+        'title' => 'Test News',
+        'slug' => 'test-news',
+        'content' => 'Test content',
+        'status' => 'draft',
+    ]);
+
+    $response = $this
+        ->actingAs($user)
+        ->from('/profile')
+        ->delete('/profile', [
+            'password' => 'password',
         ]);
 
     $response
