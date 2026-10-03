@@ -14,9 +14,7 @@
 
     <div class="space-y-6">
 
-        <!-- Header -->
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
             <div>
                 <h1 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
                     Category Management
@@ -41,10 +39,8 @@
 
                 Add Category
             </a>
-
         </div>
 
-        <!-- Success -->
         @if (session('success'))
             <div
                 class="flex items-start gap-3 rounded-xl border
@@ -61,7 +57,22 @@
             </div>
         @endif
 
-        <!-- Category Table -->
+        @if (session('error'))
+            <div
+                class="flex items-start gap-3 rounded-xl border
+                border-red-200 bg-red-50 px-4 py-4
+                text-sm text-red-800 shadow-sm
+                dark:border-red-500/20 dark:bg-red-500/10
+                dark:text-red-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 h-5 w-5 shrink-0" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
         <div
             class="overflow-hidden rounded-2xl border
             border-gray-200 bg-white
@@ -70,50 +81,28 @@
             dark:shadow-black/20">
 
             @if ($categories->count())
-
                 <div class="overflow-x-auto">
-
                     <table class="w-full min-w-[650px] text-left">
-
                         <thead>
                             <tr
                                 class="border-b border-gray-200 bg-gray-50/80
                                 dark:border-gray-800 dark:bg-gray-900/60">
-                                <th
-                                    class="w-16 px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    #
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Name
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Slug
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Actions
-                                </th>
+                                <th class="w-16 px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">#</th>
+                                <th class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Name</th>
+                                <th class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Slug</th>
+                                <th class="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Actions</th>
                             </tr>
                         </thead>
 
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-
                             @foreach ($categories as $category)
                                 <tr class="transition-colors hover:bg-gray-50/80 dark:hover:bg-gray-900/50">
-
                                     <td class="px-5 py-5 text-sm font-medium text-gray-400 dark:text-gray-500">
                                         {{ $categories->firstItem() + $loop->index }}
                                     </td>
 
                                     <td class="px-5 py-5">
-
                                         <div class="flex items-center gap-3">
-
                                             <div
                                                 class="flex h-10 w-10 shrink-0 items-center justify-center
                                                 rounded-xl bg-blue-50 text-blue-600
@@ -134,26 +123,20 @@
                                                     News category
                                                 </p>
                                             </div>
-
                                         </div>
-
                                     </td>
 
                                     <td class="px-5 py-5">
-
                                         <code
                                             class="rounded-lg bg-gray-100 px-2.5 py-1.5
                                             text-xs font-medium text-gray-700
                                             dark:bg-gray-800 dark:text-gray-300">
                                             {{ $category->slug }}
                                         </code>
-
                                     </td>
 
                                     <td class="px-5 py-5">
-
                                         <div class="flex items-center justify-end gap-2">
-
                                             <a href="{{ route('admin.categories.edit', $category) }}"
                                                 class="inline-flex items-center rounded-lg border
                                                 border-blue-200 bg-blue-50 px-3 py-2
@@ -164,8 +147,7 @@
                                                 Edit
                                             </a>
 
-                                            <form method="POST"
-                                                action="{{ route('admin.categories.destroy', $category) }}">
+                                            <form method="POST" action="{{ route('admin.categories.destroy', $category) }}">
                                                 @csrf
                                                 @method('DELETE')
 
@@ -179,28 +161,19 @@
                                                     Delete
                                                 </button>
                                             </form>
-
                                         </div>
-
                                     </td>
-
                                 </tr>
                             @endforeach
-
                         </tbody>
-
                     </table>
-
                 </div>
 
-                <!-- Pagination -->
                 <div class="border-t border-gray-200 px-5 py-4 dark:border-gray-800">
                     {{ $categories->links() }}
                 </div>
             @else
-                <!-- Empty State -->
                 <div class="px-6 py-16 text-center">
-
                     <div
                         class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl
                         bg-blue-50 text-blue-600
@@ -227,13 +200,9 @@
                         dark:bg-blue-500 dark:hover:bg-blue-600">
                         Add your first category
                     </a>
-
                 </div>
-
             @endif
-
         </div>
-
     </div>
 
 </x-app-layout>
