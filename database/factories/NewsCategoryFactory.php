@@ -2,14 +2,16 @@
 
 namespace Database\Factories;
 
-use App\Models\NewCategory;
+use App\Models\NewsCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<NewCategory>
+ * @extends Factory<NewsCategory>
  */
-class NewCategoryFactory extends Factory
+class NewsCategoryFactory extends Factory
 {
+    protected $model = NewsCategory::class;
+
     /**
      * Define the model's default state.
      *
@@ -18,7 +20,8 @@ class NewCategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->unique()->words(2, true),
+            'slug' => fake()->unique()->slug(),
         ];
     }
 }
