@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\Models\Member;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -18,6 +19,33 @@ test('users can authenticate using the login screen', function () {
 
     $this->assertAuthenticated();
     $response->assertRedirect(route('dashboard', absolute: false));
+});
+
+test('inactive members can not authenticate', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+    ]);
+
+    Member::create([
+        'user_id' => $user->id,
+        'member_number' => 'TEST-INACTIVE-001',
+        'nik' => '9999999999999999',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2009-01-01',
+        'gender' => 'L',
+        'phone' => '081234567890',
+        'address' => 'Pekuncen',
+        'status' => 'inactive',
+    ]);
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertGuest();
+
+    $response->assertSessionHasErrors('email');
 });
 
 test('users can not authenticate with invalid password', function () {

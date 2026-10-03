@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -26,7 +27,7 @@ class ProfileController extends Controller
         abort_unless($member, 404);
 
         $validated = $request->validate([
-            'nik' => ['required', 'string', 'max:30'],
+            'nik' => ['required', 'string', 'max:30', Rule::unique('members', 'nik')->ignore($member->id)],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:L,P'],

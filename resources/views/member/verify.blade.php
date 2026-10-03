@@ -116,18 +116,6 @@
                             </p>
                         </div>
 
-                        <div class="sm:col-span-2">
-
-                            <p class="text-xs font-semibold uppercase tracking-wider text-gray-400">
-                                Address
-                            </p>
-
-                            <p class="mt-1 text-sm font-semibold leading-6 text-[#15201B] dark:text-white">
-                                {{ $member->address }}
-                            </p>
-
-                        </div>
-
                     </div>
 
                 </div>
