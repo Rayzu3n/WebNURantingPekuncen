@@ -63,6 +63,12 @@ class NewsCategoryController extends Controller
 
     public function destroy(NewsCategory $category): RedirectResponse
     {
+        if ($category->news()->exists()) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', 'Category cannot be deleted because it is being used by existing news.');
+        }
+
         $category->delete();
 
         return redirect()
