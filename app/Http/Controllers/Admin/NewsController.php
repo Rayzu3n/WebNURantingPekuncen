@@ -118,18 +118,16 @@ class NewsController extends Controller
             ->with('success', 'News updated successfully.');
     }
 
-    public function destroy(NewsCategory $category): RedirectResponse
+    public function destroy(News $news): RedirectResponse
     {
-        if ($category->news()->exists()) {
-            return redirect()
-                ->route('admin.categories.index')
-                ->with('error', 'Category cannot be deleted because it is being used by existing news.');
+        if ($news->thumbnail) {
+            Storage::disk('public')->delete($news->thumbnail);
         }
 
-        $category->delete();
+        $news->delete();
 
         return redirect()
-            ->route('admin.categories.index')
-            ->with('success', 'Category deleted successfully.');
+            ->route('admin.news.index')
+            ->with('success', 'News deleted successfully.');
     }
 }
