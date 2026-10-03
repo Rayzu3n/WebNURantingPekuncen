@@ -7,8 +7,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
@@ -48,6 +48,13 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+
+        if ($user->news()->exists()) {
+            return Redirect::route('profile.edit')
+                ->withErrors([
+                    'password' => 'Your account cannot be deleted while you are still the author of existing news.',
+                ], 'userDeletion');
+        }
 
         if ($user->member?->photo) {
             Storage::disk('public')->delete($user->member->photo);
