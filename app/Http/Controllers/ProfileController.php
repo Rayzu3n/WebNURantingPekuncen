@@ -56,13 +56,20 @@ class ProfileController extends Controller
                 ], 'userDeletion');
         }
 
-        if ($user->member?->photo) {
-            Storage::disk('public')->delete($user->member->photo);
+        $memberPhoto = $user->member?->photo;
+
+        if (! $user->delete()) {
+            return Redirect::route('profile.edit')
+                ->withErrors([
+                    'password' => 'Your account could not be deleted. Please try again.',
+                ], 'userDeletion');
+        }
+
+        if ($memberPhoto) {
+            Storage::disk('public')->delete($memberPhoto);
         }
 
         Auth::logout();
-
-        $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Member;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
@@ -52,8 +55,18 @@ test('email verification status is unchanged when the email address is unchanged
     $this->assertNotNull($user->refresh()->email_verified_at);
 });
 
-test('user can delete their account', function () {
+test('user can delete their account and member photo', function () {
+    Storage::fake('public');
+
     $user = User::factory()->create();
+    $photo = 'members/profile-photo.jpg';
+
+    Storage::disk('public')->put($photo, 'photo content');
+
+    Member::factory()->create([
+        'user_id' => $user->id,
+        'photo' => $photo,
+    ]);
 
     $response = $this
         ->actingAs($user)
@@ -67,6 +80,48 @@ test('user can delete their account', function () {
 
     $this->assertGuest();
     $this->assertNull($user->fresh());
+    $this->assertDatabaseMissing('members', [
+        'user_id' => $user->id,
+    ]);
+    $this->assertFalse(Storage::disk('public')->exists($photo));
+});
+
+test('failed account deletion preserves the member photo and authenticated session', function () {
+    Storage::fake('public');
+
+    $user = User::factory()->create();
+    $photo = 'members/profile-photo-preserved.jpg';
+
+    Storage::disk('public')->put($photo, 'photo content');
+
+    Member::factory()->create([
+        'user_id' => $user->id,
+        'photo' => $photo,
+    ]);
+
+    Event::listen(
+        'eloquent.deleting: '.User::class,
+        fn (): bool => false,
+    );
+
+    $response = $this
+        ->actingAs($user)
+        ->from('/profile')
+        ->delete('/profile', [
+            'password' => 'password',
+        ]);
+
+    $response
+        ->assertRedirect('/profile')
+        ->assertSessionHasErrorsIn('userDeletion', 'password');
+
+    $this->assertAuthenticatedAs($user);
+    $this->assertNotNull($user->fresh());
+    $this->assertDatabaseHas('members', [
+        'user_id' => $user->id,
+        'photo' => $photo,
+    ]);
+    $this->assertTrue(Storage::disk('public')->exists($photo));
 });
 
 test('correct password must be provided to delete account', function () {
