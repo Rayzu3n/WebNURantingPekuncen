@@ -1,8 +1,11 @@
 <?php
 
+use App\Models\Member;
 use App\Models\News;
 use App\Models\NewsCategory;
 use App\Models\User;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Storage;
 
 test('profile page is displayed', function () {
     $user = User::factory()->create();
