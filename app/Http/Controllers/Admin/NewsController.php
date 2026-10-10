@@ -153,11 +153,17 @@ class NewsController extends Controller
 
     public function destroy(News $news): RedirectResponse
     {
-        if ($news->thumbnail) {
-            Storage::disk('public')->delete($news->thumbnail);
+        $originalThumbnail = $news->thumbnail;
+
+        if (! $news->delete()) {
+            return redirect()
+                ->route('admin.news.index')
+                ->with('error', 'The news article could not be deleted. Please try again.');
         }
 
-        $news->delete();
+        if ($originalThumbnail) {
+            Storage::disk('public')->delete($originalThumbnail);
+        }
 
         return redirect()
             ->route('admin.news.index')

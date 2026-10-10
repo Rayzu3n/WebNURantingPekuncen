@@ -162,3 +162,40 @@ test('failed news update preserves the old thumbnail', function () {
     Storage::disk('public')->assertExists($oldPath);
     expect(Storage::disk('public')->allFiles('news'))->toBe([$oldPath]);
 });
+
+test('failed news deletion preserves its thumbnail', function () {
+    Storage::fake('public');
+
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $thumbnailPath = UploadedFile::fake()
+        ->image('thumbnail.jpg')
+        ->store('news', 'public');
+
+    $news = News::factory()->create([
+        'author_id' => $admin->id,
+        'thumbnail' => $thumbnailPath,
+    ]);
+
+    Event::listen(
+        'eloquent.deleting: '.News::class,
+        fn (): bool => false
+    );
+
+    $response = $this
+        ->actingAs($admin)
+        ->delete(route('admin.news.destroy', $news));
+
+    $response
+        ->assertRedirect(route('admin.news.index'))
+        ->assertSessionHas('error', 'The news article could not be deleted. Please try again.');
+
+    $this->assertDatabaseHas('news', [
+        'id' => $news->id,
+        'thumbnail' => $thumbnailPath,
+    ]);
+
+    Storage::disk('public')->assertExists($thumbnailPath);
+});
