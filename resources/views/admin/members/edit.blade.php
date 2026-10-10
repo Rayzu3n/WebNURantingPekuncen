@@ -39,7 +39,7 @@
                 @method('PUT')
 
                 <div class="space-y-8 px-6 py-6 sm:px-8 sm:py-8">
-
+                    <x-input-error :messages="$errors->get('update')" class="mt-2" />
                     <!-- Account -->
                     <section>
 

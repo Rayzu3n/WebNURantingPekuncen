@@ -41,17 +41,50 @@ class ProfileController extends Controller
             ],
         ]);
 
-        if ($request->hasFile('photo')) {
-            if ($member->photo) {
-                Storage::disk('public')->delete($member->photo);
-            }
+        $originalPhoto = $member->photo;
+        $replacementPhoto = null;
 
-            $validated['photo'] = $request
+        if ($request->hasFile('photo')) {
+            $replacementPhoto = $request
                 ->file('photo')
                 ->store('members', 'public');
+
+            if ($replacementPhoto === false) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'photo' => 'The profile photo could not be saved. Please try again.',
+                    ]);
+            }
+
+            $validated['photo'] = $replacementPhoto;
         }
 
-        $member->update($validated);
+        try {
+            $updated = $member->update($validated);
+        } catch (\Throwable $exception) {
+            if ($replacementPhoto !== null) {
+                Storage::disk('public')->delete($replacementPhoto);
+            }
+
+            throw $exception;
+        }
+
+        if (! $updated) {
+            if ($replacementPhoto !== null) {
+                Storage::disk('public')->delete($replacementPhoto);
+            }
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'photo' => 'The profile could not be updated. Please try again.',
+                ]);
+        }
+
+        if ($replacementPhoto !== null && $originalPhoto) {
+            Storage::disk('public')->delete($originalPhoto);
+        }
 
         return redirect()
             ->route('member.profile')

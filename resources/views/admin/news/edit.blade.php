@@ -40,7 +40,7 @@
                 @method('PUT')
 
                 <div class="space-y-6 px-6 py-6 sm:px-8 sm:py-8">
-
+                    <x-input-error :messages="$errors->get('update')" class="mt-2" />
                     <!-- Title -->
                     <div>
                         <x-input-label for="title" value="Title"

@@ -82,7 +82,7 @@ class NewsController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'unique:news,slug,' . $news->id,
+                'unique:news,slug,'.$news->id,
             ],
             'excerpt' => ['nullable', 'string'],
             'content' => ['required', 'string'],
@@ -95,14 +95,23 @@ class NewsController extends Controller
             'status' => ['required', 'in:draft,published,archived'],
         ]);
 
-        if ($request->hasFile('thumbnail')) {
-            if ($news->thumbnail) {
-                Storage::disk('public')->delete($news->thumbnail);
-            }
+        $originalThumbnail = $news->thumbnail;
+        $replacementThumbnail = null;
 
-            $validated['thumbnail'] = $request
+        if ($request->hasFile('thumbnail')) {
+            $replacementThumbnail = $request
                 ->file('thumbnail')
                 ->store('news', 'public');
+
+            if ($replacementThumbnail === false) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'thumbnail' => 'The thumbnail could not be saved. Please try again.',
+                    ]);
+            }
+
+            $validated['thumbnail'] = $replacementThumbnail;
         }
 
         if ($validated['status'] === 'published') {
@@ -111,7 +120,31 @@ class NewsController extends Controller
             $validated['published_at'] = null;
         }
 
-        $news->update($validated);
+        try {
+            $updated = $news->update($validated);
+        } catch (\Throwable $exception) {
+            if ($replacementThumbnail !== null) {
+                Storage::disk('public')->delete($replacementThumbnail);
+            }
+
+            throw $exception;
+        }
+
+        if (! $updated) {
+            if ($replacementThumbnail !== null) {
+                Storage::disk('public')->delete($replacementThumbnail);
+            }
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'update' => 'The news article could not be updated. Please try again.',
+                ]);
+        }
+
+        if ($replacementThumbnail !== null && $originalThumbnail) {
+            Storage::disk('public')->delete($originalThumbnail);
+        }
 
         return redirect()
             ->route('admin.news.index')
