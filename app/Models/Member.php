@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Database\Factories\MemberFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
+/**
+ * @property Carbon $birth_date
+ */
 class Member extends Model
 {
     /** @use HasFactory<\Database\Factories\MemberFactory> */
@@ -22,7 +25,7 @@ class Member extends Model
         'phone',
         'address',
         'photo',
-        'status'
+        'status',
     ];
 
     protected function casts(): array

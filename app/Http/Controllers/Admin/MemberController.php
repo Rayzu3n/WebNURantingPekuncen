@@ -8,10 +8,10 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\View\View;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class MemberController extends Controller
 {
@@ -66,34 +66,69 @@ class MemberController extends Controller
             'status' => ['required', 'in:active,inactive'],
         ]);
 
-        DB::transaction(function () use ($request, &$validated) {
-            $user = User::create([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'password' => $validated['password'],
-                'role' => 'member',
-            ]);
+        $replacementPhoto = null;
 
-            $memberData = [
-                'user_id' => $user->id,
-                'member_number' => $validated['member_number'],
-                'nik' => $validated['nik'],
-                'birth_place' => $validated['birth_place'],
-                'birth_date' => $validated['birth_date'],
-                'gender' => $validated['gender'],
-                'phone' => $validated['phone'] ?? null,
-                'address' => $validated['address'],
-                'status' => $validated['status'],
-            ];
+        if ($request->hasFile('photo')) {
+            $replacementPhoto = $request
+                ->file('photo')
+                ->store('members', 'public');
 
-            if ($request->hasFile('photo')) {
-                $memberData['photo'] = $request
-                    ->file('photo')
-                    ->store('members', 'public');
+            if ($replacementPhoto === false) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'photo' => 'The profile photo could not be saved. Please try again.',
+                    ]);
+            }
+        }
+
+        $memberData = [
+            'member_number' => $validated['member_number'],
+            'nik' => $validated['nik'],
+            'birth_place' => $validated['birth_place'],
+            'birth_date' => $validated['birth_date'],
+            'gender' => $validated['gender'],
+            'phone' => $validated['phone'] ?? null,
+            'address' => $validated['address'],
+            'status' => $validated['status'],
+        ];
+
+        if ($replacementPhoto !== null) {
+            $memberData['photo'] = $replacementPhoto;
+        }
+
+        try {
+            DB::transaction(function () use ($validated, $memberData): void {
+                $user = User::create([
+                    'name' => $validated['name'],
+                    'email' => $validated['email'],
+                    'password' => $validated['password'],
+                    'role' => 'member',
+                ]);
+
+                if (! $user->exists) {
+                    throw new \RuntimeException(
+                        'The member account could not be created.'
+                    );
+                }
+
+                $memberData['user_id'] = $user->id;
+
+                $member = Member::create($memberData);
+
+                if (! $member->exists) {
+                    throw new \RuntimeException(
+                        'The member record could not be created.'
+                    );
+                }
+            });
+        } catch (\Throwable $exception) {
+            if ($replacementPhoto !== null) {
+                Storage::disk('public')->delete($replacementPhoto);
             }
 
-            Member::create($memberData);
-        });
+            throw $exception;
+        }
 
         return redirect()
             ->route('admin.members.index')
@@ -151,35 +186,74 @@ class MemberController extends Controller
             'status' => ['required', 'in:active,inactive'],
         ]);
 
-        DB::transaction(function () use ($request, $member, $validated) {
-            $member->user->update([
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-            ]);
+        // Preserve the current photo until the update succeeds.
+        $originalPhoto = $member->photo;
+        $replacementPhoto = null;
 
-            $memberData = [
-                'member_number' => $validated['member_number'],
-                'nik' => $validated['nik'],
-                'birth_place' => $validated['birth_place'],
-                'birth_date' => $validated['birth_date'],
-                'gender' => $validated['gender'],
-                'phone' => $validated['phone'] ?? null,
-                'address' => $validated['address'],
-                'status' => $validated['status'],
-            ];
+        // Store the replacement photo before changing the database.
+        if ($request->hasFile('photo')) {
+            $replacementPhoto = $request
+                ->file('photo')
+                ->store('members', 'public');
 
-            if ($request->hasFile('photo')) {
-                if ($member->photo) {
-                    Storage::disk('public')->delete($member->photo);
+            if ($replacementPhoto === false) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'photo' => 'The profile photo could not be saved. Please try again.',
+                    ]);
+            }
+        }
+
+        $memberData = [
+            'member_number' => $validated['member_number'],
+            'nik' => $validated['nik'],
+            'birth_place' => $validated['birth_place'],
+            'birth_date' => $validated['birth_date'],
+            'gender' => $validated['gender'],
+            'phone' => $validated['phone'] ?? null,
+            'address' => $validated['address'],
+            'status' => $validated['status'],
+        ];
+
+        if ($replacementPhoto !== null) {
+            $memberData['photo'] = $replacementPhoto;
+        }
+
+        try {
+            DB::transaction(function () use (
+                $member,
+                $validated,
+                $memberData
+            ): void {
+                if (! $member->user->update([
+                    'name' => $validated['name'],
+                    'email' => $validated['email'],
+                ])) {
+                    throw ValidationException::withMessages([
+                        'update' => 'The member account could not be updated. Please try again.',
+                    ]);
                 }
 
-                $memberData['photo'] = $request
-                    ->file('photo')
-                    ->store('members', 'public');
+                if (! $member->update($memberData)) {
+                    throw ValidationException::withMessages([
+                        'update' => 'The member profile could not be updated. Please try again.',
+                    ]);
+                }
+            });
+        } catch (\Throwable $exception) {
+            // Remove the replacement if the database update fails.
+            if ($replacementPhoto !== null) {
+                Storage::disk('public')->delete($replacementPhoto);
             }
 
-            $member->update($memberData);
-        });
+            throw $exception;
+        }
+
+        // Delete the old photo only after the database update succeeds.
+        if ($replacementPhoto !== null && $originalPhoto) {
+            Storage::disk('public')->delete($originalPhoto);
+        }
 
         return redirect()
             ->route('admin.members.index')
@@ -190,16 +264,30 @@ class MemberController extends Controller
     {
         $member->load('user');
 
-        DB::transaction(function () use ($member) {
-            if ($member->photo) {
-                Storage::disk('public')->delete($member->photo);
+        $user = $member->user;
+        $originalPhoto = $member->photo;
+
+        DB::transaction(function () use ($member, $user): void {
+            if (! $member->delete()) {
+                throw new \RuntimeException(
+                    'The member record could not be deleted.'
+                );
             }
 
-            $member->user->delete();
+            if (! $user->delete()) {
+                throw new \RuntimeException(
+                    'The member account could not be deleted.'
+                );
+            }
         });
+
+        // Delete the photo only after the transaction succeeds.
+        if ($originalPhoto) {
+            Storage::disk('public')->delete($originalPhoto);
+        }
 
         return redirect()
             ->route('admin.members.index')
             ->with('success', 'Member deleted successfully.');
     }
-}   
+}

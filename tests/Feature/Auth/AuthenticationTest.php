@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\User;
 use App\Models\Member;
+use App\Models\User;
 
 test('login screen can be rendered', function () {
     $response = $this->get('/login');
@@ -10,7 +10,9 @@ test('login screen can be rendered', function () {
 });
 
 test('users can authenticate using the login screen', function () {
-    $user = User::factory()->create();
+    $user = User::factory()->create([
+        'role' => 'admin',
+    ]);
 
     $response = $this->post('/login', [
         'email' => $user->email,
@@ -48,6 +50,42 @@ test('inactive members can not authenticate', function () {
     $response->assertSessionHasErrors('email');
 });
 
+test('active members can authenticate', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+    ]);
+
+    Member::factory()->for($user)->create([
+        'status' => 'active',
+    ]);
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertAuthenticatedAs($user);
+
+    $response->assertRedirect(
+        route('dashboard', absolute: false)
+    );
+});
+
+test('members without a membership record cannot authenticate', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+    ]);
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertGuest();
+
+    $response->assertSessionHasErrors('email');
+});
+
 test('users can not authenticate with invalid password', function () {
     $user = User::factory()->create();
 
@@ -66,4 +104,23 @@ test('users can logout', function () {
 
     $this->assertGuest();
     $response->assertRedirect('/');
+});
+
+test('inactive members cannot authenticate', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+    ]);
+
+    Member::factory()->for($user)->create([
+        'status' => 'inactive',
+    ]);
+
+    $response = $this->post('/login', [
+        'email' => $user->email,
+        'password' => 'password',
+    ]);
+
+    $this->assertGuest();
+
+    $response->assertSessionHasErrors('email');
 });

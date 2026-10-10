@@ -52,17 +52,18 @@ class LoginRequest extends FormRequest
 
         $user = Auth::user();
 
-        if (
-            $user &&
-            $user->role === 'member' &&
-            $user->member &&
-            $user->member->status !== 'active'
-        ) {
-            Auth::logout();
+        if ($user && $user->role === 'member') {
+            $member = $user->member;
 
-            throw ValidationException::withMessages([
-                'email' => 'Your membership is inactive.',
-            ]);
+            if (! $member || $member->status !== 'active') {
+                Auth::logout();
+
+                throw ValidationException::withMessages([
+                    'email' => $member
+                        ? 'Your membership is inactive.'
+                        : 'No membership record is associated with this account.',
+                ]);
+            }
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -96,6 +97,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
+        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
     }
 }

@@ -10,7 +10,14 @@ class VerificationController extends Controller
 {
     public function show(string $member_number): View
     {
-        $member = Member::with('user')
+        $member = Member::query()
+            ->select([
+                'id',
+                'user_id',
+                'member_number',
+                'status',
+            ])
+            ->with('user:id,name')
             ->where('member_number', $member_number)
             ->firstOrFail();
 
