@@ -238,7 +238,6 @@ test('failed news creation removes the uploaded thumbnail', function () {
     expect(Storage::disk('public')->allFiles('news'))->toBe([]);
 });
 
-
 test('admin cannot create news with an invalid URL slug', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
