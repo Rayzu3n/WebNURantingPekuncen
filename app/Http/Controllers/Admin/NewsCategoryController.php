@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\NewsCategory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class NewsCategoryController extends Controller
 {
@@ -30,7 +30,13 @@ class NewsCategoryController extends Controller
             'slug' => ['required', 'string', 'max:255', 'unique:news_categories,slug'],
         ]);
 
-        NewsCategory::create($validated);
+        $category = NewsCategory::create($validated);
+
+        if (! $category->exists) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', 'Category could not be created. Please try again.');
+        }
 
         return redirect()
             ->route('admin.categories.index')
@@ -54,7 +60,11 @@ class NewsCategoryController extends Controller
             ],
         ]);
 
-        $category->update($validated);
+        if (! $category->update($validated)) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', 'Category could not be updated. Please try again.');
+        }
 
         return redirect()
             ->route('admin.categories.index')
@@ -69,7 +79,11 @@ class NewsCategoryController extends Controller
                 ->with('error', 'Category cannot be deleted because it is being used by existing news.');
         }
 
-        $category->delete();
+        if (! $category->delete()) {
+            return redirect()
+                ->route('admin.categories.index')
+                ->with('error', 'Category could not be deleted. Please try again.');
+        }
 
         return redirect()
             ->route('admin.categories.index')
