@@ -45,10 +45,22 @@ class NewsController extends Controller
             'status' => ['required', 'in:draft,published,archived'],
         ]);
 
+        $thumbnailPath = null;
+
         if ($request->hasFile('thumbnail')) {
-            $validated['thumbnail'] = $request
+            $thumbnailPath = $request
                 ->file('thumbnail')
                 ->store('news', 'public');
+
+            if ($thumbnailPath === false) {
+                return back()
+                    ->withInput()
+                    ->withErrors([
+                        'thumbnail' => 'The thumbnail could not be saved. Please try again.',
+                    ]);
+            }
+
+            $validated['thumbnail'] = $thumbnailPath;
         }
 
         $validated['author_id'] = $request->user()->id;
@@ -59,7 +71,27 @@ class NewsController extends Controller
             $validated['published_at'] = null;
         }
 
-        News::create($validated);
+        try {
+            $news = News::create($validated);
+        } catch (\Throwable $exception) {
+            if ($thumbnailPath !== null) {
+                Storage::disk('public')->delete($thumbnailPath);
+            }
+
+            throw $exception;
+        }
+
+        if (! $news->exists) {
+            if ($thumbnailPath !== null) {
+                Storage::disk('public')->delete($thumbnailPath);
+            }
+
+            return back()
+                ->withInput()
+                ->withErrors([
+                    'create' => 'The news article could not be created. Please try again.',
+                ]);
+        }
 
         return redirect()
             ->route('admin.news.index')
