@@ -109,8 +109,8 @@ test('admin can replace news thumbnail and remove the old file', function () {
     expect($news->title)->toBe('Updated News')
         ->and($news->thumbnail)->not->toBe($oldPath);
 
-    Storage::disk('public')->assertMissing($oldPath);
-    Storage::disk('public')->assertExists($news->thumbnail);
+    expect(Storage::disk('public')->exists($oldPath))->toBeFalse();
+    expect(Storage::disk('public')->exists($news->thumbnail))->toBeTrue();
 });
 
 test('failed news update preserves the old thumbnail', function () {
@@ -159,7 +159,7 @@ test('failed news update preserves the old thumbnail', function () {
 
     expect($news->fresh()->title)->toBe('Original News');
 
-    Storage::disk('public')->assertExists($oldPath);
+    expect(Storage::disk('public')->exists($oldPath))->toBeTrue();
     expect(Storage::disk('public')->allFiles('news'))->toBe([$oldPath]);
 });
 
@@ -197,5 +197,43 @@ test('failed news deletion preserves its thumbnail', function () {
         'thumbnail' => $thumbnailPath,
     ]);
 
-    Storage::disk('public')->assertExists($thumbnailPath);
+    expect(Storage::disk('public')->exists($thumbnailPath))->toBeTrue();
+});
+
+test('failed news creation removes the uploaded thumbnail', function () {
+    Storage::fake('public');
+
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $category = NewsCategory::factory()->create();
+
+    Event::listen(
+        'eloquent.creating: '.News::class,
+        fn (): bool => false
+    );
+
+    $response = $this
+        ->actingAs($admin)
+        ->from(route('admin.news.create'))
+        ->post(route('admin.news.store'), [
+            'category_id' => $category->id,
+            'title' => 'News that will not be saved',
+            'slug' => 'news-that-will-not-be-saved',
+            'excerpt' => 'Test excerpt',
+            'content' => 'Test content',
+            'status' => 'draft',
+            'thumbnail' => UploadedFile::fake()->image('rejected-thumbnail.jpg'),
+        ]);
+
+    $response
+        ->assertRedirect(route('admin.news.create'))
+        ->assertSessionHasErrors('create');
+
+    $this->assertDatabaseMissing('news', [
+        'slug' => 'news-that-will-not-be-saved',
+    ]);
+
+    expect(Storage::disk('public')->allFiles('news'))->toBe([]);
 });
