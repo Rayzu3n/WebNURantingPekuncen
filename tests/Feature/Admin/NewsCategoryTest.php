@@ -139,3 +139,45 @@ test('failed news category deletion does not report success', function () {
         'id' => $category->id,
     ]);
 });
+
+
+test('admin cannot create a category with an invalid URL slug', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->post(route('admin.categories.store'), [
+            'name' => 'Invalid Slug Category',
+            'slug' => 'Invalid Slug',
+        ]);
+
+    $response->assertSessionHasErrors('slug');
+
+    $this->assertDatabaseMissing('news_categories', [
+        'slug' => 'Invalid Slug',
+    ]);
+});
+
+test('admin cannot update a category with an invalid URL slug', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $category = NewsCategory::factory()->create([
+        'name' => 'Original Category',
+        'slug' => 'original-category',
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->put(route('admin.categories.update', $category), [
+            'name' => 'Updated Category',
+            'slug' => 'Invalid Slug',
+        ]);
+
+    $response->assertSessionHasErrors('slug');
+
+    expect($category->fresh()->slug)->toBe('original-category');
+});
