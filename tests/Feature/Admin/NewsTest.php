@@ -237,3 +237,58 @@ test('failed news creation removes the uploaded thumbnail', function () {
 
     expect(Storage::disk('public')->allFiles('news'))->toBe([]);
 });
+
+
+test('admin cannot create news with an invalid URL slug', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $category = NewsCategory::factory()->create();
+
+    $response = $this
+        ->actingAs($admin)
+        ->post(route('admin.news.store'), [
+            'category_id' => $category->id,
+            'title' => 'News with invalid slug',
+            'slug' => 'Invalid Slug',
+            'excerpt' => 'Test excerpt',
+            'content' => 'Test content',
+            'status' => 'draft',
+        ]);
+
+    $response->assertSessionHasErrors('slug');
+
+    $this->assertDatabaseMissing('news', [
+        'slug' => 'Invalid Slug',
+    ]);
+});
+
+test('admin cannot update news with an invalid URL slug', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $category = NewsCategory::factory()->create();
+
+    $news = News::factory()->create([
+        'category_id' => $category->id,
+        'author_id' => $admin->id,
+        'slug' => 'original-news',
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->put(route('admin.news.update', $news), [
+            'category_id' => $category->id,
+            'title' => 'Updated news title',
+            'slug' => 'Invalid Slug',
+            'excerpt' => 'Test excerpt',
+            'content' => 'Updated content',
+            'status' => 'draft',
+        ]);
+
+    $response->assertSessionHasErrors('slug');
+
+    expect($news->fresh()->slug)->toBe('original-news');
+});
