@@ -33,7 +33,7 @@ class NewsController extends Controller
         $validated = $request->validate([
             'category_id' => ['required', 'exists:news_categories,id'],
             'title' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:news,slug'],
+            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', 'unique:news,slug'],
             'excerpt' => ['nullable', 'string'],
             'content' => ['required', 'string'],
             'thumbnail' => [
@@ -114,6 +114,7 @@ class NewsController extends Controller
                 'required',
                 'string',
                 'max:255',
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
                 'unique:news,slug,'.$news->id,
             ],
             'excerpt' => ['nullable', 'string'],
