@@ -199,3 +199,42 @@ test('failed news deletion preserves its thumbnail', function () {
 
     Storage::disk('public')->assertExists($thumbnailPath);
 });
+
+
+test('failed news creation removes the uploaded thumbnail', function () {
+    Storage::fake('public');
+
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $category = NewsCategory::factory()->create();
+
+    Event::listen(
+        'eloquent.creating: '.News::class,
+        fn (): bool => false
+    );
+
+    $response = $this
+        ->actingAs($admin)
+        ->from(route('admin.news.create'))
+        ->post(route('admin.news.store'), [
+            'category_id' => $category->id,
+            'title' => 'News that will not be saved',
+            'slug' => 'news-that-will-not-be-saved',
+            'excerpt' => 'Test excerpt',
+            'content' => 'Test content',
+            'status' => 'draft',
+            'thumbnail' => UploadedFile::fake()->image('rejected-thumbnail.jpg'),
+        ]);
+
+    $response
+        ->assertRedirect(route('admin.news.create'))
+        ->assertSessionHasErrors('create');
+
+    $this->assertDatabaseMissing('news', [
+        'slug' => 'news-that-will-not-be-saved',
+    ]);
+
+    expect(Storage::disk('public')->allFiles('news'))->toBe([]);
+});
