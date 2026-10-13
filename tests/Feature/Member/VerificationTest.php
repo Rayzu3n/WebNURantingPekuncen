@@ -41,3 +41,15 @@ test('unknown member numbers return not found', function () {
     $this->get(route('member.verify', 'NU-NOT-FOUND'))
         ->assertNotFound();
 });
+
+test('public member verification is rate limited', function () {
+    $member = Member::factory()->create();
+
+    $url = route('member.verify', $member->member_number);
+
+    for ($attempt = 0; $attempt < 60; $attempt++) {
+        $this->get($url)->assertOk();
+    }
+
+    $this->get($url)->assertTooManyRequests();
+});
