@@ -1,4 +1,3 @@
-```php
 <?php
 
 use App\Models\Member;
@@ -175,4 +174,57 @@ test('account deletion is blocked while the user is an author', function () {
         ->assertRedirect('/profile');
 
     $this->assertNotNull($user->fresh());
+});
+
+test('last administrator cannot delete their account', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->from('/profile')
+        ->delete('/profile', [
+            'password' => 'password',
+        ]);
+
+    $response
+        ->assertRedirect('/profile')
+        ->assertSessionHasErrorsIn('userDeletion', 'password');
+
+    $this->assertAuthenticatedAs($admin);
+    $this->assertNotNull($admin->fresh());
+
+    $this->assertDatabaseHas('users', [
+        'id' => $admin->id,
+        'role' => 'admin',
+    ]);
+});
+
+test('administrator can delete their account when another administrator remains', function () {
+    $admin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $remainingAdmin = User::factory()->create([
+        'role' => 'admin',
+    ]);
+
+    $response = $this
+        ->actingAs($admin)
+        ->delete('/profile', [
+            'password' => 'password',
+        ]);
+
+    $response
+        ->assertSessionHasNoErrors()
+        ->assertRedirect('/');
+
+    $this->assertGuest();
+    $this->assertNull($admin->fresh());
+
+    $this->assertDatabaseHas('users', [
+        'id' => $remainingAdmin->id,
+        'role' => 'admin',
+    ]);
 });
