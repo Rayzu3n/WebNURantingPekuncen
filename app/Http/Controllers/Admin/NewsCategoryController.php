@@ -27,7 +27,7 @@ class NewsCategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255', 'unique:news_categories,slug'],
+            'slug' => ['required', 'string', 'max:255', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', 'unique:news_categories,slug'],
         ]);
 
         $category = NewsCategory::create($validated);
@@ -56,6 +56,7 @@ class NewsCategoryController extends Controller
                 'required',
                 'string',
                 'max:255',
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
                 Rule::unique('news_categories', 'slug')->ignore($category->id),
             ],
         ]);
