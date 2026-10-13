@@ -30,8 +30,8 @@ Route::get('/berita/{slug}', [PublicNewsController::class, 'show'])
     ->name('news.show');
 
 Route::get('/member/verify/{member_number}', [VerificationController::class, 'show'])
+    ->middleware('throttle:60,1')
     ->name('member.verify');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -53,7 +53,6 @@ Route::get('/dashboard', function () {
         : redirect()->route('member.dashboard');
 })->middleware('auth')->name('dashboard');
 
-
 /*
 |--------------------------------------------------------------------------
 | Profile Routes
@@ -70,7 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -94,7 +92,6 @@ Route::middleware(['auth', 'role:admin'])
         Route::resource('members', MemberController::class)
             ->except(['show']);
     });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -125,4 +122,4 @@ Route::middleware(['auth', 'role:member'])
 |--------------------------------------------------------------------------
 */
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
