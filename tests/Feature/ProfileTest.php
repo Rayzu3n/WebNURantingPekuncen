@@ -1,3 +1,4 @@
+```php
 <?php
 
 use App\Models\Member;
@@ -80,9 +81,11 @@ test('user can delete their account and member photo', function () {
 
     $this->assertGuest();
     $this->assertNull($user->fresh());
+
     $this->assertDatabaseMissing('members', [
         'user_id' => $user->id,
     ]);
+
     $this->assertFalse(Storage::disk('public')->exists($photo));
 });
 
@@ -117,10 +120,12 @@ test('failed account deletion preserves the member photo and authenticated sessi
 
     $this->assertAuthenticatedAs($user);
     $this->assertNotNull($user->fresh());
+
     $this->assertDatabaseHas('members', [
         'user_id' => $user->id,
         'photo' => $photo,
     ]);
+
     $this->assertTrue(Storage::disk('public')->exists($photo));
 });
 
@@ -143,6 +148,7 @@ test('correct password must be provided to delete account', function () {
 
 test('account deletion is blocked while the user is an author', function () {
     $user = User::factory()->create(['role' => 'admin']);
+
     $category = NewsCategory::create([
         'name' => 'Test Category',
         'slug' => 'test-category',

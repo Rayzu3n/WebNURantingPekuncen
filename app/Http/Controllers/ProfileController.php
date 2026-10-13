@@ -69,7 +69,7 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($memberPhoto);
         }
 
-        Auth::logout();
+        Auth::logoutCurrentDevice();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
