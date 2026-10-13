@@ -140,7 +140,6 @@ test('failed news category deletion does not report success', function () {
     ]);
 });
 
-
 test('admin cannot create a category with an invalid URL slug', function () {
     $admin = User::factory()->create([
         'role' => 'admin',
