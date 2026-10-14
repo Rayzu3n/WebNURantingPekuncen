@@ -149,7 +149,7 @@
                         @php($isMosaicLead = $loop->first && $galleryNews->count() > 3)
                         <article @class([
                             'group relative isolate overflow-hidden rounded-2xl bg-[#e8eee9] dark:bg-[#202923]',
-                            'col-span-2 min-h-[300px] sm:min-h-[380px] lg:row-span-2 lg:min-h-[470px]' => $isMosaicLead,
+                            'col-span-1 min-h-[300px] sm:col-span-2 sm:min-h-[380px] lg:row-span-2 lg:min-h-[470px]' => $isMosaicLead,
                             'min-h-[210px] sm:min-h-[240px]' => !$isMosaicLead,
                         ])>
                             <a href="{{ route('news.show', $item->slug) }}" class="absolute inset-0 block focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#2ec486]">
