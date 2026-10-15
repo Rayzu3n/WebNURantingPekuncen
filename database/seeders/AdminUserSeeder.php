@@ -19,7 +19,7 @@ class AdminUserSeeder extends Seeder
             );
         }
 
-        User::updateOrCreate(
+        $admin = User::firstOrCreate(
             ['email' => $email],
             [
                 'name' => env('ADMIN_NAME', 'Administrator'),
@@ -27,5 +27,20 @@ class AdminUserSeeder extends Seeder
                 'role' => 'admin',
             ]
         );
+
+        // Keep an existing password unchanged when seeding again.
+        $changes = [];
+
+        if ($admin->name !== env('ADMIN_NAME', 'Administrator')) {
+            $changes['name'] = env('ADMIN_NAME', 'Administrator');
+        }
+
+        if ($admin->role !== 'admin') {
+            $changes['role'] = 'admin';
+        }
+
+        if ($changes !== []) {
+            $admin->forceFill($changes)->save();
+        }
     }
 }
