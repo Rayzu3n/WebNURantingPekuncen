@@ -2,7 +2,7 @@
     @if ($latestNews->isNotEmpty() || $featuredNews)
         @php($tickerNews = $featuredNews ?? $latestNews->first())
         <div class="border-b border-stone-200 bg-stone-50 dark:border-white/10 dark:bg-[#151a17]">
-            <div class="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
+            <div class="mx-auto flex max-w-screen-2xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
                 <span class="shrink-0 rounded-sm bg-emerald-800 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white dark:bg-emerald-400 dark:text-emerald-950">Warta utama</span>
                 <a href="{{ route('news.show', $tickerNews->slug) }}" class="min-w-0 truncate text-sm font-medium text-stone-700 transition hover:text-emerald-800 dark:text-stone-200 dark:hover:text-emerald-300">
                     {{ $tickerNews->title }}
@@ -12,8 +12,8 @@
         </div>
     @endif
 
-    <main class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <section class="flex flex-col gap-3 border-b border-stone-200 py-7 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between sm:py-9">
+    <main class="mx-auto w-full max-w-screen-2xl px-4 sm:px-8 lg:px-12 2xl:px-16">
+        <section class="flex flex-col gap-4 border-b border-stone-200 py-8 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between sm:py-10 lg:py-12">
             <div>
                 <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800 dark:text-emerald-300">Informasi • Kabar • Khidmah</p>
                 <h1 class="mt-2 max-w-3xl font-editorial text-3xl font-semibold leading-tight tracking-[-0.04em] text-stone-950 dark:text-stone-50 sm:text-4xl lg:text-5xl">
@@ -24,10 +24,10 @@
         </section>
 
         @if ($featuredNews)
-            <section class="grid gap-6 border-b border-stone-200 py-7 dark:border-white/10 sm:py-9 lg:grid-cols-12 lg:items-stretch lg:gap-8 lg:py-10">
+            <section class="grid gap-7 border-b border-stone-200 py-8 dark:border-white/10 sm:py-10 lg:grid-cols-12 lg:items-stretch lg:gap-10 lg:py-12">
                 <div class="lg:col-span-7">
                     <a href="{{ route('news.show', $featuredNews->slug) }}" class="group block">
-                        <div class="relative overflow-hidden rounded-md border border-stone-200/80 bg-stone-200 dark:border-white/10 dark:bg-stone-800">
+                        <div class="relative overflow-hidden rounded-xl border border-stone-200/80 bg-stone-200 dark:border-white/10 dark:bg-stone-800">
                             <div class="aspect-[16/10] sm:aspect-[16/9]">
                                 @if ($featuredNews->thumbnail)
                                     <img src="{{ asset('storage/' . $featuredNews->thumbnail) }}" alt="{{ $featuredNews->title }}" fetchpriority="high" class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]">
@@ -67,7 +67,7 @@
             </section>
         @endif
 
-        <section class="py-8 sm:py-10 lg:py-12">
+        <section class="py-10 sm:py-12 lg:py-16">
             <div class="flex items-end justify-between gap-4 border-b-2 border-emerald-800 pb-3 dark:border-emerald-400">
                 <div>
                     <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Dari redaksi</p>
@@ -77,11 +77,11 @@
             </div>
 
             @if ($latestNews->isNotEmpty())
-                <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-10">
+                <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
                     <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:col-span-8 lg:gap-y-10">
                         @foreach ($latestNews->take(4) as $item)
-                            <article class="group flex min-w-0 flex-col">
-                                <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden rounded-md bg-stone-100 dark:bg-stone-800">
+                            <article class="group flex min-w-0 flex-col rounded-xl transition-transform duration-300 hover:-translate-y-1">
+                                <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden rounded-xl bg-stone-100 dark:bg-stone-800">
                                     <div class="aspect-[16/10]">
                                         @if ($item->thumbnail)
                                             <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]">
@@ -90,7 +90,7 @@
                                         @endif
                                     </div>
                                 </a>
-                                <div class="flex flex-1 flex-col pt-4">
+                                <div class="flex flex-1 flex-col px-1 pt-4">
                                     <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-300">
                                         <span>{{ $item->category?->name ?? 'Berita' }}</span>
                                         @if ($item->published_at)
@@ -122,7 +122,7 @@
                             <div class="divide-y divide-stone-200 dark:divide-white/10">
                                 @foreach ($latestNews->slice(4) as $item)
                                     <article class="group flex gap-4 py-4">
-                                        <a href="{{ route('news.show', $item->slug) }}" class="h-24 w-28 shrink-0 overflow-hidden rounded-md bg-stone-100 sm:h-28 sm:w-32">
+                                        <a href="{{ route('news.show', $item->slug) }}" class="h-24 w-28 shrink-0 overflow-hidden rounded-xl bg-stone-100 sm:h-28 sm:w-32">
                                             @if ($item->thumbnail)
                                                 <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
                                             @else
@@ -145,13 +145,13 @@
                     @endif
                 </div>
             @else
-                <div class="mt-6 rounded-md border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
+                <div class="mt-6 rounded-xl border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
                     <p class="text-sm text-stone-500 dark:text-stone-400">Belum ada berita yang dipublikasikan.</p>
                 </div>
             @endif
         </section>
 
-        <section class="border-t border-stone-200 py-8 dark:border-white/10 sm:py-10">
+        <section class="border-t border-stone-200 py-10 dark:border-white/10 sm:py-12 lg:py-14">
             <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Jelajahi topik</p>
