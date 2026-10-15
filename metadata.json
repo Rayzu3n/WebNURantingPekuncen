@@ -1,0 +1,8 @@
+{
+  "name": "Web NU Ranting Pekuncen",
+  "description": "Portal Berita dan Sistem Informasi Keanggotaan Nahdlatul Ulama (NU) Ranting Pekuncen.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

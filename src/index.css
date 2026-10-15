@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --font-editorial: "Google Sans", "Product Sans", "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-interface: "Google Sans", "Product Sans", "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-nu-50: #f0fdf7;
+  --color-nu-100: #dcfce9;
+  --color-nu-200: #bbf7d2;
+  --color-nu-300: #86efae;
+  --color-nu-400: #4ade80;
+  --color-nu-500: #2ec486;
+  --color-nu-600: #1C775A;
+  --color-nu-700: #155A44;
+  --color-nu-800: #15201B;
+  --color-nu-900: #0c1411;
+}
+
+@layer base {
+  html {
+    font-family: 'Google Sans', 'Product Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+.font-editorial {
+  font-family: 'Google Sans', 'Product Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.font-interface {
+  font-family: 'Google Sans', 'Product Sans', 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+::selection {
+  background: #2ec486;
+  color: #003822;
+}
