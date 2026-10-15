@@ -15,6 +15,8 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                editorial: ['Newsreader', 'Georgia', 'serif'],
+                interface: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },
