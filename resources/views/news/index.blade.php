@@ -60,7 +60,7 @@
 
                                 @if ($item->excerpt)
                                     <p class="mt-3 font-interface text-sm leading-6 text-[#68746e] dark:text-[#98a49c]">
-                                        {{ IlluminateSupportStr::limit($item->excerpt, 135) }}
+                                        {{ \Illuminate\Support\Str::limit($item->excerpt, 135) }}
                                     </p>
                                 @endif
 
