@@ -126,7 +126,7 @@
 
                     <!-- Mobile Button -->
                     <button type="button" @click="open = !open"
-                        class="inline-flex items-center justify-center rounded-md p-2 text-[#4A5550] hover:bg-gray-100 sm:hidden dark:text-[#bbcabf] dark:hover:bg-[#1c201e]"
+                        class="inline-flex items-center justify-center rounded-md p-2 text-[#4A5550] hover:bg-gray-100 md:hidden dark:text-[#bbcabf] dark:hover:bg-[#1c201e]"
                         aria-label="Toggle navigation">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,7 +142,7 @@
 
             <!-- Mobile Navigation -->
             <div x-show="open" x-transition
-                class="border-t border-[#CFD0C3] bg-white sm:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
+                class="border-t border-[#CFD0C3] bg-white md:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
                 <div class="space-y-1 px-4 py-3">
 
                     <a href="{{ route('home') }}"
