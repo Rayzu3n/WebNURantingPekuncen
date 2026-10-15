@@ -98,7 +98,7 @@
                     </div>
 
                     <!-- Desktop Actions -->
-                    <div class="hidden sm:flex items-center gap-3">
+                    <div class="hidden md:flex items-center gap-3">
 
                         <x-theme-toggle />
 
@@ -136,6 +136,10 @@
             <div x-show="open" x-transition
                 class="border-t border-[#CFD0C3] bg-white md:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
                 <div class="space-y-1 px-4 py-3">
+                    <div class="flex items-center justify-between rounded-md px-3 py-1">
+                        <span class="text-sm font-medium text-[#4A5550] dark:text-[#bbcabf]">Mode tampilan</span>
+                        <x-theme-toggle />
+                    </div>
 
                     <a href="{{ route('home') }}"
                         class="block rounded-md px-3 py-2 text-sm font-semibold text-[#15201B] hover:bg-[#F5FAF8] hover:text-[#1C775A] dark:text-[#e0e3df] dark:hover:bg-[#1c201e]">
