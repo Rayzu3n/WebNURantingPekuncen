@@ -63,7 +63,7 @@
 
                             @if ($featuredNews->excerpt)
                                 <p class="mt-4 max-w-3xl font-interface text-sm leading-7 text-[#5f6b65] dark:text-[#aeb8b1] sm:text-base">
-                                    {{ IlluminateSupportStr::limit($featuredNews->excerpt, 220) }}
+                                    {{ \Illuminate\Support\Str::limit($featuredNews->excerpt, 220) }}
                                 </p>
                             @endif
 
@@ -102,7 +102,7 @@
                                     </h3>
                                     @if ($item->excerpt)
                                         <p class="font-interface text-sm leading-6 text-[#68746e] dark:text-[#98a49c]">
-                                            {{ IlluminateSupportStr::limit($item->excerpt, 105) }}
+                                            {{ \Illuminate\Support\Str::limit($item->excerpt, 105) }}
                                         </p>
                                     @endif
                                     <a href="{{ route('news.show', $item->slug) }}" class="mt-auto w-fit font-interface text-xs font-semibold text-[#1C775A] hover:underline dark:text-[#53e0a0]">
@@ -221,7 +221,7 @@
 
                                 @if ($item->excerpt)
                                     <p class="mt-3 font-interface text-sm leading-6 text-[#68746e] dark:text-[#98a49c]">
-                                        {{ IlluminateSupportStr::limit($item->excerpt, 135) }}
+                                        {{ \Illuminate\Support\Str::limit($item->excerpt, 135) }}
                                     </p>
                                 @endif
 
