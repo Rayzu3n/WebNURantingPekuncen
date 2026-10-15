@@ -1,5 +1,4 @@
 <x-public-layout>
-    {{-- Breaking news ticker --}}
     @if ($latestNews->isNotEmpty() || $featuredNews)
         @php($tickerNews = $featuredNews ?? $latestNews->first())
         <div class="border-b border-stone-200 bg-stone-50 dark:border-white/10 dark:bg-[#151a17]">
@@ -14,7 +13,6 @@
     @endif
 
     <main class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        {{-- Masthead --}}
         <section class="flex flex-col gap-3 border-b border-stone-200 py-7 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between sm:py-9">
             <div>
                 <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800 dark:text-emerald-300">Informasi • Kabar • Khidmah</p>
@@ -22,12 +20,9 @@
                     Kabar terbaru dari <span class="text-emerald-800 dark:text-emerald-300">Pekuncen.</span>
                 </h1>
             </div>
-            <p class="max-w-sm text-sm leading-6 text-stone-600 dark:text-stone-400 sm:text-right">
-                Berita, kegiatan, dan cerita dari lingkungan Nahdlatul Ulama di Pekuncen.
-            </p>
+            <p class="max-w-sm text-sm leading-6 text-stone-600 dark:text-stone-400 sm:text-right">Berita, kegiatan, dan cerita dari lingkungan Nahdlatul Ulama di Pekuncen.</p>
         </section>
 
-        {{-- Lead headline: adapted from the reference's editorial hero --}}
         @if ($featuredNews)
             <section class="grid gap-6 border-b border-stone-200 py-7 dark:border-white/10 sm:py-9 lg:grid-cols-12 lg:items-stretch lg:gap-8 lg:py-10">
                 <div class="lg:col-span-7">
@@ -54,19 +49,14 @@
                             <time datetime="{{ $featuredNews->published_at->toDateString() }}" class="font-medium tracking-normal text-stone-500 dark:text-stone-400">{{ $featuredNews->published_at->translatedFormat('d F Y') }}</time>
                         @endif
                     </div>
-
                     <h2 class="mt-3 font-editorial text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-stone-950 dark:text-stone-50 sm:text-4xl lg:text-[2.65rem]">
                         <a href="{{ route('news.show', $featuredNews->slug) }}" class="transition-colors hover:text-emerald-800 dark:hover:text-emerald-300">{{ $featuredNews->title }}</a>
                     </h2>
-
                     @if ($featuredNews->excerpt)
                         <p class="mt-4 line-clamp-4 text-sm leading-7 text-stone-600 dark:text-stone-300 sm:text-base">{{ $featuredNews->excerpt }}</p>
                     @endif
-
                     <div class="mt-6 flex items-center gap-3 border-t border-stone-200 pt-5 dark:border-white/10">
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">
-                            {{ mb_strtoupper(mb_substr($featuredNews->author?->name ?? 'NU', 0, 2)) }}
-                        </div>
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">{{ mb_strtoupper(mb_substr($featuredNews->author?->name ?? 'NU', 0, 2)) }}</div>
                         <div class="min-w-0">
                             <p class="truncate text-sm font-semibold text-stone-900 dark:text-stone-100">{{ $featuredNews->author?->name ?? 'Redaksi' }}</p>
                             <p class="mt-0.5 text-xs text-stone-500 dark:text-stone-400">Penulis berita</p>
@@ -77,7 +67,6 @@
             </section>
         @endif
 
-        {{-- News feed: responsive card grid adapted from NewsGrid / NewsCard --}}
         <section class="py-8 sm:py-10 lg:py-12">
             <div class="flex items-end justify-between gap-4 border-b-2 border-emerald-800 pb-3 dark:border-emerald-400">
                 <div>
@@ -162,7 +151,6 @@
             @endif
         </section>
 
-        {{-- Category navigation adapted from CategoryNav --}}
         <section class="border-t border-stone-200 py-8 dark:border-white/10 sm:py-10">
             <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                 <div>
@@ -177,7 +165,7 @@
                     Semua berita <span aria-hidden="true">↗</span>
                 </a>
                 @forelse (\App\Models\NewsCategory::withCount(['news' => fn ($query) => $query->where('status', 'published')])->orderBy('name')->get() as $category)
-                    <a href="{{ route('news.index') }}" class="inline-flex min-h-10 shrink-0 items-center gap-3 rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 transition hover:border-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 dark:border-white/15 dark:text-stone-200 dark:hover:border-emerald-400 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-200">
+                    <a href="{{ route('news.index', ['category' => $category->slug]) }}" class="inline-flex min-h-10 shrink-0 items-center gap-3 rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 transition hover:border-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 dark:border-white/15 dark:text-stone-200 dark:hover:border-emerald-400 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-200">
                         {{ $category->name }}
                         <span class="text-xs tabular-nums text-stone-400">{{ $category->news_count }}</span>
                     </a>
