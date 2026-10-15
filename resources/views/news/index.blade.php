@@ -23,7 +23,7 @@
             <section class="mt-8">
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($news as $item)
-                        <article class="group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-emerald-700/50 hover:shadow-lg dark:border-white/10 dark:bg-[#181c1a]">
+                        <article class="group flex flex-col overflow-hidden rounded-xl border border-stone-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-emerald-700/50 hover:shadow-lg dark:border-white/10 dark:bg-[#181c1a]">
                             <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden bg-stone-100 dark:bg-stone-800">
                                 <div class="aspect-[16/10]">
                                     @if ($item->thumbnail)
@@ -41,7 +41,7 @@
                                         <time datetime="{{ $item->published_at->toDateString() }}" class="text-xs text-stone-500 dark:text-stone-400">{{ $item->published_at->translatedFormat('d M Y') }}</time>
                                     @endif
                                 </div>
-                                <h2 class="mt-3 font-editorial text-2xl font-semibold leading-tight tracking-[-0.025em] text-stone-950 dark:text-stone-50">
+                                <h2 class="mt-3 font-editorial text-xl font-semibold leading-tight tracking-[-0.025em] text-stone-950 dark:text-stone-50 sm:text-2xl">
                                     <a href="{{ route('news.show', $item->slug) }}" class="transition-colors group-hover:text-emerald-800 dark:group-hover:text-emerald-300">{{ $item->title }}</a>
                                 </h2>
                                 @if ($item->excerpt)
@@ -58,7 +58,7 @@
                 <div class="mt-10">{{ $news->links() }}</div>
             </section>
         @else
-            <section class="mt-8 rounded-lg border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
+            <section class="mt-8 rounded-xl border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
                 <p class="text-sm text-stone-600 dark:text-stone-400">
                     @if ($activeCategory)
                         Belum ada berita yang dipublikasikan dalam kategori ini.
