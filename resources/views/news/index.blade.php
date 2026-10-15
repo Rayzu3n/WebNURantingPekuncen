@@ -1,5 +1,5 @@
 <x-public-layout>
-    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <main class="mx-auto w-full max-w-screen-2xl px-4 py-10 sm:px-8 lg:px-12 2xl:px-16 lg:py-14">
         <section class="border-b-2 border-emerald-700 pb-5 dark:border-emerald-400">
             <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-800 dark:text-emerald-300">Portal Berita</p>
             <h1 class="mt-2 font-editorial text-4xl font-semibold tracking-[-0.03em] text-stone-950 dark:text-stone-50 lg:text-5xl">
