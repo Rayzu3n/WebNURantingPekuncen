@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Work+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <script>
@@ -39,7 +39,7 @@
         }
 
         html {
-            font-family: 'Work Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .font-editorial {
@@ -47,7 +47,7 @@
         }
 
         .font-interface {
-            font-family: 'Work Sans', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .public-selection::selection {
