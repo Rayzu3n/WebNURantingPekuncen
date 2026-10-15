@@ -65,9 +65,9 @@
 
         <!-- Navigation -->
         <header x-data="{ open: false }"
-            class="sticky top-0 z-50 border-b border-[#CFD0C3] bg-white/95 backdrop-blur-md dark:border-[#2b312d] dark:bg-[#181c1a]/95">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="h-16 flex items-center justify-between">
+            class="sticky top-0 z-50 border-b border-[#CFD0C3]/80 bg-white/90 shadow-sm shadow-stone-900/[0.02] backdrop-blur-xl dark:border-[#2b312d] dark:bg-[#181c1a]/90">
+            <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 2xl:px-16">
+                <div class="h-[4.5rem] flex items-center justify-between">
 
                     <!-- Brand -->
                     <div class="flex items-center gap-8">
@@ -78,7 +78,7 @@
                                 NU
                             </div>
 
-                            <div class="font-editorial text-2xl font-semibold tracking-tight text-[#1C775A]">
+                            <div class="font-editorial text-lg font-semibold tracking-tight text-[#1C775A] sm:text-xl lg:text-2xl">
                                 Portal Berita NU
                             </div>
                         </a>
@@ -182,7 +182,7 @@
 
         <!-- Footer -->
         <footer class="mt-auto border-t border-[#CFD0C3] bg-[#15201B] px-4 py-12 text-[#CFD0C3] sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-7xl">
+            <div class="mx-auto max-w-screen-2xl">
 
                 <div class="grid gap-10 md:grid-cols-3">
 
