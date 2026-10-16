@@ -197,7 +197,7 @@
 .workspace-ui [class*="bg-green-700"],
 .workspace-ui [class*="bg-teal-600"],
 .workspace-ui [class*="bg-blue-600"],
-.workspace-ui [class*="bg-indigo-600"],
+.workspace-ui [class*="bg-indigo-600"] {
     background-color: rgb(var(--green)) !important;
     color: #fffdf7 !important;
 }
