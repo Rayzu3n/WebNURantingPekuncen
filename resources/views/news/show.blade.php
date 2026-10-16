@@ -1,6 +1,6 @@
 <x-public-layout>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14">
+    <main class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
 
         {{-- Article Header --}}
         <article>
