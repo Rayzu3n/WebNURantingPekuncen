@@ -51,7 +51,7 @@
                 <aside class="h-fit border-t border-[#dde0d6] pt-5 dark:border-[#364339] lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                     <p class="portal-kicker">Jelajahi lagi</p>
                     <p class="mt-4 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Lihat agenda mendatang dan dokumentasi kegiatan yang sudah selesai.</p>
-                    <a href="{{ route('events.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua kegiatan ↗</a>
+                    <a href="{{ route('events.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
                 </aside>
             </div>
         </article>
