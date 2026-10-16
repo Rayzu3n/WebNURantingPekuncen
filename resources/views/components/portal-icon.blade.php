@@ -6,7 +6,7 @@
 <svg
     aria-hidden="true"
     focusable="false"
-    class="{{ $class }} shrink-0"
+    class="inline-block {{ $class }} shrink-0"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
