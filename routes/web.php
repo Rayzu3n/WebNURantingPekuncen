@@ -29,6 +29,12 @@ Route::get('/berita', [PublicNewsController::class, 'index'])
 Route::get('/berita/{slug}', [PublicNewsController::class, 'show'])
     ->name('news.show');
 
+Route::get('/kegiatan', [PublicEventController::class, 'index'])
+    ->name('events.index');
+
+Route::get('/kegiatan/{slug}', [PublicEventController::class, 'show'])
+    ->name('events.show');
+
 Route::get('/member/verify/{member_number}', [VerificationController::class, 'show'])
     ->middleware('throttle:60,1')
     ->name('member.verify');
@@ -87,6 +93,9 @@ Route::middleware(['auth', 'role:admin'])
             ->except(['show']);
 
         Route::resource('news', NewsController::class)
+            ->except(['show']);
+
+        Route::resource('events', AdminEventController::class)
             ->except(['show']);
 
         Route::resource('members', MemberController::class)
