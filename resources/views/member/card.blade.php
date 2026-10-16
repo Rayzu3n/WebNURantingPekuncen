@@ -50,7 +50,7 @@
                 bg-white text-gray-900 shadow-xl">
 
                 <!-- Card Accent -->
-                <div class="h-2 bg-gradient-to-r from-green-700 via-blue-600 to-cyan-500"></div>
+                <div class="h-2 bg-gradient-to-r from-green-700 via-emerald-600 to-teal-500"></div>
 
                 <div class="p-6 sm:p-8">
 
@@ -179,11 +179,11 @@
 
                 <button type="button" onclick="downloadMemberCard('png')"
                     class="inline-flex items-center justify-center gap-2 rounded-xl
-                    bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white
-                    shadow-lg shadow-blue-200/40 transition
-                    hover:bg-blue-700
-                    dark:bg-blue-500 dark:shadow-blue-950/20
-                    dark:hover:bg-blue-600">
+                    bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white
+                    shadow-lg shadow-emerald-200/40 transition
+                    hover:bg-emerald-700
+                    dark:bg-emerald-500 dark:shadow-emerald-950/20
+                    dark:hover:bg-emerald-600">
                     Download PNG
                 </button>
 
