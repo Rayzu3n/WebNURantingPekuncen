@@ -25,7 +25,7 @@
     }
 
     body {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         font-feature-settings: "cv11", "ss01";
     }
 
@@ -65,7 +65,7 @@
 
 @layer components {
     .font-interface {
-        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
 
     .portal-surface {
@@ -183,5 +183,42 @@
     .surface-grid {
         background-image: linear-gradient(to right, rgb(120 130 120 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(120 130 120 / 0.07) 1px, transparent 1px);
         background-size: 32px 32px;
+    }
+}
+
+
+/* Progressive enhancement: supported browsers cross-fade full-page Blade navigations. */
+@view-transition {
+    navigation: auto;
+}
+
+::view-transition-old(root) {
+    animation: portal-page-out 120ms ease both;
+}
+
+::view-transition-new(root) {
+    animation: portal-page-in 180ms ease both;
+}
+
+@keyframes portal-page-out {
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes portal-page-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+        animation: none;
     }
 }
