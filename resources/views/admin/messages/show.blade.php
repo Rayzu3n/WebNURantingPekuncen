@@ -7,7 +7,7 @@
     </x-slot>
 
     <div class="mx-auto max-w-4xl space-y-6">
-        <a href="{{ route('admin.messages.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">← Kembali ke inbox</a>
+        <a href="{{ route('admin.messages.index') }}" class="inline-flex items-center gap-2 text-sm font-bold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]"><x-portal-icon name="arrow-left" class="h-4 w-4" /> Kembali ke inbox</a>
 
         @if (session('success'))
             <div role="status" class="border border-[#b8d9be] bg-[#e7eee5] px-4 py-3 text-sm font-semibold text-[#1a5b41] dark:border-[#365b42] dark:bg-[#1c3123] dark:text-[#a8ddb8]">{{ session('success') }}</div>
