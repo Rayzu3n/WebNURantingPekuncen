@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\OrganizationProfileController as AdminOrganizationProfileController;
 use App\Http\Controllers\EventController as PublicEventController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Member\CardController;
 use App\Http\Controllers\Member\ProfileController as MemberProfileController;
 use App\Http\Controllers\Member\VerificationController;
 use App\Http\Controllers\NewsController as PublicNewsController;
+use App\Http\Controllers\OrganizationProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +34,9 @@ Route::get('/berita', [PublicNewsController::class, 'index'])
 
 Route::get('/berita/{slug}', [PublicNewsController::class, 'show'])
     ->name('news.show');
+
+Route::get('/tentang-kami', [OrganizationProfileController::class, 'show'])
+    ->name('about');
 
 Route::get('/kegiatan', [PublicEventController::class, 'index'])
     ->name('events.index');
@@ -108,6 +113,11 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::resource('events', AdminEventController::class)
             ->except(['show']);
+
+        Route::get('/organization-profile', [AdminOrganizationProfileController::class, 'edit'])
+            ->name('organization-profile.edit');
+        Route::patch('/organization-profile', [AdminOrganizationProfileController::class, 'update'])
+            ->name('organization-profile.update');
 
         Route::get('/messages', [ContactMessageController::class, 'index'])
             ->name('messages.index');
