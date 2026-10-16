@@ -16,7 +16,7 @@
 
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <h1 class="text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h1 class="portal-page-title">
                     Category Management
                 </h1>
 
@@ -27,11 +27,11 @@
 
             <a href="{{ route('admin.categories.create') }}"
                 class="inline-flex items-center justify-center gap-2 rounded-xl
-                bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white
-                shadow-lg shadow-blue-200/40 transition-all
-                hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-xl
-                dark:bg-blue-500 dark:shadow-blue-950/20
-                dark:hover:bg-blue-600">
+                bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white
+                shadow-lg shadow-emerald-200/40 transition-all
+                hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-xl
+                dark:bg-emerald-500 dark:shadow-emerald-950/20
+                dark:hover:bg-emerald-600">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
@@ -105,8 +105,8 @@
                                         <div class="flex items-center gap-3">
                                             <div
                                                 class="flex h-10 w-10 shrink-0 items-center justify-center
-                                                rounded-xl bg-blue-50 text-blue-600
-                                                dark:bg-blue-500/10 dark:text-blue-400">
+                                                rounded-xl bg-emerald-50 text-emerald-600
+                                                dark:bg-emerald-500/10 dark:text-emerald-400">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -139,11 +139,11 @@
                                         <div class="flex items-center justify-end gap-2">
                                             <a href="{{ route('admin.categories.edit', $category) }}"
                                                 class="inline-flex items-center rounded-lg border
-                                                border-blue-200 bg-blue-50 px-3 py-2
-                                                text-xs font-semibold text-blue-700
-                                                transition-colors hover:bg-blue-100
-                                                dark:border-blue-500/20 dark:bg-blue-500/10
-                                                dark:text-blue-400 dark:hover:bg-blue-500/20">
+                                                border-emerald-200 bg-emerald-50 px-3 py-2
+                                                text-xs font-semibold text-emerald-700
+                                                transition-colors hover:bg-emerald-100
+                                                dark:border-emerald-500/20 dark:bg-emerald-500/10
+                                                dark:text-emerald-400 dark:hover:bg-emerald-500/20">
                                                 Edit
                                             </a>
 
@@ -176,8 +176,8 @@
                 <div class="px-6 py-16 text-center">
                     <div
                         class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl
-                        bg-blue-50 text-blue-600
-                        dark:bg-blue-500/10 dark:text-blue-400">
+                        bg-emerald-50 text-emerald-600
+                        dark:bg-emerald-500/10 dark:text-emerald-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -195,9 +195,9 @@
 
                     <a href="{{ route('admin.categories.create') }}"
                         class="mt-5 inline-flex items-center rounded-xl
-                        bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white
-                        transition hover:bg-blue-700
-                        dark:bg-blue-500 dark:hover:bg-blue-600">
+                        bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white
+                        transition hover:bg-emerald-700
+                        dark:bg-emerald-500 dark:hover:bg-emerald-600">
                         Add your first category
                     </a>
                 </div>
