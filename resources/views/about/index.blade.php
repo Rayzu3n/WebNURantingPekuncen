@@ -10,7 +10,7 @@
                     <p class="mt-5 max-w-3xl text-base leading-8 text-white/80 sm:text-xl">Mengenal organisasi, arah gerak, dan ruang kontribusi untuk warga.</p>
                 @endif
                 <div class="mt-8 flex flex-wrap gap-3">
-                    <a href="{{ route('events.index') }}" class="inline-flex min-h-11 items-center justify-center rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">Lihat kegiatan ↗</a>
+                    <a href="{{ route('events.index') }}" class="inline-flex min-h-11 items-center justify-center rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">Lihat kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
                     <a href="{{ route('contact.index') }}" class="inline-flex min-h-11 items-center justify-center rounded-full border border-white/40 px-5 text-sm font-bold text-white transition hover:bg-white/10">Hubungi kami</a>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                         <p class="portal-kicker">Fokus kegiatan</p>
                         <h2 class="mt-3 font-editorial text-3xl font-extrabold tracking-[-.055em] text-[#192b23] dark:text-[#ebefe5]">Program dan kegiatan</h2>
                         <div class="mt-5 whitespace-pre-line break-words text-sm leading-8 text-[#526156] dark:text-[#c2cdc1]">{{ $profile->programs }}</div>
-                        <a href="{{ route('events.index') }}" class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">Jelajahi agenda kegiatan ↗</a>
+                        <a href="{{ route('events.index') }}" class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">Jelajahi agenda kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
                     </div>
                 @endif
             </section>
@@ -92,8 +92,8 @@
                         @endif
                         @if (filled($profile?->facebook_url) || filled($profile?->instagram_url))
                             <div class="sm:col-span-2"><p class="text-[10px] font-extrabold uppercase tracking-[.14em] text-[#66746a] dark:text-[#a3b1a5]">Media sosial</p><div class="mt-2 flex flex-wrap gap-4 text-sm font-bold text-[#1a5b41] dark:text-[#a8ddb8]">
-                                @if (filled($profile?->facebook_url))<a href="{{ $profile->facebook_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Facebook ↗</a>@endif
-                                @if (filled($profile?->instagram_url))<a href="{{ $profile->instagram_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Instagram ↗</a>@endif
+                                @if (filled($profile?->facebook_url))<a href="{{ $profile->facebook_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Facebook <x-portal-icon name="external-link" class="h-3.5 w-3.5" /></a>@endif
+                                @if (filled($profile?->instagram_url))<a href="{{ $profile->instagram_url }}" target="_blank" rel="noopener noreferrer" class="hover:underline">Instagram <x-portal-icon name="external-link" class="h-3.5 w-3.5" /></a>@endif
                             </div></div>
                         @endif
                     </div>
