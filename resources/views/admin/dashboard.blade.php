@@ -13,7 +13,7 @@
                 <h1 class="mt-4 font-editorial text-3xl font-extrabold leading-tight tracking-[-.055em] sm:text-4xl">Selamat datang, {{ auth()->user()->name }}.</h1>
                 <p class="mt-3 max-w-xl text-sm leading-7 text-white/75">Kelola kabar, rapikan kategori, dan jaga informasi anggota tetap terorganisasi dari satu tempat.</p>
                 <div class="mt-6 flex flex-wrap gap-3">
-                    <a href="{{ route('admin.news.create') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">Tulis berita <span>↗</span></a>
+                    <a href="{{ route('admin.news.create') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">Tulis berita <x-portal-icon name="pen-line" class="h-4 w-4" /></a>
                     <a href="{{ route('admin.news.index') }}" class="inline-flex min-h-11 items-center rounded-full border border-white/35 px-5 text-sm font-bold text-white transition hover:bg-white/10">Kelola berita</a>
                 </div>
             </div>
@@ -34,35 +34,35 @@
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Total berita</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $newsCount }}</p></div>
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e4ede2] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▤</span>
                     </div>
-                    <a href="{{ route('admin.news.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar berita ↗</a>
+                    <a href="{{ route('admin.news.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar berita <x-portal-icon name="newspaper" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Anggota terdaftar</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $memberCount }}</p></div>
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">♧</span>
                     </div>
-                    <a href="{{ route('admin.members.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar anggota ↗</a>
+                    <a href="{{ route('admin.members.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar anggota <x-portal-icon name="users" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Kategori berita</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $categoryCount }}</p></div>
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e7eee5] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▦</span>
                     </div>
-                    <a href="{{ route('admin.categories.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka kategori ↗</a>
+                    <a href="{{ route('admin.categories.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka kategori <x-portal-icon name="tags" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Agenda aktif</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $upcomingEventCount }}</p></div>
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">◷</span>
                     </div>
-                    <a href="{{ route('admin.events.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola kegiatan ↗</a>
+                    <a href="{{ route('admin.events.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola kegiatan <x-portal-icon name="calendar" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Pesan belum dibaca</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $unreadMessageCount }}</p></div>
                         <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">✉</span>
                     </div>
-                    <a href="{{ route('admin.messages.index', ['status' => 'new']) }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka inbox ↗</a>
+                    <a href="{{ route('admin.messages.index', ['status' => 'new']) }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka inbox <x-portal-icon name="inbox" class="h-3.5 w-3.5" /></a>
                 </article>
             </div>
         </section>
@@ -71,22 +71,22 @@
             <div class="mb-4"><p class="portal-kicker">Akses cepat</p><h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Mulai dari sini</h2></div>
             <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 <a href="{{ route('admin.news.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Publikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Berita</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun, perbarui, dan terbitkan kabar terbaru.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Publikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Berita</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun, perbarui, dan terbitkan kabar terbaru.</p><span class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola berita <x-portal-icon name="newspaper" class="h-4 w-4" /></span>
                 </a>
                 <a href="{{ route('admin.categories.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">02 / Organisasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kategori</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Buat struktur topik agar informasi mudah ditelusuri.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">02 / Organisasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kategori</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Buat struktur topik agar informasi mudah ditelusuri.</p><span class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola kategori <x-portal-icon name="tags" class="h-4 w-4" /></span>
                 </a>
                 <a href="{{ route('admin.members.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">03 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Anggota</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Kelola profil dan data keanggotaan portal.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">03 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Anggota</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Kelola profil dan data keanggotaan portal.</p><span class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola anggota <x-portal-icon name="users" class="h-4 w-4" /></span>
                 </a>
                 <a href="{{ route('admin.events.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">04 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kegiatan</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun agenda mendatang dan simpan arsip acara.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola agenda ↗</span>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">04 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kegiatan</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun agenda mendatang dan simpan arsip acara.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola agenda <x-portal-icon name="calendar" class="h-3.5 w-3.5" /></span>
                 </a>
                 <a href="{{ route('admin.messages.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">05 / Komunikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Inbox kontak</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Baca pesan dan catat tindak lanjut dari warga.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka inbox ↗</span>
                 </a>
                 <a href="{{ route('admin.organization-profile.edit') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
-                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">06 / Identitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Profil organisasi</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Perbarui sejarah, visi, misi, program, dan kontak resmi.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Edit profil ↗</span>
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">06 / Identitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Profil organisasi</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Perbarui sejarah, visi, misi, program, dan kontak resmi.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Edit profil <x-portal-icon name="building" class="h-3.5 w-3.5" /></span>
                 </a>
             </div>
         </section>
