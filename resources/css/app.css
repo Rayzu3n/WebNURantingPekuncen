@@ -110,3 +110,48 @@
         overflow-wrap: anywhere;
     }
 }
+
+
+@layer components {
+    .portal-page-title {
+        @apply font-editorial text-3xl font-semibold tracking-tight text-stone-950 dark:text-stone-50 sm:text-4xl;
+    }
+
+    .portal-muted {
+        @apply text-sm leading-6 text-stone-600 dark:text-stone-400;
+    }
+
+    .portal-table-wrap {
+        @apply overflow-x-auto rounded-2xl border border-stone-200 bg-white dark:border-white/10 dark:bg-[#181c1a];
+    }
+
+    .portal-table-wrap table {
+        @apply min-w-full divide-y divide-stone-200 dark:divide-white/10;
+    }
+
+    .portal-table-wrap thead {
+        @apply bg-stone-50 dark:bg-white/[0.03];
+    }
+
+    .portal-table-wrap th {
+        @apply px-5 py-3.5 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-stone-500 dark:text-stone-400;
+    }
+
+    .portal-table-wrap td {
+        @apply px-5 py-4 align-middle text-sm text-stone-700 dark:text-stone-300;
+    }
+
+    .portal-table-wrap tbody tr {
+        @apply transition-colors hover:bg-emerald-50/50 dark:hover:bg-emerald-400/[0.04];
+    }
+
+    .portal-form-control {
+        @apply w-full rounded-xl border-stone-300 bg-white text-sm text-stone-900 shadow-sm transition placeholder:text-stone-400 focus:border-emerald-700 focus:ring-emerald-700/20 dark:border-white/15 dark:bg-[#111512] dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:border-emerald-400;
+    }
+}
+
+@media (hover: hover) {
+    a:not([class*="no-underline"]):not([class*="underline"]):focus-visible {
+        border-radius: 0.25rem;
+    }
+}
