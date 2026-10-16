@@ -85,6 +85,9 @@
                 <a href="{{ route('admin.messages.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">05 / Komunikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Inbox kontak</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Baca pesan dan catat tindak lanjut dari warga.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka inbox ↗</span>
                 </a>
+                <a href="{{ route('admin.organization-profile.edit') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">06 / Identitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Profil organisasi</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Perbarui sejarah, visi, misi, program, dan kontak resmi.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Edit profil ↗</span>
+                </a>
             </div>
         </section>
     </div>
