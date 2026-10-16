@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\News;
 use Illuminate\View\View;
 
@@ -24,9 +25,17 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
+        $upcomingEvents = Event::query()
+            ->published()
+            ->upcomingOrOngoing()
+            ->orderBy('starts_at')
+            ->take(3)
+            ->get();
+
         return view('home', compact(
             'featuredNews',
-            'latestNews'
+            'latestNews',
+            'upcomingEvents'
         ));
     }
 }
