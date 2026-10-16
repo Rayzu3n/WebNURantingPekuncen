@@ -64,7 +64,7 @@
                                 @if ($event->location)
                                     <p class="mt-4 flex items-start gap-2 text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]"><span aria-hidden="true">⌖</span><span>{{ $event->location }}</span></p>
                                 @endif
-                                <a href="{{ route('events.show', $event->slug) }}" class="mt-auto inline-flex items-center gap-2 border-t border-[#dde0d6] pt-4 mt-5 text-sm font-extrabold text-[#1a5b41] dark:border-[#364339] dark:text-[#a8ddb8]">Detail kegiatan <span>↗</span></a>
+                                <a href="{{ route('events.show', $event->slug) }}" class="mt-auto inline-flex items-center gap-2 border-t border-[#dde0d6] pt-4 mt-5 text-sm font-extrabold text-[#1a5b41] dark:border-[#364339] dark:text-[#a8ddb8]">Detail kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
                             </div>
                         </article>
                     @endforeach
@@ -96,7 +96,7 @@
                                 <h3 class="font-editorial text-lg font-extrabold tracking-[-.035em] text-[#192b23] dark:text-[#ebefe5]"><a href="{{ route('events.show', $event->slug) }}" class="hover:text-[#1a5b41] dark:hover:text-[#a8ddb8]">{{ $event->title }}</a></h3>
                                 <p class="mt-1 text-sm text-[#66746a] dark:text-[#a3b1a5]">{{ $event->category ?: 'Kegiatan NU' }}@if ($event->location) · {{ $event->location }}@endif</p>
                             </div>
-                            <a href="{{ route('events.show', $event->slug) }}" class="text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka arsip ↗</a>
+                            <a href="{{ route('events.show', $event->slug) }}" class="text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka arsip <x-portal-icon name="archive" class="h-3.5 w-3.5" /></a>
                         </article>
                     @endforeach
                 </div>
