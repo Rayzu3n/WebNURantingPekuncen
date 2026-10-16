@@ -14,7 +14,7 @@
                     @endif
                 </p>
                 @if ($activeCategory)
-                    <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">← Kembali ke semua berita</a>
+                    <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><x-portal-icon name="arrow-left" class="h-4 w-4" /> Kembali ke semua berita</a>
                 @endif
             </div>
         </header>
@@ -53,7 +53,7 @@
                                 @endif
                                 <div class="mt-auto flex items-center justify-between gap-3 border-t border-[#dde0d6] pt-4 mt-5 dark:border-[#364339]">
                                     <span class="truncate text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]">{{ $item->author?->name ?? 'Redaksi' }}</span>
-                                    <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca ↗</a>
+                                    <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca <x-portal-icon name="book-open" class="h-3.5 w-3.5" /></a>
                                 </div>
                             </div>
                         </article>
@@ -73,7 +73,7 @@
                     @endif
                 </p>
                 @if ($activeCategory)
-                    <a href="{{ route('news.index') }}" class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Tampilkan semua berita ↗</a>
+                    <a href="{{ route('news.index') }}" class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Tampilkan semua berita <x-portal-icon name="newspaper" class="h-4 w-4" /></a>
                 @endif
             </section>
         @endif
