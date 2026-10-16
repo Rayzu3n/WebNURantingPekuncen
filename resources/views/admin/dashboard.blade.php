@@ -69,7 +69,7 @@
 
         <section>
             <div class="mb-4"><p class="portal-kicker">Akses cepat</p><h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Mulai dari sini</h2></div>
-            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 <a href="{{ route('admin.news.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Publikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Berita</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun, perbarui, dan terbitkan kabar terbaru.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
                 </a>
