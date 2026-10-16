@@ -43,11 +43,11 @@
         }
 
         .font-editorial {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .font-interface {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .public-selection::selection {
