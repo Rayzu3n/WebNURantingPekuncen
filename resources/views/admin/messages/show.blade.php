@@ -15,37 +15,37 @@
 
         <article class="border border-[#dde0d6] bg-[#fffef9] dark:border-[#364339] dark:bg-[#19221c]">
             <header class="border-b border-[#dde0d6] p-5 dark:border-[#364339] sm:p-8">
-                <p class="portal-kicker">Pesan dari {{ $message->name }}</p>
-                <h1 class="mt-3 break-words font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5] sm:text-3xl">{{ $message->subject }}</h1>
+                <p class="portal-kicker">Pesan dari {{ $contactMessage->name }}</p>
+                <h1 class="mt-3 break-words font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5] sm:text-3xl">{{ $contactMessage->subject }}</h1>
                 <div class="mt-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
                     <div>
-                        <p class="text-sm font-bold text-[#192b23] dark:text-[#ebefe5]">{{ $message->name }}</p>
-                        <a href="mailto:{{ $message->email }}" class="mt-1 block break-all text-sm text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">{{ $message->email }}</a>
+                        <p class="text-sm font-bold text-[#192b23] dark:text-[#ebefe5]">{{ $contactMessage->name }}</p>
+                        <a href="mailto:{{ $contactMessage->email }}" class="mt-1 block break-all text-sm text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">{{ $contactMessage->email }}</a>
                     </div>
-                    <time class="text-xs text-[#66746a] dark:text-[#a3b1a5]" datetime="{{ $message->created_at->toIso8601String() }}">Diterima {{ $message->created_at->translatedFormat('d F Y, H:i') }}</time>
+                    <time class="text-xs text-[#66746a] dark:text-[#a3b1a5]" datetime="{{ $contactMessage->created_at->toIso8601String() }}">Diterima {{ $contactMessage->created_at->translatedFormat('d F Y, H:i') }}</time>
                 </div>
             </header>
 
-            <div class="whitespace-pre-line break-words p-5 text-sm leading-8 text-[#33473a] dark:text-[#d0dbcf] sm:p-8">{{ $message->message }}</div>
+            <div class="whitespace-pre-line break-words p-5 text-sm leading-8 text-[#33473a] dark:text-[#d0dbcf] sm:p-8">{{ $contactMessage->message }}</div>
 
             <footer class="border-t border-[#dde0d6] bg-[#f0efe7]/60 p-5 dark:border-[#364339] dark:bg-[#121915]/50 sm:p-8">
-                <form method="POST" action="{{ route('admin.messages.update', $message) }}" class="flex flex-col gap-4 sm:flex-row sm:items-end">
+                <form method="POST" action="{{ route('admin.messages.update', $contactMessage) }}" class="flex flex-col gap-4 sm:flex-row sm:items-end">
                     @csrf
                     @method('PATCH')
                     <div class="flex-1">
                         <label for="status" class="block text-sm font-bold text-[#192b23] dark:text-[#ebefe5]">Status tindak lanjut</label>
                         <select id="status" name="status" required class="mt-2 w-full border border-[#cfd6ca] bg-white px-4 py-3 text-sm text-[#192b23] outline-none focus:border-[#1a5b41] focus:ring-2 focus:ring-[#1a5b41]/15 dark:border-[#465548] dark:bg-[#19221c] dark:text-[#ebefe5]">
-                            <option value="new" @selected(old('status', $message->status) === 'new')>Baru</option>
-                            <option value="read" @selected(old('status', $message->status) === 'read')>Dibaca</option>
-                            <option value="replied" @selected(old('status', $message->status) === 'replied')>Ditindaklanjuti</option>
-                            <option value="archived" @selected(old('status', $message->status) === 'archived')>Arsip</option>
+                            <option value="new" @selected(old('status', $contactMessage->status) === 'new')>Baru</option>
+                            <option value="read" @selected(old('status', $contactMessage->status) === 'read')>Dibaca</option>
+                            <option value="replied" @selected(old('status', $contactMessage->status) === 'replied')>Ditindaklanjuti</option>
+                            <option value="archived" @selected(old('status', $contactMessage->status) === 'archived')>Arsip</option>
                         </select>
                         @error('status')<p class="mt-1.5 text-xs font-semibold text-rose-700 dark:text-rose-300">{{ $message }}</p>@enderror
                     </div>
                     <button type="submit" class="inline-flex min-h-11 items-center justify-center bg-[#1a5b41] px-5 text-sm font-extrabold text-white hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]">Simpan status</button>
                 </form>
 
-                <form method="POST" action="{{ route('admin.messages.destroy', $message) }}" class="mt-5 border-t border-[#dde0d6] pt-5 dark:border-[#364339]" onsubmit="return confirm('Hapus pesan ini secara permanen?')">
+                <form method="POST" action="{{ route('admin.messages.destroy', $contactMessage) }}" class="mt-5 border-t border-[#dde0d6] pt-5 dark:border-[#364339]" onsubmit="return confirm('Hapus pesan ini secara permanen?')">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="text-sm font-bold text-rose-700 hover:underline dark:text-rose-300">Hapus pesan</button>
