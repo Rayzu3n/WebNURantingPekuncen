@@ -51,12 +51,30 @@
                 @endforeach
             </nav>
             <div class="shrink-0 border-t border-[#dde0d6] p-4 dark:border-[#364339]">
-                <a href="{{ route('home') }}" class="mb-4 flex items-center justify-between rounded-xl border border-[#dde0d6] px-3.5 py-3 text-xs font-extrabold text-[#405347] transition hover:border-[#1a5b41] hover:text-[#1a5b41] dark:border-[#364339] dark:text-[#d0dbcf] dark:hover:border-[#80ca9d] dark:hover:text-[#a8ddb8]">Lihat situs publik <span>↗</span></a>
+                <a href="{{ route('home') }}" class="mb-4 flex min-h-12 items-center gap-3 rounded-xl border border-[#cbd8ca] bg-[#f5f8f1] px-3.5 py-3 text-sm font-extrabold text-[#1a5b41] shadow-sm transition hover:border-[#1a5b41] hover:bg-[#e7eee5] focus:outline-none focus:ring-2 focus:ring-[#1a5b41] focus:ring-offset-2 dark:border-[#405646] dark:bg-[#213127] dark:text-[#a8ddb8] dark:hover:border-[#80ca9d] dark:hover:bg-[#2a3b2f]">
+                    <svg aria-hidden="true" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 10 9-7 9 7"/>
+                        <path d="M5 9v12h14V9"/>
+                        <path d="M9 21v-7h6v7"/>
+                    </svg>
+                    <span class="flex-1">Kembali ke halaman utama</span>
+                    <span aria-hidden="true" class="text-lg leading-none">›</span>
+                </a>
                 <div class="flex items-center gap-3 px-1">
                     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e4ede2] text-xs font-extrabold text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}</div>
                     <div class="min-w-0 flex-1"><p class="truncate text-xs font-extrabold text-[#192b23] dark:text-[#ebefe5]">{{ auth()->user()->name }}</p><p class="mt-1 truncate text-[10px] text-[#66746a] dark:text-[#a3b1a5]">{{ auth()->user()->email }}</p></div>
-                    <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" title="Keluar" aria-label="Keluar" class="flex h-9 w-9 items-center justify-center rounded-full text-[#66746a] transition hover:bg-[#f0efe7] hover:text-[#b75d3c] dark:text-[#a3b1a5] dark:hover:bg-[#253127]">↗</button></form>
                 </div>
+                <form method="POST" action="{{ route('logout') }}" class="mt-3">
+                    @csrf
+                    <button type="submit" class="group flex min-h-11 w-full items-center gap-3 rounded-xl border border-[#f0cfc8] bg-[#fff7f4] px-3.5 py-2.5 text-sm font-extrabold text-[#a33f2e] transition hover:border-[#b75d3c] hover:bg-[#fbe9e3] focus:outline-none focus:ring-2 focus:ring-[#b75d3c] focus:ring-offset-2 dark:border-[#5a3931] dark:bg-[#2a201d] dark:text-[#f0aa98] dark:hover:border-[#b75d3c] dark:hover:bg-[#392721]">
+                        <svg aria-hidden="true" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <path d="M16 17l5-5-5-5"/>
+                            <path d="M21 12H9"/>
+                        </svg>
+                        <span>Keluar dari akun</span>
+                    </button>
+                </form>
             </div>
         </aside>
         <div class="min-h-screen lg:pl-[278px]">
