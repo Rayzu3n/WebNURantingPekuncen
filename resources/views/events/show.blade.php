@@ -22,7 +22,10 @@
                         <div>
                             <p class="text-[10px] font-extrabold uppercase tracking-[.14em] text-[#66746a] dark:text-[#a3b1a5]">Waktu kegiatan</p>
                             <p class="mt-1 text-sm font-bold text-[#192b23] dark:text-[#ebefe5]">{{ $event->starts_at->translatedFormat('l, d F Y') }}</p>
-                            <p class="mt-1 text-sm text-[#66746a] dark:text-[#a3b1a5]">{{ $event->starts_at->format('H:i') }} WIB@if ($event->ends_at) · selesai {{ $event->ends_at->translatedFormat('d M Y H:i') }}@endif</p>
+                            <p class="mt-1 text-sm text-[#66746a] dark:text-[#a3b1a5]">{{ $event->starts_at->format('H:i') }} WIB</p>
+                            @if ($event->ends_at)
+                                <p class="mt-1 text-sm text-[#66746a] dark:text-[#a3b1a5]">Selesai {{ $event->ends_at->translatedFormat('d M Y H:i') }}</p>
+                            @endif
                         </div>
                     </div>
                     @if ($event->location)
