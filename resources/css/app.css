@@ -155,3 +155,33 @@
         border-radius: 0.25rem;
     }
 }
+
+
+@layer base {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    select,
+    textarea {
+        @apply rounded-xl border-stone-300 bg-white text-sm text-stone-900 shadow-sm transition;
+        @apply placeholder:text-stone-400 focus:border-emerald-700 focus:ring-emerald-700/20;
+        @apply dark:border-white/15 dark:bg-[#111512] dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:border-emerald-400;
+    }
+
+    input[type="checkbox"], input[type="radio"] {
+        @apply border-stone-300 text-emerald-700 focus:ring-emerald-700/30 dark:border-white/20 dark:bg-[#111512] dark:text-emerald-400;
+    }
+
+    label {
+        @apply text-sm font-medium text-stone-700 dark:text-stone-300;
+    }
+
+    table {
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+@layer utilities {
+    .surface-grid {
+        background-image: linear-gradient(to right, rgb(120 130 120 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(120 130 120 / 0.07) 1px, transparent 1px);
+        background-size: 32px 32px;
+    }
+}
