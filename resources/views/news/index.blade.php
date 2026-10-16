@@ -1,5 +1,5 @@
 <x-public-layout>
-    <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <main class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-8 lg:px-12 lg:py-14">
         <section class="border-b-2 border-emerald-700 pb-5 dark:border-emerald-400">
             <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-800 dark:text-emerald-300">Portal Berita</p>
             <h1 class="mt-2 font-editorial text-4xl font-semibold tracking-[-0.03em] text-stone-950 dark:text-stone-50 lg:text-5xl">
@@ -23,7 +23,7 @@
             <section class="mt-8">
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     @foreach ($news as $item)
-                        <article class="group flex flex-col overflow-hidden rounded-lg border border-stone-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-emerald-700/50 hover:shadow-lg dark:border-white/10 dark:bg-[#181c1a]">
+                        <article class="group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-emerald-700/50 hover:shadow-lg dark:border-white/10 dark:bg-[#181c1a]">
                             <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden bg-stone-100 dark:bg-stone-800">
                                 <div class="aspect-[16/10]">
                                     @if ($item->thumbnail)
