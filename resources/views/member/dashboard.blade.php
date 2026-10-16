@@ -17,12 +17,12 @@
         <!-- Welcome -->
         <section
             class="overflow-hidden rounded-2xl border
-            border-blue-100 bg-gradient-to-br from-blue-600 via-blue-700 to-cyan-700
-            px-6 py-7 text-white shadow-lg shadow-blue-200/50
-            dark:border-blue-400/10 dark:from-[#172554] dark:via-[#172554] dark:to-[#164E63]
+            border-emerald-100 bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-700
+            px-6 py-7 text-white shadow-lg shadow-emerald-200/50
+            dark:border-emerald-400/10 dark:from-[#123d2c] dark:via-[#123d2c] dark:to-[#115e59]
             dark:shadow-black/30
             sm:px-8">
-            <p class="text-sm font-medium text-blue-100">
+            <p class="text-sm font-medium text-emerald-100">
                 Welcome back
             </p>
 
@@ -30,7 +30,7 @@
                 {{ auth()->user()->name }}
             </h1>
 
-            <p class="mt-2 max-w-2xl text-sm leading-6 text-blue-100">
+            <p class="mt-2 max-w-2xl text-sm leading-6 text-emerald-100">
                 Manage your member information and access your digital member card.
             </p>
         </section>
@@ -55,17 +55,17 @@
                     class="group rounded-2xl border border-gray-200 bg-white p-6
                     shadow-lg shadow-gray-300/40
                     transition-all duration-200
-                    hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl
+                    hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl
                     dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-blue-500/30">
+                    dark:shadow-black/20 dark:hover:border-emerald-500/30">
 
                     <div
                         class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-blue-50 text-blue-600
+                        bg-emerald-50 text-emerald-600
                         transition-colors
-                        group-hover:bg-blue-600 group-hover:text-white
-                        dark:bg-blue-500/10 dark:text-blue-400
-                        dark:group-hover:bg-blue-500 dark:group-hover:text-white">
+                        group-hover:bg-emerald-600 group-hover:text-white
+                        dark:bg-emerald-500/10 dark:text-emerald-400
+                        dark:group-hover:bg-emerald-500 dark:group-hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -81,7 +81,7 @@
                         View and update your personal membership information.
                     </p>
 
-                    <span class="mt-4 inline-block text-sm font-semibold text-blue-600 dark:text-blue-400">
+                    <span class="mt-4 inline-block text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                         Open profile →
                     </span>
 
@@ -92,17 +92,17 @@
                     class="group rounded-2xl border border-gray-200 bg-white p-6
                     shadow-lg shadow-gray-300/40
                     transition-all duration-200
-                    hover:-translate-y-1 hover:border-cyan-200 hover:shadow-xl
+                    hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl
                     dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-cyan-500/30">
+                    dark:shadow-black/20 dark:hover:border-teal-500/30">
 
                     <div
                         class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-cyan-50 text-cyan-600
+                        bg-teal-50 text-teal-600
                         transition-colors
-                        group-hover:bg-cyan-600 group-hover:text-white
-                        dark:bg-cyan-500/10 dark:text-cyan-400
-                        dark:group-hover:bg-cyan-500 dark:group-hover:text-white">
+                        group-hover:bg-teal-600 group-hover:text-white
+                        dark:bg-teal-500/10 dark:text-teal-400
+                        dark:group-hover:bg-teal-500 dark:group-hover:text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" stroke-width="1.8">
                             <rect x="3" y="5" width="18" height="14" rx="2" />
@@ -118,7 +118,7 @@
                         View, verify, and download your digital member card.
                     </p>
 
-                    <span class="mt-4 inline-block text-sm font-semibold text-cyan-600 dark:text-cyan-400">
+                    <span class="mt-4 inline-block text-sm font-semibold text-teal-600 dark:text-teal-400">
                         Open member card →
                     </span>
 
