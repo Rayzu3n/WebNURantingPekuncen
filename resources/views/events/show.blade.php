@@ -1,4 +1,4 @@
-<x-public-layout>
+<x-public-layout :title="$event->title . ' - Portal NU Pekuncen'">
     <main class="mx-auto w-full max-w-[1500px] px-4 py-8 sm:px-7 sm:py-12 lg:px-10 lg:py-16">
         <nav aria-label="Breadcrumb" class="mb-8 text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">
             <a href="{{ route('home') }}" class="hover:text-[#1a5b41] dark:hover:text-[#a8ddb8]">Beranda</a>
