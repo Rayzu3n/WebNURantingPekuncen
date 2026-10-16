@@ -14,6 +14,16 @@ test('public agenda shows published upcoming events and excludes drafts', functi
         'published_at' => now()->subMinute(),
     ]);
 
+    $completed = Event::create([
+        'title' => 'Pengajian Pekan Lalu',
+        'slug' => 'pengajian-pekan-lalu',
+        'category' => 'Pengajian',
+        'description' => 'Dokumentasi kegiatan yang sudah selesai.',
+        'starts_at' => now()->subDays(7),
+        'status' => 'published',
+        'published_at' => now()->subDays(10),
+    ]);
+
     Event::create([
         'title' => 'Agenda Internal',
         'slug' => 'agenda-internal',
@@ -25,6 +35,8 @@ test('public agenda shows published upcoming events and excludes drafts', functi
     $this->get(route('events.index'))
         ->assertOk()
         ->assertSeeText($published->title)
+        ->assertSeeText($completed->title)
+        ->assertSeeText('Arsip kegiatan')
         ->assertDontSeeText('Agenda Internal');
 });
 
