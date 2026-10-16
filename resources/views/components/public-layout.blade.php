@@ -46,6 +46,7 @@
                     <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
                         <a href="{{ route('home') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Beranda</a>
                         <a href="{{ route('news.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Semua berita</a>
+                        <a href="{{ route('contact.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('contact.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Kontak</a>
                     </nav>
 
                     <div class="hidden items-center gap-2 sm:flex">
@@ -68,6 +69,7 @@
                 <nav class="mx-auto max-w-[1500px] space-y-1" aria-label="Navigasi seluler">
                     <a href="{{ route('home') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Beranda</a>
                     <a href="{{ route('news.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Semua berita</a>
+                    <a href="{{ route('contact.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('contact.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Kontak</a>
                     <div class="flex items-center gap-2 pt-2">
                         <x-theme-toggle />
                         @auth
@@ -100,6 +102,7 @@
                         <div class="mt-4 space-y-3 text-sm font-semibold text-[#d1dbcf]">
                             <a href="{{ route('home') }}" class="block transition hover:text-white">Beranda</a>
                             <a href="{{ route('news.index') }}" class="block transition hover:text-white">Semua berita</a>
+                            <a href="{{ route('contact.index') }}" class="block transition hover:text-white">Hubungi kami</a>
                             @auth
                                 <a href="{{ route('dashboard') }}" class="block transition hover:text-white">Dashboard anggota</a>
                             @else
