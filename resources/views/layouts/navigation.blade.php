@@ -32,6 +32,10 @@
                         <x-nav-link :href="route('admin.members.index')" :active="request()->routeIs('admin.members.*')">
                             {{ __('Members') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
+                            {{ __('Contact Inbox') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isMember())
@@ -145,6 +149,10 @@
 
                 <x-responsive-nav-link :href="route('admin.members.index')" :active="request()->routeIs('admin.members.*')">
                     {{ __('Members') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
+                    {{ __('Contact Inbox') }}
                 </x-responsive-nav-link>
             @endif
 
