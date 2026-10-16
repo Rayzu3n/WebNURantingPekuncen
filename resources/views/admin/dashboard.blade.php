@@ -28,7 +28,7 @@
                 </div>
                 <p class="hidden text-xs text-[#66746a] dark:text-[#a3b1a5] sm:block">Ringkasan konten dan komunitas</p>
             </div>
-            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
                         <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Total berita</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $newsCount }}</p></div>
@@ -50,12 +50,19 @@
                     </div>
                     <a href="{{ route('admin.categories.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka kategori ↗</a>
                 </article>
+                <article class="portal-surface p-5 sm:p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Agenda aktif</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $upcomingEventCount }}</p></div>
+                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">◷</span>
+                    </div>
+                    <a href="{{ route('admin.events.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola kegiatan ↗</a>
+                </article>
             </div>
         </section>
 
         <section>
             <div class="mb-4"><p class="portal-kicker">Akses cepat</p><h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Mulai dari sini</h2></div>
-            <div class="grid gap-4 md:grid-cols-3">
+            <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 <a href="{{ route('admin.news.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Publikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Berita</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun, perbarui, dan terbitkan kabar terbaru.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
                 </a>
@@ -64,6 +71,9 @@
                 </a>
                 <a href="{{ route('admin.members.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">03 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Anggota</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Kelola profil dan data keanggotaan portal.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                </a>
+                <a href="{{ route('admin.events.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">04 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kegiatan</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun agenda mendatang dan simpan arsip acara.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola agenda ↗</span>
                 </a>
             </div>
         </section>
