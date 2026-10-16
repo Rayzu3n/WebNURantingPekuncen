@@ -60,11 +60,12 @@
             <div>
                 <label for="status">Status</label>
                 <select class="portal-form-control mt-2" id="status" name="status" required>
-                    @foreach (['draft' => 'Draft', 'published' => 'Publikasikan', 'archived' => 'Arsip manual'] as $value => $label)
+                    @foreach (['draft' => 'Draft', 'published' => 'Publikasikan', 'archived' => 'Sembunyikan dari publik'] as $value => $label)
                         <option value="{{ $value }}" @selected(old('status', $event->status) === $value)>{{ $label }}</option>
                     @endforeach
                 </select>
                 @error('status')<p class="mt-1 text-xs text-rose-700">{{ $message }}</p>@enderror
+                <p class="mt-2 text-xs leading-5 text-[#66746a] dark:text-[#a3b1a5]">Kegiatan berstatus terpublikasi otomatis masuk ke arsip publik setelah jadwalnya selesai. Draft dan kegiatan yang disembunyikan tidak muncul di situs.</p>
             </div>
         </section>
         <section class="portal-surface space-y-4 p-5">
