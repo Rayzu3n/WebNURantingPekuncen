@@ -58,7 +58,7 @@
                         <path d="M9 21v-7h6v7"/>
                     </svg>
                     <span class="flex-1">Kembali ke halaman utama</span>
-                    <span aria-hidden="true" class="text-lg leading-none">›</span>
+                    
                 </a>
                 <div class="flex items-center gap-3 px-1">
                     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e4ede2] text-xs font-extrabold text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}</div>
