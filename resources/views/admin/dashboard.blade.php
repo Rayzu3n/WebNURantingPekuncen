@@ -1,298 +1,71 @@
 <x-app-layout>
-
     <x-slot name="header">
         <div>
-            <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                Admin Dashboard
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Manage portal content and members.
-            </p>
+            <p class="text-[9px] font-extrabold uppercase tracking-[.17em] text-[#b75d3c]">Workspace redaksi</p>
+            <h2 class="mt-1 font-editorial text-xl font-extrabold tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5] sm:text-2xl">Ringkasan dashboard</h2>
         </div>
     </x-slot>
 
-    <div class="space-y-8">
+    <div class="space-y-9">
+        <section class="relative overflow-hidden bg-[#1a5b41] px-6 py-8 text-white sm:px-9 sm:py-10 dark:bg-[#183b2a]">
+            <div class="relative z-10 max-w-3xl">
+                <p class="text-[10px] font-extrabold uppercase tracking-[.17em] text-[#c5e0c4]">Senang melihatmu kembali</p>
+                <h1 class="mt-4 font-editorial text-3xl font-extrabold leading-tight tracking-[-.055em] sm:text-4xl">Selamat datang, {{ auth()->user()->name }}.</h1>
+                <p class="mt-3 max-w-xl text-sm leading-7 text-white/75">Kelola kabar, rapikan kategori, dan jaga informasi anggota tetap terorganisasi dari satu tempat.</p>
+                <div class="mt-6 flex flex-wrap gap-3">
+                    <a href="{{ route('admin.news.create') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">Tulis berita <span>↗</span></a>
+                    <a href="{{ route('admin.news.index') }}" class="inline-flex min-h-11 items-center rounded-full border border-white/35 px-5 text-sm font-bold text-white transition hover:bg-white/10">Kelola berita</a>
+                </div>
+            </div>
+            <span aria-hidden="true" class="pointer-events-none absolute -bottom-12 right-4 font-editorial text-[10rem] font-extrabold leading-none tracking-[-.1em] text-white/[.06] sm:right-10 sm:text-[15rem]">NU.</span>
+        </section>
 
-        <!-- Welcome -->
         <section>
-            <div
-                class="overflow-hidden rounded-2xl border
-                border-emerald-100 bg-emerald-700
-                px-6 py-7 text-white shadow-lg shadow-emerald-200/50
-                dark:border-emerald-400/10 dark:bg-[#123d2c]
-                dark:shadow-black/30
-                sm:px-8">
-                <p class="text-sm font-medium text-emerald-100">
-                    Welcome back
-                </p>
-
-                <h1 class="mt-2 text-2xl font-semibold tracking-tight">
-                    {{ auth()->user()->name }}
-                </h1>
-
-                <p class="mt-2 max-w-2xl text-sm leading-6 text-emerald-100">
-                    Manage news, categories, and member data from this dashboard.
-                </p>
+            <div class="mb-4 flex items-end justify-between gap-4">
+                <div>
+                    <p class="portal-kicker">Sekilas portal</p>
+                    <h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Angka hari ini</h2>
+                </div>
+                <p class="hidden text-xs text-[#66746a] dark:text-[#a3b1a5] sm:block">Ringkasan konten dan komunitas</p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                <article class="portal-surface p-5 sm:p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Total berita</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $newsCount }}</p></div>
+                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e4ede2] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▤</span>
+                    </div>
+                    <a href="{{ route('admin.news.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar berita ↗</a>
+                </article>
+                <article class="portal-surface p-5 sm:p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Anggota terdaftar</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $memberCount }}</p></div>
+                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">♧</span>
+                    </div>
+                    <a href="{{ route('admin.members.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka daftar anggota ↗</a>
+                </article>
+                <article class="portal-surface p-5 sm:p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div><p class="text-xs font-bold text-[#66746a] dark:text-[#a3b1a5]">Kategori berita</p><p class="mt-3 font-editorial text-4xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">{{ $categoryCount }}</p></div>
+                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e7eee5] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▦</span>
+                    </div>
+                    <a href="{{ route('admin.categories.index') }}" class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka kategori ↗</a>
+                </article>
             </div>
         </section>
 
-        <!-- Statistics -->
         <section>
-
-            <div class="grid gap-5 md:grid-cols-3">
-
-                <!-- News -->
-                <div
-                    class="rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20">
-                    <div class="flex items-start justify-between">
-
-                        <div>
-                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                Total News
-                            </p>
-
-                            <p class="mt-3 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                {{ $newsCount }}
-                            </p>
-                        </div>
-
-                        <div
-                            class="flex h-11 w-11 items-center justify-center rounded-xl
-                            bg-emerald-50 text-emerald-600
-                            dark:bg-emerald-500/10 dark:text-emerald-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5" />
-                            </svg>
-                        </div>
-
-                    </div>
-
-                    <a href="{{ route('admin.news.index') }}"
-                        class="mt-5 inline-flex items-center text-sm font-semibold
-                        text-emerald-600 transition-colors hover:text-emerald-700
-                        dark:text-emerald-400 dark:hover:text-emerald-300">
-                        Manage news
-                        <span class="ml-1">→</span>
-                    </a>
-                </div>
-
-                <!-- Members -->
-                <div
-                    class="rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20">
-                    <div class="flex items-start justify-between">
-
-                        <div>
-                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                Total Members
-                            </p>
-
-                            <p class="mt-3 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                {{ $memberCount }}
-                            </p>
-                        </div>
-
-                        <div
-                            class="flex h-11 w-11 items-center justify-center rounded-xl
-                            bg-teal-50 text-teal-600
-                            dark:bg-teal-500/10 dark:text-teal-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                            </svg>
-                        </div>
-
-                    </div>
-
-                    <a href="{{ route('admin.members.index') }}"
-                        class="mt-5 inline-flex items-center text-sm font-semibold
-                        text-teal-600 transition-colors hover:text-teal-700
-                        dark:text-teal-400 dark:hover:text-teal-300">
-                        Manage members
-                        <span class="ml-1">→</span>
-                    </a>
-                </div>
-
-                <!-- Categories -->
-                <div
-                    class="rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20">
-                    <div class="flex items-start justify-between">
-
-                        <div>
-                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                Categories
-                            </p>
-
-                            <p class="mt-3 text-3xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                                {{ $categoryCount }}
-                            </p>
-                        </div>
-
-                        <div
-                            class="flex h-11 w-11 items-center justify-center rounded-xl
-                            bg-sky-50 text-sky-600
-                            dark:bg-sky-500/10 dark:text-sky-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor" stroke-width="1.8">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M4 6h6v6H4zM14 6h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
-                            </svg>
-                        </div>
-
-                    </div>
-
-                    <a href="{{ route('admin.categories.index') }}"
-                        class="mt-5 inline-flex items-center text-sm font-semibold
-                        text-sky-600 transition-colors hover:text-sky-700
-                        dark:text-sky-400 dark:hover:text-sky-300">
-                        Manage categories
-                        <span class="ml-1">→</span>
-                    </a>
-                </div>
-
+            <div class="mb-4"><p class="portal-kicker">Akses cepat</p><h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Mulai dari sini</h2></div>
+            <div class="grid gap-4 md:grid-cols-3">
+                <a href="{{ route('admin.news.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Publikasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Berita</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun, perbarui, dan terbitkan kabar terbaru.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                </a>
+                <a href="{{ route('admin.categories.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">02 / Organisasi</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kategori</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Buat struktur topik agar informasi mudah ditelusuri.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                </a>
+                <a href="{{ route('admin.members.index') }}" class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">03 / Komunitas</p><h3 class="mt-4 font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Anggota</h3><p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Kelola profil dan data keanggotaan portal.</p><span class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka bagian ↗</span>
+                </a>
             </div>
-
         </section>
-
-        <!-- Management -->
-        <section>
-
-            <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Management
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Access the main administration sections.
-                </p>
-            </div>
-
-            <div class="grid gap-5 md:grid-cols-3">
-
-                <!-- News -->
-                <a href="{{ route('admin.news.index') }}"
-                    class="group rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200
-                    hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-emerald-500/30">
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-emerald-50 text-emerald-600
-                        transition-colors
-                        group-hover:bg-emerald-600 group-hover:text-white
-                        dark:bg-emerald-500/10 dark:text-emerald-400
-                        dark:group-hover:bg-emerald-500 dark:group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5" />
-                        </svg>
-                    </div>
-
-                    <h3 class="mt-5 font-semibold text-gray-900 dark:text-white">
-                        News
-                    </h3>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                        Create, edit, publish, and manage portal news.
-                    </p>
-
-                    <span class="mt-4 inline-block text-sm font-semibold text-emerald-600 dark:text-emerald-400">
-                        Open section →
-                    </span>
-                </a>
-
-                <!-- Categories -->
-                <a href="{{ route('admin.categories.index') }}"
-                    class="group rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200
-                    hover:-translate-y-1 hover:border-sky-200 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-sky-500/30">
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-sky-50 text-sky-600
-                        transition-colors
-                        group-hover:bg-sky-600 group-hover:text-white
-                        dark:bg-sky-500/10 dark:text-sky-400
-                        dark:group-hover:bg-sky-500 dark:group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 6h6v6H4zM14 6h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
-                        </svg>
-                    </div>
-
-                    <h3 class="mt-5 font-semibold text-gray-900 dark:text-white">
-                        Categories
-                    </h3>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                        Organize news content into categories.
-                    </p>
-
-                    <span class="mt-4 inline-block text-sm font-semibold text-sky-600 dark:text-sky-400">
-                        Open section →
-                    </span>
-                </a>
-
-                <!-- Members -->
-                <a href="{{ route('admin.members.index') }}"
-                    class="group rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200
-                    hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-teal-500/30">
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-teal-50 text-teal-600
-                        transition-colors
-                        group-hover:bg-teal-600 group-hover:text-white
-                        dark:bg-teal-500/10 dark:text-teal-400
-                        dark:group-hover:bg-teal-500 dark:group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                        </svg>
-                    </div>
-
-                    <h3 class="mt-5 font-semibold text-gray-900 dark:text-white">
-                        Members
-                    </h3>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                        Manage member accounts and membership data.
-                    </p>
-
-                    <span class="mt-4 inline-block text-sm font-semibold text-teal-600 dark:text-teal-400">
-                        Open section →
-                    </span>
-                </a>
-
-            </div>
-
-        </section>
-
     </div>
-
 </x-app-layout>

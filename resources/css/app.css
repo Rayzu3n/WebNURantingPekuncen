@@ -10,214 +10,219 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         scroll-behavior: smooth;
-        --portal-ink: 28 39 32;
-        --portal-muted: 103 113 106;
-        --portal-green: 22 101 72;
-        --portal-line: 222 226 220;
+        --paper: 248 247 241;
+        --paper-raised: 255 255 251;
+        --ink: 25 43 35;
+        --muted: 102 116 106;
+        --line: 221 224 214;
+        --green: 26 91 65;
+        --green-bright: 49 133 91;
+        --copper: 183 93 60;
     }
-
     html.dark {
         color-scheme: dark;
-        --portal-ink: 237 241 236;
-        --portal-muted: 163 174 165;
-        --portal-green: 110 231 183;
-        --portal-line: 255 255 255;
+        --paper: 18 25 21;
+        --paper-raised: 25 34 28;
+        --ink: 235 239 229;
+        --muted: 163 177 165;
+        --line: 54 67 57;
+        --green: 128 202 157;
+        --green-bright: 151 220 177;
+        --copper: 221 147 111;
     }
-
+    html { scroll-behavior: smooth; }
     body {
-        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: rgb(var(--paper));
+        color: rgb(var(--ink));
+        font-family: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         font-feature-settings: "cv11", "ss01";
     }
-
-    h1, h2, h3, h4, h5, h6,
-    .font-editorial {
-        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    h1, h2, h3, h4, h5, h6, .font-editorial {
+        font-family: 'Manrope', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
         font-optical-sizing: auto;
         text-wrap: pretty;
     }
-
-    p, li {
-        text-wrap: pretty;
-    }
-
-    img, video, canvas, svg {
-        max-width: 100%;
-    }
-
-    button, input, select, textarea {
-        font: inherit;
-    }
-
-    button, a, input, select, textarea, summary {
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    :focus-visible {
-        outline: 3px solid rgb(var(--portal-green) / 0.65);
-        outline-offset: 3px;
-    }
-
-    ::selection {
-        color: #052e1b;
-        background: #a7f3d0;
-    }
+    p, li { text-wrap: pretty; }
+    img, video, canvas, svg { max-width: 100%; }
+    button, input, select, textarea { font: inherit; }
+    button, a, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid rgb(var(--green-bright) / .72); outline-offset: 3px; }
+    ::selection { color: #f8f7f1; background: #1a5b41; }
 }
-
 @layer components {
-    .font-interface {
-        font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    }
-
+    .font-interface { font-family: 'DM Sans', ui-sans-serif, system-ui, sans-serif; }
     .portal-surface {
-        border: 1px solid rgb(var(--portal-line) / 0.8);
-        border-radius: 1rem;
-        background: rgb(255 255 255 / 0.92);
-        box-shadow: 0 10px 35px -28px rgb(15 23 42 / 0.35);
+        border: 1px solid rgb(var(--line));
+        border-radius: 1.25rem;
+        background: rgb(var(--paper-raised));
+        box-shadow: 0 18px 55px -44px rgb(25 43 35 / .48);
     }
-
-    .dark .portal-surface {
-        background: rgb(24 28 26 / 0.92);
-        border-color: rgb(255 255 255 / 0.1);
-        box-shadow: 0 12px 36px -28px rgb(0 0 0 / 0.7);
+    .dark .portal-surface { box-shadow: 0 18px 55px -44px rgb(0 0 0 / .65); }
+    .portal-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: .6rem;
+        color: rgb(var(--green));
+        font-size: .68rem;
+        font-weight: 800;
+        letter-spacing: .17em;
+        line-height: 1.4;
+        text-transform: uppercase;
     }
+    .portal-kicker::before {
+        display: block;
+        width: 1.25rem;
+        height: 2px;
+        background: rgb(var(--copper));
+        content: "";
+    }
+    .portal-page-title { @apply font-editorial text-3xl font-semibold tracking-tight sm:text-4xl; color: rgb(var(--ink)); }
+    .portal-muted { @apply text-sm leading-6; color: rgb(var(--muted)); }
+    .portal-button {
+        @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition;
+        background: rgb(var(--green));
+        color: #fffdf7;
+    }
+    .portal-button:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .dark .portal-button { color: #15271b; }
+    .portal-button-secondary {
+        @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-5 py-2.5 text-sm font-bold transition;
+        border-color: rgb(var(--line));
+        color: rgb(var(--ink));
+        background: rgb(var(--paper-raised));
+    }
+    .portal-button-secondary:hover { border-color: rgb(var(--green)); color: rgb(var(--green)); }
+    .portal-table-wrap { @apply overflow-x-auto rounded-2xl border; border-color: rgb(var(--line)); background: rgb(var(--paper-raised)); }
+    .portal-table-wrap table { @apply min-w-full divide-y; border-color: rgb(var(--line)); }
+    .portal-table-wrap thead { background: rgb(var(--paper) / .75); }
+    .portal-table-wrap th { @apply px-5 py-3.5 text-left text-[11px] font-extrabold uppercase tracking-[.13em]; color: rgb(var(--muted)); }
+    .portal-table-wrap td { @apply px-5 py-4 align-middle text-sm; color: rgb(var(--ink)); }
+    .portal-table-wrap tbody tr { @apply transition-colors; border-color: rgb(var(--line)); }
+    .portal-table-wrap tbody tr:hover { background: rgb(var(--green) / .045); }
+    .portal-form-control {
+        @apply w-full rounded-xl border px-3.5 py-3 text-sm shadow-sm transition;
+        border-color: rgb(var(--line));
+        background: rgb(var(--paper-raised));
+        color: rgb(var(--ink));
+    }
+    .portal-form-control::placeholder { color: rgb(var(--muted) / .8); }
+    .portal-form-control:focus { border-color: rgb(var(--green)); outline: 3px solid rgb(var(--green) / .13); }
 }
-
+@layer base {
+    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+    select, textarea {
+        @apply rounded-xl border px-3.5 py-3 text-sm shadow-sm transition;
+        border-color: rgb(var(--line));
+        background: rgb(var(--paper-raised));
+        color: rgb(var(--ink));
+    }
+    input::placeholder, textarea::placeholder { color: rgb(var(--muted) / .8); }
+    input:focus, select:focus, textarea:focus { border-color: rgb(var(--green)); --tw-ring-color: rgb(var(--green) / .2); }
+    input[type="checkbox"], input[type="radio"] { accent-color: #1a5b41; }
+    label { @apply text-sm font-semibold; color: rgb(var(--muted)); }
+    table { font-variant-numeric: tabular-nums; }
+}
 @layer utilities {
-    .text-balance {
-        text-wrap: balance;
-    }
-
-    .safe-bottom {
-        padding-bottom: max(1rem, env(safe-area-inset-bottom));
-    }
+    .text-balance { text-wrap: balance; }
+    .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+    .surface-grid { background-color: rgb(var(--green) / .035); }
+    .text-portal-ink { color: rgb(var(--ink)); }
+    .text-portal-muted { color: rgb(var(--muted)); }
 }
-
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
+        animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
+        transition-duration: .01ms !important;
     }
 }
-
 @media (max-width: 639px) {
-    main, section, article, aside {
-        min-width: 0;
-    }
-
-    pre, code {
-        overflow-wrap: anywhere;
-    }
+    main, section, article, aside { min-width: 0; }
+    pre, code { overflow-wrap: anywhere; }
 }
-
-
-@layer components {
-    .portal-page-title {
-        @apply font-editorial text-3xl font-semibold tracking-tight text-stone-950 dark:text-stone-50 sm:text-4xl;
-    }
-
-    .portal-muted {
-        @apply text-sm leading-6 text-stone-600 dark:text-stone-400;
-    }
-
-    .portal-table-wrap {
-        @apply overflow-x-auto rounded-2xl border border-stone-200 bg-white dark:border-white/10 dark:bg-[#181c1a];
-    }
-
-    .portal-table-wrap table {
-        @apply min-w-full divide-y divide-stone-200 dark:divide-white/10;
-    }
-
-    .portal-table-wrap thead {
-        @apply bg-stone-50 dark:bg-white/[0.03];
-    }
-
-    .portal-table-wrap th {
-        @apply px-5 py-3.5 text-left text-[11px] font-bold uppercase tracking-[0.12em] text-stone-500 dark:text-stone-400;
-    }
-
-    .portal-table-wrap td {
-        @apply px-5 py-4 align-middle text-sm text-stone-700 dark:text-stone-300;
-    }
-
-    .portal-table-wrap tbody tr {
-        @apply transition-colors hover:bg-emerald-50/50 dark:hover:bg-emerald-400/[0.04];
-    }
-
-    .portal-form-control {
-        @apply w-full rounded-xl border-stone-300 bg-white text-sm text-stone-900 shadow-sm transition placeholder:text-stone-400 focus:border-emerald-700 focus:ring-emerald-700/20 dark:border-white/15 dark:bg-[#111512] dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:border-emerald-400;
-    }
-}
-
 @media (hover: hover) {
-    a:not([class*="no-underline"]):not([class*="underline"]):focus-visible {
-        border-radius: 0.25rem;
-    }
+    a:not([class*="no-underline"]):not([class*="underline"]):focus-visible { border-radius: .3rem; }
 }
-
-
-@layer base {
-    input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
-    select,
-    textarea {
-        @apply rounded-xl border-stone-300 bg-white text-sm text-stone-900 shadow-sm transition;
-        @apply placeholder:text-stone-400 focus:border-emerald-700 focus:ring-emerald-700/20;
-        @apply dark:border-white/15 dark:bg-[#111512] dark:text-stone-100 dark:placeholder:text-stone-500 dark:focus:border-emerald-400;
-    }
-
-    input[type="checkbox"], input[type="radio"] {
-        @apply border-stone-300 text-emerald-700 focus:ring-emerald-700/30 dark:border-white/20 dark:bg-[#111512] dark:text-emerald-400;
-    }
-
-    label {
-        @apply text-sm font-medium text-stone-700 dark:text-stone-300;
-    }
-
-    table {
-        font-variant-numeric: tabular-nums;
-    }
-}
-
-@layer utilities {
-    .surface-grid {
-        background-color: rgb(120 130 120 / 0.03);
-    }
-}
-
-
-/* Progressive enhancement: supported browsers cross-fade full-page Blade navigations. */
-@view-transition {
-    navigation: auto;
-}
-
-::view-transition-old(root) {
-    animation: portal-page-out 120ms ease both;
-}
-
-::view-transition-new(root) {
-    animation: portal-page-in 180ms ease both;
-}
-
-@keyframes portal-page-out {
-    to {
-        opacity: 0;
-    }
-}
-
-@keyframes portal-page-in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: portal-page-out 120ms ease both; }
+::view-transition-new(root) { animation: portal-page-in 180ms ease both; }
+@keyframes portal-page-out { to { opacity: 0; } }
+@keyframes portal-page-in { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-        animation: none;
-    }
+    ::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+}
+
+/* Compatibility skin for legacy Blade forms and tables: all dashboard routes now share the editorial tokens. */
+.workspace-ui [class~="bg-white"],
+.workspace-ui [class~="dark:bg-white"] {
+    background-color: rgb(var(--paper-raised)) !important;
+}
+.workspace-ui [class*="bg-gray-50"],
+.workspace-ui [class*="bg-gray-100"],
+.workspace-ui [class*="bg-slate-50"],
+.workspace-ui [class*="bg-slate-100"] {
+    background-color: rgb(var(--paper)) !important;
+}
+.workspace-ui [class*="dark:bg-gray-900"],
+.workspace-ui [class*="dark:bg-gray-800"],
+.workspace-ui [class*="dark:bg-slate-900"],
+.workspace-ui [class*="dark:bg-slate-800"] {
+    background-color: rgb(var(--paper-raised)) !important;
+}
+.workspace-ui [class*="text-gray-900"],
+.workspace-ui [class*="text-gray-800"],
+.workspace-ui [class*="text-slate-900"],
+.workspace-ui [class*="text-slate-800"] {
+    color: rgb(var(--ink)) !important;
+}
+.workspace-ui [class*="text-gray-700"],
+.workspace-ui [class*="text-gray-600"],
+.workspace-ui [class*="text-gray-500"],
+.workspace-ui [class*="text-slate-700"],
+.workspace-ui [class*="text-slate-600"],
+.workspace-ui [class*="text-slate-500"] {
+    color: rgb(var(--muted)) !important;
+}
+.workspace-ui [class*="border-gray-200"],
+.workspace-ui [class*="border-gray-300"],
+.workspace-ui [class*="border-gray-100"],
+.workspace-ui [class*="border-slate-200"],
+.workspace-ui [class*="border-slate-300"] {
+    border-color: rgb(var(--line)) !important;
+}
+.workspace-ui [class*="bg-emerald-600"],
+.workspace-ui [class*="bg-emerald-700"],
+.workspace-ui [class*="bg-green-600"],
+.workspace-ui [class*="bg-green-700"],
+.workspace-ui [class*="bg-teal-600"],
+.workspace-ui [class*="bg-blue-600"],
+.workspace-ui [class*="bg-indigo-600"],
+    background-color: rgb(var(--green)) !important;
+    color: #fffdf7 !important;
+}
+.workspace-ui [class*="text-emerald-"],
+.workspace-ui [class*="text-green-"],
+.workspace-ui [class*="text-teal-"],
+.workspace-ui [class*="text-blue-"],
+.workspace-ui [class*="text-indigo-"] {
+    color: rgb(var(--green)) !important;
+}
+.workspace-ui [class*="border-emerald-"],
+.workspace-ui [class*="border-green-"],
+.workspace-ui [class*="border-teal-"],
+.workspace-ui [class*="border-blue-"],
+.workspace-ui [class*="border-indigo-"] {
+    border-color: rgb(var(--line)) !important;
+}
+.workspace-ui [class*="rounded-2xl"],
+.workspace-ui [class*="rounded-xl"] {
+    border-radius: 1.1rem;
+}
+.workspace-ui [class*="shadow-lg"],
+.workspace-ui [class*="shadow-xl"] {
+    box-shadow: 0 18px 48px -40px rgb(var(--ink) / .5) !important;
+}
+.workspace-ui button, .workspace-ui input, .workspace-ui select, .workspace-ui textarea {
+    border-radius: .8rem;
 }

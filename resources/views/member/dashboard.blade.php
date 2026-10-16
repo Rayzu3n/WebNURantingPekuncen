@@ -1,133 +1,33 @@
 <x-app-layout>
-
     <x-slot name="header">
         <div>
-            <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                Member Dashboard
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Access your member profile and digital member card.
-            </p>
+            <p class="text-[9px] font-extrabold uppercase tracking-[.17em] text-[#b75d3c]">Ruang anggota</p>
+            <h2 class="mt-1 font-editorial text-xl font-extrabold tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5] sm:text-2xl">Ringkasan saya</h2>
         </div>
     </x-slot>
 
-    <div class="space-y-6">
-
-        <!-- Welcome -->
-        <section
-            class="overflow-hidden rounded-2xl border
-            border-emerald-100 bg-emerald-700
-            px-6 py-7 text-white shadow-lg shadow-emerald-200/50
-            dark:border-emerald-400/10 dark:bg-[#123d2c]
-            dark:shadow-black/30
-            sm:px-8">
-            <p class="text-sm font-medium text-emerald-100">
-                Welcome back
-            </p>
-
-            <h1 class="mt-2 text-2xl font-semibold tracking-tight">
-                {{ auth()->user()->name }}
-            </h1>
-
-            <p class="mt-2 max-w-2xl text-sm leading-6 text-emerald-100">
-                Manage your member information and access your digital member card.
-            </p>
+    <div class="space-y-8">
+        <section class="relative overflow-hidden bg-[#1a5b41] px-6 py-8 text-white sm:px-9 sm:py-10 dark:bg-[#183b2a]">
+            <div class="relative z-10 max-w-2xl">
+                <p class="text-[10px] font-extrabold uppercase tracking-[.17em] text-[#c5e0c4]">Ahlan wa sahlan</p>
+                <h1 class="mt-4 font-editorial text-3xl font-extrabold leading-tight tracking-[-.055em] sm:text-4xl">Halo, {{ auth()->user()->name }}.</h1>
+                <p class="mt-3 max-w-xl text-sm leading-7 text-white/75">Informasi keanggotaanmu, satu tempat. Perbarui detail profil atau buka kartu anggota digital kapan saja.</p>
+            </div>
+            <span aria-hidden="true" class="pointer-events-none absolute -bottom-12 right-4 font-editorial text-[9rem] font-extrabold leading-none tracking-[-.1em] text-white/[.06] sm:right-8 sm:text-[13rem]">NU.</span>
         </section>
 
-        <!-- Member Actions -->
         <section>
-
-            <div class="mb-4">
-                <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Member Area
-                </h2>
-
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Manage your membership information.
-                </p>
-            </div>
-
-            <div class="grid gap-5 md:grid-cols-2">
-
-                <!-- Profile -->
-                <a href="{{ route('member.profile') }}"
-                    class="group rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200
-                    hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-emerald-500/30">
-
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-emerald-50 text-emerald-600
-                        transition-colors
-                        group-hover:bg-emerald-600 group-hover:text-white
-                        dark:bg-emerald-500/10 dark:text-emerald-400
-                        dark:group-hover:bg-emerald-500 dark:group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0116.5 0" />
-                        </svg>
-                    </div>
-
-                    <h3 class="mt-5 font-semibold text-gray-900 dark:text-white">
-                        Member Profile
-                    </h3>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                        View and update your personal membership information.
-                    </p>
-
-                    <span class="mt-4 inline-block text-sm font-semibold text-emerald-600 dark:text-emerald-400">
-                        Open profile →
-                    </span>
-
+            <div class="mb-4"><p class="portal-kicker">Akun saya</p><h2 class="mt-2 font-editorial text-2xl font-extrabold tracking-[-.05em] text-[#192b23] dark:text-[#ebefe5]">Layanan anggota</h2><p class="mt-2 text-sm text-[#66746a] dark:text-[#a3b1a5]">Pilih bagian yang ingin kamu kelola.</p></div>
+            <div class="grid gap-4 md:grid-cols-2">
+                <a href="{{ route('member.profile') }}" class="group portal-surface p-6 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-8">
+                    <div class="flex items-start justify-between gap-4"><span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e4ede2] text-xl text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">◎</span><span class="text-lg text-[#b75d3c] transition group-hover:translate-x-1">↗</span></div>
+                    <p class="mt-6 text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">01 / Data diri</p><h3 class="mt-2 font-editorial text-xl font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Profil anggota</h3><p class="mt-3 max-w-md text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Periksa dan perbarui informasi keanggotaan agar tetap sesuai.</p><span class="mt-6 inline-flex border-b border-[#1a5b41] pb-1 text-xs font-extrabold text-[#1a5b41] dark:border-[#80ca9d] dark:text-[#a8ddb8]">Buka profil</span>
                 </a>
-
-                <!-- Member Card -->
-                <a href="{{ route('member.card') }}"
-                    class="group rounded-2xl border border-gray-200 bg-white p-6
-                    shadow-lg shadow-gray-300/40
-                    transition-all duration-200
-                    hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl
-                    dark:border-gray-800 dark:bg-[#111827]
-                    dark:shadow-black/20 dark:hover:border-teal-500/30">
-
-                    <div
-                        class="flex h-11 w-11 items-center justify-center rounded-xl
-                        bg-teal-50 text-teal-600
-                        transition-colors
-                        group-hover:bg-teal-600 group-hover:text-white
-                        dark:bg-teal-500/10 dark:text-teal-400
-                        dark:group-hover:bg-teal-500 dark:group-hover:text-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <rect x="3" y="5" width="18" height="14" rx="2" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 9h4M7 13h3" />
-                        </svg>
-                    </div>
-
-                    <h3 class="mt-5 font-semibold text-gray-900 dark:text-white">
-                        Member Card
-                    </h3>
-
-                    <p class="mt-2 text-sm leading-6 text-gray-500 dark:text-gray-400">
-                        View, verify, and download your digital member card.
-                    </p>
-
-                    <span class="mt-4 inline-block text-sm font-semibold text-teal-600 dark:text-teal-400">
-                        Open member card →
-                    </span>
-
+                <a href="{{ route('member.card') }}" class="group portal-surface p-6 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-8">
+                    <div class="flex items-start justify-between gap-4"><span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#f5e9e0] text-xl text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">▣</span><span class="text-lg text-[#b75d3c] transition group-hover:translate-x-1">↗</span></div>
+                    <p class="mt-6 text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">02 / Identitas</p><h3 class="mt-2 font-editorial text-xl font-extrabold tracking-[-.04em] text-[#192b23] group-hover:text-[#1a5b41] dark:text-[#ebefe5] dark:group-hover:text-[#a8ddb8]">Kartu anggota digital</h3><p class="mt-3 max-w-md text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Tampilkan, verifikasi, dan unduh kartu keanggotaan digitalmu.</p><span class="mt-6 inline-flex border-b border-[#1a5b41] pb-1 text-xs font-extrabold text-[#1a5b41] dark:border-[#80ca9d] dark:text-[#a8ddb8]">Buka kartu</span>
                 </a>
-
             </div>
-
         </section>
-
     </div>
-
 </x-app-layout>

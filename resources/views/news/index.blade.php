@@ -1,73 +1,79 @@
 <x-public-layout>
-    <main class="mx-auto max-w-screen-2xl px-4 py-8 sm:px-8 lg:px-12 lg:py-14">
-        <section class="border-b-2 border-emerald-700 pb-5 dark:border-emerald-400">
-            <p class="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-800 dark:text-emerald-300">Portal Berita</p>
-            <h1 class="mt-2 font-editorial text-4xl font-semibold tracking-[-0.03em] text-stone-950 dark:text-stone-50 lg:text-5xl">
-                {{ $activeCategory?->name ?? 'Berita' }}
-            </h1>
-            <p class="mt-3 max-w-2xl text-sm leading-6 text-stone-600 dark:text-stone-400">
+    <main class="mx-auto max-w-[1500px] px-4 py-10 sm:px-7 sm:py-14 lg:px-10 lg:py-16">
+        <header class="grid gap-7 border-b-2 border-[#192b23] pb-8 dark:border-[#ebefe5] sm:grid-cols-[1fr_.65fr] sm:items-end sm:pb-10">
+            <div>
+                <p class="portal-kicker">Arsip kabar Pekuncen</p>
+                <h1 class="mt-4 font-editorial text-5xl font-extrabold leading-[.98] tracking-[-.07em] text-[#192b23] dark:text-[#ebefe5] sm:text-6xl">{{ $activeCategory?->name ?? 'Semua berita' }}<span class="text-[#b75d3c]">.</span></h1>
+            </div>
+            <div class="max-w-lg sm:justify-self-end">
+                <p class="text-base leading-7 text-[#66746a] dark:text-[#a3b1a5]">
+                    @if ($activeCategory)
+                        Kumpulan cerita dan informasi terbaru dalam kategori {{ $activeCategory->name }}.
+                    @else
+                        Kabar, kegiatan, dan cerita dari lingkungan Nahdlatul Ulama di Pekuncen.
+                    @endif
+                </p>
                 @if ($activeCategory)
-                    Berita terbaru dalam kategori {{ $activeCategory->name }}.
-                @else
-                    Informasi dan berita terbaru dari lingkungan NU.
+                    <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">← Kembali ke semua berita</a>
                 @endif
-            </p>
-            @if ($activeCategory)
-                <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-800 hover:underline dark:text-emerald-300">
-                    <span aria-hidden="true">←</span> Tampilkan semua berita
-                </a>
-            @endif
-        </section>
+            </div>
+        </header>
 
         @if ($news->isNotEmpty())
-            <section class="mt-8">
-                <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <section class="py-8 sm:py-10">
+                <div class="mb-6 flex items-center justify-between gap-4">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.15em] text-[#66746a] dark:text-[#a3b1a5]">Jelajahi tulisan</p>
+                    <p class="text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]">{{ $news->total() }} berita</p>
+                </div>
+                <div class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($news as $item)
-                        <article class="group flex flex-col overflow-hidden rounded-2xl border border-stone-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:border-emerald-700/50 hover:shadow-lg dark:border-white/10 dark:bg-[#181c1a]">
-                            <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden bg-stone-100 dark:bg-stone-800">
+                        <article class="group flex min-w-0 flex-col">
+                            <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden bg-[#e2e4d9] dark:bg-[#27362b]">
                                 <div class="aspect-[16/10]">
                                     @if ($item->thumbnail)
-                                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]">
+                                        <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.035]">
                                     @else
-                                        <div class="flex h-full items-center justify-center text-xs text-stone-500">Gambar berita belum tersedia</div>
+                                        <div class="flex h-full items-center justify-center px-4 text-center text-xs text-[#66746a] dark:text-[#a3b1a5]">Gambar berita belum tersedia</div>
                                     @endif
                                 </div>
                             </a>
-                            <div class="flex flex-1 flex-col p-5">
-                                <div class="flex flex-wrap items-center gap-2">
-                                    <span class="text-[10px] font-bold uppercase tracking-[0.1em] text-emerald-800 dark:text-emerald-300">{{ $item->category?->name ?? 'Berita' }}</span>
+                            <div class="flex flex-1 flex-col pt-4">
+                                <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-extrabold uppercase tracking-[.13em] text-[#1a5b41] dark:text-[#a8ddb8]">
+                                    <span>{{ $item->category?->name ?? 'Berita' }}</span>
                                     @if ($item->published_at)
-                                        <span aria-hidden="true" class="text-stone-400">•</span>
-                                        <time datetime="{{ $item->published_at->toDateString() }}" class="text-xs text-stone-500 dark:text-stone-400">{{ $item->published_at->translatedFormat('d M Y') }}</time>
+                                        <span class="text-[#b75d3c]">/</span>
+                                        <time datetime="{{ $item->published_at->toDateString() }}" class="font-semibold tracking-normal text-[#66746a] dark:text-[#a3b1a5]">{{ $item->published_at->translatedFormat('d M Y') }}</time>
                                     @endif
                                 </div>
-                                <h2 class="mt-3 font-editorial text-2xl font-semibold leading-tight tracking-[-0.025em] text-stone-950 dark:text-stone-50">
-                                    <a href="{{ route('news.show', $item->slug) }}" class="transition-colors group-hover:text-emerald-800 dark:group-hover:text-emerald-300">{{ $item->title }}</a>
+                                <h2 class="mt-3 font-editorial text-xl font-extrabold leading-tight tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5] sm:text-2xl">
+                                    <a href="{{ route('news.show', $item->slug) }}" class="transition-colors group-hover:text-[#1a5b41] dark:group-hover:text-[#80ca9d]">{{ $item->title }}</a>
                                 </h2>
                                 @if ($item->excerpt)
-                                    <p class="mt-3 text-sm leading-6 text-stone-600 dark:text-stone-400">{{ \Illuminate\Support\Str::limit($item->excerpt, 140) }}</p>
+                                    <p class="mt-3 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">{{ \Illuminate\Support\Str::limit($item->excerpt, 150) }}</p>
                                 @endif
-                                <div class="mt-auto flex items-center justify-between gap-3 border-t border-stone-200 pt-5 dark:border-white/10">
-                                    <span class="truncate text-xs font-medium text-stone-500 dark:text-stone-400">{{ $item->author?->name ?? 'Redaksi' }}</span>
-                                    <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-semibold text-emerald-800 hover:underline dark:text-emerald-300">Baca berita ↗</a>
+                                <div class="mt-auto flex items-center justify-between gap-3 border-t border-[#dde0d6] pt-4 mt-5 dark:border-[#364339]">
+                                    <span class="truncate text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]">{{ $item->author?->name ?? 'Redaksi' }}</span>
+                                    <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca ↗</a>
                                 </div>
                             </div>
                         </article>
                     @endforeach
                 </div>
-                <div class="mt-10">{{ $news->links() }}</div>
+                <div class="mt-12">{{ $news->links() }}</div>
             </section>
         @else
-            <section class="mt-8 rounded-lg border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
-                <p class="text-sm text-stone-600 dark:text-stone-400">
+            <section class="mt-10 border border-dashed border-[#c6cec0] px-5 py-16 text-center dark:border-[#465648]">
+                <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-[#e4ede2] text-xl text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">⌕</span>
+                <h2 class="mt-4 font-editorial text-xl font-extrabold text-[#192b23] dark:text-[#ebefe5]">Belum ada berita di sini</h2>
+                <p class="mx-auto mt-2 max-w-md text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">
                     @if ($activeCategory)
                         Belum ada berita yang dipublikasikan dalam kategori ini.
                     @else
-                        Belum ada berita yang dipublikasikan.
+                        Belum ada berita yang dipublikasikan. Silakan kembali lagi nanti.
                     @endif
                 </p>
                 @if ($activeCategory)
-                    <a href="{{ route('news.index') }}" class="mt-3 inline-block text-sm font-semibold text-emerald-800 hover:underline dark:text-emerald-300">Lihat semua berita</a>
+                    <a href="{{ route('news.index') }}" class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Tampilkan semua berita ↗</a>
                 @endif
             </section>
         @endif
