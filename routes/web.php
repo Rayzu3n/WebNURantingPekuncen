@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\CardController;
 use App\Http\Controllers\Member\ProfileController as MemberProfileController;
@@ -28,6 +30,13 @@ Route::get('/berita', [PublicNewsController::class, 'index'])
 
 Route::get('/berita/{slug}', [PublicNewsController::class, 'show'])
     ->name('news.show');
+
+Route::get('/kontak', [ContactController::class, 'create'])
+    ->name('contact.index');
+
+Route::post('/kontak', [ContactController::class, 'store'])
+    ->middleware('throttle:5,1')
+    ->name('contact.store');
 
 Route::get('/member/verify/{member_number}', [VerificationController::class, 'show'])
     ->middleware('throttle:60,1')
@@ -88,6 +97,15 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::resource('news', NewsController::class)
             ->except(['show']);
+
+        Route::get('/messages', [ContactMessageController::class, 'index'])
+            ->name('messages.index');
+        Route::get('/messages/{message}', [ContactMessageController::class, 'show'])
+            ->name('messages.show');
+        Route::patch('/messages/{message}', [ContactMessageController::class, 'update'])
+            ->name('messages.update');
+        Route::delete('/messages/{message}', [ContactMessageController::class, 'destroy'])
+            ->name('messages.destroy');
 
         Route::resource('members', MemberController::class)
             ->except(['show']);
