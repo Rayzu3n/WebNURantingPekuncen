@@ -43,7 +43,7 @@
         }
 
         .font-editorial {
-            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-family: 'Newsreader', Georgia, serif;
         }
 
         .font-interface {
