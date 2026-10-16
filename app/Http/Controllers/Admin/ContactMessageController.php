@@ -41,7 +41,7 @@ class ContactMessageController extends Controller
             ]);
         }
 
-        return view('admin.messages.show', compact('message'));
+        return view('admin.messages.show', ['contactMessage' => $message]);
     }
 
     public function update(Request $request, ContactMessage $message): RedirectResponse
