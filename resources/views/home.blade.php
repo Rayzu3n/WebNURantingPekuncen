@@ -23,7 +23,7 @@
             <div class="max-w-xl lg:justify-self-end">
                 <div class="mb-5 h-px w-20 bg-[#b75d3c]"></div>
                 <p class="max-w-lg text-base leading-7 text-[#66746a] dark:text-[#a3b1a5] sm:text-lg sm:leading-8">Ruang kabar untuk kegiatan, gagasan, dan gerak bersama Nahdlatul Ulama di lingkungan Pekuncen.</p>
-                <a href="{{ route('news.index') }}" class="mt-6 inline-flex items-center gap-3 text-sm font-extrabold text-[#1a5b41] transition hover:gap-4 dark:text-[#a8ddb8]">Jelajahi seluruh berita <span class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c5d0c4] text-base dark:border-[#465648]">↗</span></a>
+                <a href="{{ route('news.index') }}" class="mt-6 inline-flex items-center gap-3 text-sm font-extrabold text-[#1a5b41] transition hover:gap-4 dark:text-[#a8ddb8]">Jelajahi seluruh berita <span class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c5d0c4] dark:border-[#465648]"><x-portal-icon name="newspaper" class="h-4 w-4" /></span></a>
             </div>
         </section>
 
@@ -60,7 +60,7 @@
                             <p class="truncate text-sm font-bold text-[#192b23] dark:text-[#ebefe5]">{{ $featuredNews->author?->name ?? 'Redaksi' }}</p>
                             <p class="mt-1 text-[11px] text-[#66746a] dark:text-[#a3b1a5]">Kontributor portal</p>
                         </div>
-                        <a href="{{ route('news.show', $featuredNews->slug) }}" class="ml-auto shrink-0 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca cerita ↗</a>
+                        <a href="{{ route('news.show', $featuredNews->slug) }}" class="ml-auto shrink-0 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca cerita <x-portal-icon name="book-open" class="h-4 w-4" /></a>
                     </div>
                 </article>
             </section>
@@ -74,7 +74,7 @@
                         <h2 class="mt-3 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5] sm:text-4xl">Agenda mendatang</h2>
                         <p class="mt-3 max-w-xl text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Catat kegiatan berikutnya dan tetap terhubung dengan lingkungan sekitar.</p>
                     </div>
-                    <a href="{{ route('events.index') }}" class="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua kegiatan ↗</a>
+                    <a href="{{ route('events.index') }}" class="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
                 </div>
                 <div class="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                     @foreach ($upcomingEvents as $event)
@@ -107,7 +107,7 @@
                     <p class="portal-kicker">Dari lingkungan kita</p>
                     <h2 class="mt-3 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5] sm:text-4xl">Kabar terbaru</h2>
                 </div>
-                <a href="{{ route('news.index') }}" class="inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua berita <span aria-hidden="true">↗</span></a>
+                <a href="{{ route('news.index') }}" class="inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua berita <x-portal-icon name="newspaper" class="h-4 w-4" /></a>
             </div>
 
             @if ($latestNews->isNotEmpty())
@@ -140,7 +140,7 @@
                                     @endif
                                     <div class="mt-5 flex items-center justify-between gap-3 border-t border-[#dde0d6] pt-3 dark:border-[#364339]">
                                         <span class="truncate text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]">{{ $item->author?->name ?? 'Redaksi' }}</span>
-                                        <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca ↗</a>
+                                        <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Baca <x-portal-icon name="book-open" class="h-3.5 w-3.5" /></a>
                                     </div>
                                 </div>
                             </article>
@@ -194,7 +194,7 @@
                 <p class="max-w-lg text-sm leading-7 text-[#66746a] dark:text-[#a3b1a5] md:justify-self-end">Dari kegiatan warga hingga kabar organisasi, temukan tulisan yang sesuai dengan topik yang sedang kamu cari.</p>
             </div>
             <div class="mt-6 flex gap-2 overflow-x-auto pb-2">
-                <a href="{{ route('news.index') }}" class="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full bg-[#1a5b41] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b]">Semua berita <span aria-hidden="true">↗</span></a>
+                <a href="{{ route('news.index') }}" class="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full bg-[#1a5b41] px-5 py-2.5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b]">Semua berita <x-portal-icon name="newspaper" class="h-4 w-4" /></a>
                 @forelse (\App\Models\NewsCategory::withCount(['news' => fn ($query) => $query->where('status', 'published')])->orderBy('name')->get() as $category)
                     <a href="{{ route('news.index', ['category' => $category->slug]) }}" class="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full border border-[#c8d0c3] bg-[#fffef9] px-4 py-2.5 text-sm font-bold text-[#405347] transition hover:border-[#1a5b41] hover:text-[#1a5b41] dark:border-[#465648] dark:bg-[#19221c] dark:text-[#d0dbcf] dark:hover:border-[#80ca9d] dark:hover:text-[#a8ddb8]">
                         {{ $category->name }} <span class="text-[11px] font-semibold text-[#88968a]">{{ $category->news_count }}</span>
