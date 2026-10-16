@@ -226,3 +226,15 @@
 .workspace-ui button, .workspace-ui input, .workspace-ui select, .workspace-ui textarea {
     border-radius: .8rem;
 }
+
+
+.dark .workspace-ui [class*="bg-emerald-600"],
+.dark .workspace-ui [class*="bg-emerald-700"],
+.dark .workspace-ui [class*="bg-green-600"],
+.dark .workspace-ui [class*="bg-green-700"],
+.dark .workspace-ui [class*="bg-teal-600"],
+.dark .workspace-ui [class*="bg-blue-600"],
+.dark .workspace-ui [class*="bg-indigo-600"] {
+    background-color: rgb(var(--green)) !important;
+    color: #15271b !important;
+}
