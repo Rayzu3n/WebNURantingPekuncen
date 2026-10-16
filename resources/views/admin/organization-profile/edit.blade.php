@@ -13,7 +13,7 @@
                 <h1 class="mt-3 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5] sm:text-4xl">Tentang Kami</h1>
                 <p class="mt-2 max-w-2xl text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Kelola informasi resmi yang akan tampil di halaman publik. Isi hanya data organisasi yang sudah dikonfirmasi dan disetujui untuk dipublikasikan.</p>
             </div>
-            <a href="{{ route('about') }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center justify-center border border-[#dde0d6] px-4 text-sm font-bold text-[#1a5b41] hover:bg-[#f0efe7] dark:border-[#364339] dark:text-[#a8ddb8] dark:hover:bg-[#253127]">Pratinjau halaman ↗</a>
+            <a href="{{ route('about') }}" target="_blank" rel="noopener noreferrer" class="inline-flex min-h-11 items-center justify-center border border-[#dde0d6] px-4 text-sm font-bold text-[#1a5b41] hover:bg-[#f0efe7] dark:border-[#364339] dark:text-[#a8ddb8] dark:hover:bg-[#253127]">Pratinjau halaman <x-portal-icon name="eye" class="h-4 w-4" /></a>
         </section>
 
         @if (session('success'))
