@@ -36,6 +36,10 @@
                         <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
                             {{ __('Contact Inbox') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('admin.organization-profile.edit')" :active="request()->routeIs('admin.organization-profile.*')">
+                            {{ __('Organization Profile') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isMember())
@@ -153,6 +157,10 @@
 
                 <x-responsive-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
                     {{ __('Contact Inbox') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.organization-profile.edit')" :active="request()->routeIs('admin.organization-profile.*')">
+                    {{ __('Organization Profile') }}
                 </x-responsive-nav-link>
             @endif
 
