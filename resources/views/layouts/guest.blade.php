@@ -1,121 +1,61 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Portal Berita NU') }}</title>
-
-    <!-- Fonts -->
+    <title>{{ config('app.name', 'Portal NU Pekuncen') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         (() => {
             const savedTheme = localStorage.getItem('theme');
-
-            const systemDark = window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            ).matches;
-
-            const useDark = savedTheme === 'dark' ||
-                (!savedTheme && systemDark);
-
-            document.documentElement.classList.toggle('dark', useDark);
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark' || (!savedTheme && systemDark));
         })();
     </script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
+    <style>[x-cloak] { display: none !important; }</style>
 </head>
-
-<body class="font-sans antialiased">
-
-    <div
-        class="relative flex min-h-screen items-center justify-center overflow-hidden px-4 py-8
-        bg-[#F5F8FC] text-[#15202B]
-        dark:bg-[#101827] dark:text-gray-100
-        sm:px-6">
-
-        <!-- Theme Toggle -->
-        <div class="fixed right-5 top-5 z-50">
-            <x-theme-toggle />
-        </div>
-
-        <!-- Login Content -->
-        <div class="relative z-10 w-full sm:max-w-md">
-
-            <!-- Brand -->
-            <div class="mb-6 text-center">
-
-                <a href="{{ route('home') }}" class="inline-flex items-center gap-3">
-
-                    <div
-                        class="flex h-12 w-12 items-center justify-center rounded-xl
-                        bg-green-700 text-sm font-bold text-white
-                        shadow-lg shadow-green-900/20">
-                        NU
-                    </div>
-
-                    <div class="text-left">
-
-                        <div class="text-xl font-semibold
-                            text-[#15202B] dark:text-white">
-                            Portal Berita NU
-                        </div>
-
-                        <div class="text-sm
-                            text-gray-500 dark:text-gray-400">
-                            Member Portal
-                        </div>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-            <!-- Form Card -->
-            <div
-                class="overflow-hidden rounded-2xl border shadow-xl transition-colors
-                border-gray-200 bg-white
-                shadow-gray-300/50
-                dark:border-white/10 dark:bg-[#1B2638]
-                dark:shadow-black/30">
-
-                <div class="px-6 py-7 sm:px-8">
-
-                    {{ $slot }}
-
+<body class="min-h-screen bg-[#f8f7f1] font-sans antialiased text-[#192b23] dark:bg-[#121915] dark:text-[#ebefe5]">
+    <main class="grid min-h-screen lg:grid-cols-[.88fr_1.12fr]">
+        <aside class="relative flex min-h-[280px] flex-col justify-between overflow-hidden bg-[#1a5b41] px-6 py-7 text-white sm:px-10 sm:py-9 lg:min-h-screen lg:px-14 lg:py-12 dark:bg-[#183b2a]">
+            <div class="flex items-center gap-3">
+                <span class="flex h-11 w-11 items-center justify-center border border-white/50 text-sm font-extrabold tracking-[-.08em]">NU</span>
+                <div>
+                    <p class="font-editorial text-lg font-extrabold tracking-[-.04em]">Portal NU</p>
+                    <p class="mt-1 text-[9px] font-bold uppercase tracking-[.2em] text-white/65">Ranting Pekuncen</p>
                 </div>
-
             </div>
 
-            <!-- Back to Site -->
-            <div class="mt-5 text-center">
-
-                <a href="{{ route('home') }}"
-                    class="text-sm transition-colors
-                    text-gray-500 hover:text-blue-600
-                    dark:text-gray-400 dark:hover:text-cyan-400">
-                    ← Kembali ke Portal Berita
-                </a>
-
+            <div class="relative z-10 max-w-xl py-10">
+                <p class="inline-flex items-center gap-2 text-[10px] font-extrabold uppercase tracking-[.18em] text-[#c5e0c4]"><span class="h-1.5 w-1.5 rounded-full bg-[#e2a082]"></span> Ruang anggota</p>
+                <h1 class="mt-6 font-editorial text-4xl font-extrabold leading-[.98] tracking-[-.065em] sm:text-5xl lg:text-6xl xl:text-7xl">Tetap terhubung.<br><span class="text-[#c5e0c4]">Terus bergerak.</span></h1>
+                <p class="mt-6 max-w-md text-sm leading-7 text-white/75 sm:text-base">Akses informasi keanggotaan dan layanan digital dalam satu ruang yang lebih dekat dengan komunitas.</p>
             </div>
 
-        </div>
+            <div class="relative z-10 flex items-end justify-between gap-4 border-t border-white/20 pt-5">
+                <p class="max-w-xs text-xs leading-5 text-white/60">Portal informasi dan keanggotaan<br>Ranting Pekuncen</p>
+                <span class="font-editorial text-5xl font-extrabold tracking-[-.1em] text-white/15 sm:text-7xl" aria-hidden="true">NU.</span>
+            </div>
+        </aside>
 
-    </div>
-
+        <section class="relative flex min-h-screen flex-col items-center justify-center px-4 py-10 sm:px-8 lg:px-12">
+            <div class="absolute right-5 top-5 sm:right-8 sm:top-8"><x-theme-toggle /></div>
+            <div class="w-full max-w-md">
+                <a href="{{ route('home') }}" class="mb-8 inline-flex items-center gap-2 text-xs font-extrabold text-[#66746a] transition hover:text-[#1a5b41] dark:text-[#a3b1a5] dark:hover:text-[#a8ddb8]">← Kembali ke portal</a>
+                <div class="mb-6">
+                    <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-[#b75d3c]">Portal keanggotaan</p>
+                    <h2 class="mt-2 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">Selamat datang.</h2>
+                    <p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Masuk atau daftarkan akun untuk melanjutkan.</p>
+                </div>
+                <div class="rounded-[1.5rem] border border-[#dde0d6] bg-[#fffef9] p-6 shadow-[0_24px_70px_-48px_rgba(25,43,35,.45)] sm:p-8 dark:border-[#364339] dark:bg-[#19221c] dark:shadow-black/25">
+                    {{ $slot }}
+                </div>
+                <p class="mt-6 text-center text-[11px] leading-5 text-[#88968a] dark:text-[#86968a]">© {{ date('Y') }} Portal Berita NU Pekuncen</p>
+            </div>
+        </section>
+    </main>
 </body>
-
 </html>

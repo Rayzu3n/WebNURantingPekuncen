@@ -1,352 +1,75 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Portal Berita NU') }}</title>
-
-    <!-- Fonts -->
+    <title>{{ config('app.name', 'Portal NU Pekuncen') }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- Theme -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         (() => {
             const savedTheme = localStorage.getItem('theme');
-
-            const systemDark = window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            ).matches;
-
-            const useDark = savedTheme === 'dark' ||
-                (!savedTheme && systemDark);
-
-            document.documentElement.classList.toggle('dark', useDark);
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark' || (!savedTheme && systemDark));
         })();
     </script>
-
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
+    <style>[x-cloak] { display: none !important; }</style>
 </head>
-
-<body class="font-sans antialiased bg-stone-50 dark:bg-[#101412] text-stone-900 dark:text-stone-100">
-
+<body class="workspace-ui min-h-screen bg-[#f8f7f1] font-sans antialiased text-[#192b23] dark:bg-[#121915] dark:text-[#ebefe5]">
+    @php($isAdmin = auth()->user()->isAdmin())
     <div x-data="{ sidebarOpen: false }" class="min-h-screen">
-
-        <!-- Mobile Backdrop -->
-        <div x-show="sidebarOpen" x-cloak x-transition.opacity @click="sidebarOpen = false"
-            class="fixed inset-0 z-40 bg-black/50 lg:hidden"></div>
-
-        <!-- Sidebar -->
-        <aside
-            class="fixed inset-y-0 left-0 z-50 w-72 -translate-x-full transform border-r transition-transform duration-200
-    {{ auth()->user()->isAdmin()
-        ? 'border-white/10 bg-[#0B1220]'
-        : 'border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-900' }}
-    lg:translate-x-0"
-            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
-
-            <!-- Brand -->
-            <div
-                class="flex h-20 items-center justify-between border-b px-6
-        {{ auth()->user()->isAdmin() ? 'border-white/10' : 'border-gray-200 dark:border-gray-800' }}">
-
+        <div x-show="sidebarOpen" x-cloak x-transition.opacity @click="sidebarOpen = false" class="fixed inset-0 z-40 bg-[#101a13]/55 lg:hidden"></div>
+        <aside class="fixed inset-y-0 left-0 z-50 flex w-[278px] -translate-x-full flex-col border-r border-[#dde0d6] bg-[#fffef9] transition-transform duration-200 dark:border-[#364339] dark:bg-[#19221c] lg:translate-x-0" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
+            <div class="flex h-[88px] shrink-0 items-center justify-between border-b border-[#dde0d6] px-6 dark:border-[#364339]">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-
-                    <div
-                        class="flex h-10 w-10 items-center justify-center rounded-xl
-                bg-green-700 text-sm font-bold text-white
-                shadow-lg shadow-green-950/20">
-                        NU
-                    </div>
-
-                    <div>
-
-                        <div
-                            class="text-base font-semibold
-                    {{ auth()->user()->isAdmin() ? 'text-white' : 'text-gray-900 dark:text-gray-100' }}">
-                            Portal Berita NU
-                        </div>
-
-                        <div
-                            class="text-xs
-                    {{ auth()->user()->isAdmin() ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400' }}">
-                            @if (auth()->user()->isAdmin())
-                                Administrator
-                            @else
-                                Member
-                            @endif
-                        </div>
-
-                    </div>
-
+                    <span class="flex h-11 w-11 items-center justify-center border-2 border-[#1a5b41] text-sm font-extrabold tracking-[-.08em] text-[#1a5b41] dark:border-[#80ca9d] dark:text-[#80ca9d]">NU</span>
+                    <span><span class="block font-editorial text-base font-extrabold tracking-[-.04em] text-[#192b23] dark:text-[#ebefe5]">Portal NU</span><span class="mt-1 block text-[9px] font-extrabold uppercase tracking-[.16em] text-[#66746a] dark:text-[#a3b1a5]">{{ $isAdmin ? 'Administrator' : 'Anggota' }}</span></span>
                 </a>
-
-                <!-- Mobile Close -->
-                <button type="button" @click="sidebarOpen = false"
-                    class="rounded-lg p-2
-            {{ auth()->user()->isAdmin()
-                ? 'text-gray-400 hover:bg-white/10 hover:text-white'
-                : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200' }}
-            lg:hidden">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-
+                <button type="button" @click="sidebarOpen = false" class="rounded-full p-2 text-[#66746a] hover:bg-[#f0efe7] lg:hidden dark:text-[#a3b1a5] dark:hover:bg-[#253127]" aria-label="Tutup menu">✕</button>
             </div>
-
-            <!-- Navigation -->
-            <nav class="space-y-1 px-4 py-6">
-
-                @if (auth()->user()->isAdmin())
-                    <div class="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-500">
-                        Administration
-                    </div>
-
-                    <!-- Dashboard -->
-                    <a href="{{ route('admin.dashboard') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
-                {{ request()->routeIs('admin.dashboard')
-                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 12l9-9 9 9M5 10v10h14V10M9 20v-6h6v6" />
-                        </svg>
-
-                        <span>Dashboard</span>
+            <div class="px-5 pb-2 pt-6"><p class="px-3 text-[9px] font-extrabold uppercase tracking-[.18em] text-[#88968a]">{{ $isAdmin ? 'Workspace redaksi' : 'Ruang anggota' }}</p></div>
+            <nav class="flex-1 space-y-1 overflow-y-auto px-4 py-2" aria-label="Navigasi dashboard">
+                @php($navItems = $isAdmin ? [
+                    ['label' => 'Ringkasan', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'icon' => '◫'],
+                    ['label' => 'Berita', 'route' => 'admin.news.index', 'pattern' => 'admin.news.*', 'icon' => '▤'],
+                    ['label' => 'Kategori', 'route' => 'admin.categories.index', 'pattern' => 'admin.categories.*', 'icon' => '▦'],
+                    ['label' => 'Anggota', 'route' => 'admin.members.index', 'pattern' => 'admin.members.*', 'icon' => '♧'],
+                ] : [
+                    ['label' => 'Ringkasan', 'route' => 'member.dashboard', 'pattern' => 'member.dashboard', 'icon' => '◫'],
+                    ['label' => 'Profil saya', 'route' => 'member.profile', 'pattern' => 'member.profile*', 'icon' => '◎'],
+                    ['label' => 'Kartu anggota', 'route' => 'member.card', 'pattern' => 'member.card', 'icon' => '▣'],
+                ])
+                @foreach ($navItems as $item)
+                    <a href="{{ route($item['route']) }}" class="group flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-bold transition {{ request()->routeIs($item['pattern']) ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">
+                        <span class="flex h-8 w-8 items-center justify-center rounded-lg border border-current/15 text-base">{{ $item['icon'] }}</span><span>{{ $item['label'] }}</span>
+                        @if (request()->routeIs($item['pattern']))<span class="ml-auto h-1.5 w-1.5 rounded-full bg-[#b75d3c]"></span>@endif
                     </a>
-
-                    <!-- News -->
-                    <a href="{{ route('admin.news.index') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
-                {{ request()->routeIs('admin.news.*')
-                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.news.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5" />
-                        </svg>
-
-                        <span>News</span>
-                    </a>
-
-                    <!-- Categories -->
-                    <a href="{{ route('admin.categories.index') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
-                {{ request()->routeIs('admin.categories.*')
-                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.categories.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M4 6h6v6H4zM14 6h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
-                        </svg>
-
-                        <span>Categories</span>
-                    </a>
-
-                    <!-- Members -->
-                    <a href="{{ route('admin.members.index') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
-                {{ request()->routeIs('admin.members.*')
-                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.members.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                        </svg>
-
-                        <span>Members</span>
-                    </a>
-                @else
-                    <div class="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-gray-400">
-                        Member Area
-                    </div>
-
-                    <!-- Dashboard -->
-                    <a href="{{ route('member.dashboard') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
-                {{ request()->routeIs('member.dashboard')
-                    ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400'
-                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M3 12l9-9 9 9M5 10v10h14V10M9 20v-6h6v6" />
-                        </svg>
-
-                        <span>Dashboard</span>
-                    </a>
-
-                    <!-- Profile -->
-                    <a href="{{ route('member.profile') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
-                {{ request()->routeIs('member.profile*')
-                    ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400'
-                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a8.25 8.25 0 0116.5 0" />
-                        </svg>
-
-                        <span>Profile</span>
-                    </a>
-
-                    <!-- Member Card -->
-                    <a href="{{ route('member.card') }}"
-                        class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
-                {{ request()->routeIs('member.card')
-                    ? 'bg-green-50 text-green-700 dark:bg-green-950/40 dark:text-green-400'
-                    : 'text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <rect x="3" y="5" width="18" height="14" rx="2" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M7 9h4M7 13h3" />
-                        </svg>
-
-                        <span>Member Card</span>
-                    </a>
-                @endif
-
+                @endforeach
             </nav>
-
-            <!-- Sidebar Bottom -->
-            <div
-                class="absolute inset-x-0 bottom-0 border-t p-4
-        {{ auth()->user()->isAdmin() ? 'border-white/10' : 'border-gray-200 dark:border-gray-800' }}">
-
-                <div
-                    class="mb-3 rounded-xl p-3
-            {{ auth()->user()->isAdmin() ? 'bg-white/5' : 'bg-gray-50 dark:bg-gray-800/60' }}">
-                    <p
-                        class="truncate text-sm font-semibold
-                {{ auth()->user()->isAdmin() ? 'text-white' : 'text-gray-900 dark:text-gray-100' }}">
-                        {{ auth()->user()->name }}
-                    </p>
-
-                    <p
-                        class="truncate text-xs
-                {{ auth()->user()->isAdmin() ? 'text-gray-400' : 'text-gray-500 dark:text-gray-400' }}">
-                        {{ auth()->user()->email }}
-                    </p>
+            <div class="shrink-0 border-t border-[#dde0d6] p-4 dark:border-[#364339]">
+                <a href="{{ route('home') }}" class="mb-4 flex items-center justify-between rounded-xl border border-[#dde0d6] px-3.5 py-3 text-xs font-extrabold text-[#405347] transition hover:border-[#1a5b41] hover:text-[#1a5b41] dark:border-[#364339] dark:text-[#d0dbcf] dark:hover:border-[#80ca9d] dark:hover:text-[#a8ddb8]">Lihat situs publik <span>↗</span></a>
+                <div class="flex items-center gap-3 px-1">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e4ede2] text-xs font-extrabold text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">{{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}</div>
+                    <div class="min-w-0 flex-1"><p class="truncate text-xs font-extrabold text-[#192b23] dark:text-[#ebefe5]">{{ auth()->user()->name }}</p><p class="mt-1 truncate text-[10px] text-[#66746a] dark:text-[#a3b1a5]">{{ auth()->user()->email }}</p></div>
+                    <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" title="Keluar" aria-label="Keluar" class="flex h-9 w-9 items-center justify-center rounded-full text-[#66746a] transition hover:bg-[#f0efe7] hover:text-[#b75d3c] dark:text-[#a3b1a5] dark:hover:bg-[#253127]">↗</button></form>
                 </div>
-
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <button type="submit"
-                        class="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition
-                {{ auth()->user()->isAdmin()
-                    ? 'text-red-400 hover:bg-red-500/10 hover:text-red-300'
-                    : 'text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950/30' }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 12H3m0 0l4-4m-4 4l4 4M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" />
-                        </svg>
-
-                        <span>Logout</span>
-                    </button>
-                </form>
-
             </div>
-
         </aside>
-
-        <!-- Main Area -->
-        <div class="lg:pl-72">
-
-            <!-- Top Bar -->
-            <header
-                class="sticky top-0 z-30 border-b border-gray-200 bg-white/90 backdrop-blur dark:border-gray-800 dark:bg-gray-900/90">
-
-                <div class="flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
-
-                    <div class="flex items-center gap-3">
-
-                        <!-- Mobile Menu Button -->
-                        <button type="button" @click="sidebarOpen = true"
-                            class="rounded-xl p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:hover:bg-gray-800 dark:hover:text-gray-200 lg:hidden">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                        </button>
-
-                        <!-- Page Heading -->
-                        @isset($header)
-                            <div>
-                                {{ $header }}
-                            </div>
-                        @else
-                            <div>
-                                <p class="text-lg font-semibold">
-                                    @if (auth()->user()->isAdmin())
-                                        Administrator
-                                    @else
-                                        Member Area
-                                    @endif
-                                </p>
-
-                                <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    Portal Berita NU
-                                </p>
-                            </div>
-                        @endisset
-
+        <div class="min-h-screen lg:pl-[278px]">
+            <header class="sticky top-0 z-30 border-b border-[#dde0d6] bg-[#f8f7f1]/90 backdrop-blur-xl dark:border-[#364339] dark:bg-[#121915]/90">
+                <div class="flex min-h-[88px] items-center justify-between gap-4 px-4 sm:px-7 lg:px-10">
+                    <div class="flex min-w-0 items-center gap-3">
+                        <button type="button" @click="sidebarOpen = true" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#dde0d6] text-[#1a5b41] lg:hidden dark:border-[#364339] dark:text-[#a8ddb8]" aria-label="Buka menu">☰</button>
+                        <div class="min-w-0">@isset($header){{ $header }}@else<p class="font-editorial text-lg font-extrabold tracking-[-.04em] text-[#192b23] dark:text-[#ebefe5]">{{ $isAdmin ? 'Workspace redaksi' : 'Ruang anggota' }}</p><p class="mt-1 text-xs text-[#66746a] dark:text-[#a3b1a5]">Portal NU · Ranting Pekuncen</p>@endisset</div>
                     </div>
-
-                    <!-- Top Actions -->
-                    <div class="flex items-center gap-2">
-
-                        <a href="{{ route('home') }}"
-                            class="hidden rounded-xl px-3 py-2 text-sm font-medium text-gray-600 transition hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white sm:inline-flex">
-                            View Site
-                        </a>
-
-                        <x-theme-toggle />
-
-                    </div>
-
+                    <div class="flex items-center gap-2"><span class="hidden text-[10px] font-bold uppercase tracking-[.12em] text-[#88968a] md:inline">{{ now()->translatedFormat('d M Y') }}</span><x-theme-toggle /></div>
                 </div>
-
             </header>
-
-            <!-- Main Content -->
-            <main class="min-h-[calc(100vh-5rem)] px-4 py-6 sm:px-6 lg:px-8">
-
-                {{ $slot }}
-
-            </main>
-
+            <main class="min-h-[calc(100vh-88px)] px-4 py-7 sm:px-7 sm:py-9 lg:px-10 lg:py-10"><div class="mx-auto w-full max-w-[1400px]">{{ $slot }}</div></main>
         </div>
-
     </div>
-
 </body>
-
 </html>

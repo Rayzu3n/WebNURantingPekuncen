@@ -1,259 +1,123 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>
-        {{ $title ?? 'Portal Berita NU' }}
-    </title>
-
+    <title>{{ $title ?? 'Portal Berita NU Pekuncen' }}</title>
+    <meta name="theme-color" content="#f8f7f1">
+    <meta name="description" content="Kabar, kegiatan, dan cerita Nahdlatul Ulama di Pekuncen.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         (() => {
             const savedTheme = localStorage.getItem('theme');
-            const systemDark = window.matchMedia(
-                '(prefers-color-scheme: dark)'
-            ).matches;
-
-            const useDark = savedTheme === 'dark' ||
-                (!savedTheme && systemDark);
-
-            document.documentElement.classList.toggle('dark', useDark);
+            const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.classList.toggle('dark', savedTheme === 'dark' || (!savedTheme && systemDark));
         })();
     </script>
-
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-
-        html {
-            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        .font-editorial {
-            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        .font-interface {
-            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
-
-        .public-selection::selection {
-            background: #2ec486;
-            color: #003822;
-        }
-    </style>
-
+    <style>[x-cloak] { display: none !important; }</style>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<body class="min-h-screen flex flex-col bg-[#f8f7f1] text-[#192b23] antialiased dark:bg-[#121915] dark:text-[#ebefe5]">
+    <div class="flex min-h-screen flex-col">
+        <div class="border-b border-[#dfe2d6] bg-[#f0efe7] dark:border-[#364339] dark:bg-[#1b251e]">
+            <div class="mx-auto flex max-w-[1500px] items-center justify-between px-4 py-2.5 sm:px-7 lg:px-10">
+                <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-[#5f7163] dark:text-[#b0c3b2]">
+                    <span class="mr-2 inline-block h-2 w-2 rounded-full bg-[#b75d3c]"></span>
+                    Ruang kabar warga Pekuncen
+                </p>
+                <p class="hidden text-[11px] font-semibold tracking-wide text-[#66746a] dark:text-[#a3b1a5] sm:block">{{ now()->translatedFormat('l, d F Y') }}</p>
+            </div>
+        </div>
 
-<body
-    class="public-selection min-h-screen flex flex-col bg-[#ffffff] text-[#15201B] antialiased dark:bg-[#101412] dark:text-[#e0e3df]">
-    <div class="min-h-screen flex flex-col">
+        <header x-data="{ open: false }" class="sticky top-0 z-50 border-b border-[#dde0d6] bg-[#fffef9]/95 backdrop-blur-xl dark:border-[#364339] dark:bg-[#19221c]/95">
+            <div class="mx-auto max-w-[1500px] px-4 sm:px-7 lg:px-10">
+                <div class="flex min-h-[82px] items-center justify-between gap-4">
+                    <a href="{{ route('home') }}" class="group flex min-w-0 items-center gap-3.5">
+                        <span class="flex h-12 w-12 shrink-0 items-center justify-center border-2 border-[#1a5b41] text-[15px] font-extrabold tracking-[-.08em] text-[#1a5b41] transition group-hover:bg-[#1a5b41] group-hover:text-white dark:border-[#80ca9d] dark:text-[#80ca9d] dark:group-hover:bg-[#80ca9d] dark:group-hover:text-[#17251b]">NU</span>
+                        <span class="min-w-0">
+                            <span class="block font-editorial text-lg font-extrabold leading-tight tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5] sm:text-xl">Portal NU</span>
+                            <span class="mt-1 block text-[9px] font-extrabold uppercase tracking-[.2em] text-[#66746a] dark:text-[#a3b1a5]">Ranting Pekuncen</span>
+                        </span>
+                    </a>
 
-        <!-- Navigation -->
-        <header x-data="{ open: false }"
-            class="sticky top-0 z-50 border-b border-[#CFD0C3]/80 bg-white/90 shadow-sm shadow-stone-900/[0.02] backdrop-blur-xl dark:border-[#2b312d] dark:bg-[#181c1a]/90">
-            <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 2xl:px-16">
-                <div class="h-[4.5rem] flex items-center justify-between">
+                    <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
+                        <a href="{{ route('home') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Beranda</a>
+                        <a href="{{ route('news.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Semua berita</a>
+                    </nav>
 
-                    <!-- Brand -->
-                    <div class="flex items-center gap-8">
-
-                        <a href="{{ route('home') }}" class="flex items-center gap-3">
-                            <div
-                                class="flex h-9 w-9 items-center justify-center rounded-md bg-[#1C775A] text-white font-bold">
-                                NU
-                            </div>
-
-                            <div class="font-editorial text-lg font-semibold tracking-tight text-[#1C775A] sm:text-xl lg:text-2xl">
-                                Portal Berita NU
-                            </div>
-                        </a>
-
-                        <!-- Desktop Navigation -->
-                        <nav class="hidden md:flex items-center gap-6">
-
-                            <a href="{{ route('home') }}"
-                                class="font-interface text-sm font-semibold transition-colors
-                                {{ request()->routeIs('home')
-                                    ? 'text-[#1C775A]'
-                                    : 'text-[#4A5550] hover:text-[#1C775A] dark:text-[#bbcabf] dark:hover:text-[#53e0a0]' }}">
-                                Beranda
-                            </a>
-
-                            <a href="{{ route('news.index') }}"
-                                class="font-interface text-sm font-semibold transition-colors
-                                {{ request()->routeIs('news.*')
-                                    ? 'text-[#1C775A]'
-                                    : 'text-[#4A5550] hover:text-[#1C775A] dark:text-[#bbcabf] dark:hover:text-[#53e0a0]' }}">
-                                Berita
-                            </a>
-
-                        </nav>
-                    </div>
-
-                    <!-- Desktop Actions -->
-                    <div class="hidden sm:flex items-center gap-3">
-
+                    <div class="hidden items-center gap-2 sm:flex">
                         <x-theme-toggle />
-
                         @auth
-                            <a href="{{ route('dashboard') }}"
-                                class="inline-flex items-center rounded-md bg-[#1C775A] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#155A44]">
-                                Dashboard
-                            </a>
+                            <a href="{{ route('dashboard') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]">Dashboard <span aria-hidden="true">↗</span></a>
                         @else
-                            <a href="{{ route('login') }}"
-                                class="inline-flex items-center rounded-md bg-[#1C775A] px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#155A44]">
-                                Login
-                            </a>
+                            <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]">Masuk <span aria-hidden="true">↗</span></a>
                         @endauth
-
                     </div>
 
-                    <!-- Mobile Button -->
-                    <button type="button" @click="open = !open"
-                        class="inline-flex items-center justify-center rounded-md p-2 text-[#4A5550] hover:bg-gray-100 md:hidden dark:text-[#bbcabf] dark:hover:bg-[#1c201e]"
-                        aria-label="Toggle navigation">
-                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-
-                            <path x-show="open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 6l12 12M6 18L18 6" />
-                        </svg>
+                    <button type="button" @click="open = !open" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#dde0d6] text-[#1a5b41] md:hidden dark:border-[#364339] dark:text-[#a8ddb8]" aria-label="Toggle navigation" :aria-expanded="open.toString()">
+                        <svg x-show="!open" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                        <svg x-show="open" x-cloak class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 6l12 12M18 6L6 18"/></svg>
                     </button>
-
                 </div>
             </div>
 
-            <!-- Mobile Navigation -->
-            <div x-show="open" x-transition
-                class="border-t border-[#CFD0C3] bg-white md:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
-                <div class="space-y-1 px-4 py-3">
-
-                    <a href="{{ route('home') }}"
-                        class="block rounded-md px-3 py-2 text-sm font-semibold text-[#15201B] hover:bg-[#F5FAF8] hover:text-[#1C775A] dark:text-[#e0e3df] dark:hover:bg-[#1c201e]">
-                        Beranda
-                    </a>
-
-                    <a href="{{ route('news.index') }}"
-                        class="block rounded-md px-3 py-2 text-sm font-semibold text-[#15201B] hover:bg-[#F5FAF8] hover:text-[#1C775A] dark:text-[#e0e3df] dark:hover:bg-[#1c201e]">
-                        Berita
-                    </a>
-
-                    @auth
-                        <a href="{{ route('dashboard') }}"
-                            class="block rounded-md bg-[#1C775A] px-3 py-2 text-sm font-semibold text-white">
-                            Dashboard
-                        </a>
-                    @else
-                        <a href="{{ route('login') }}"
-                            class="block rounded-md bg-[#1C775A] px-3 py-2 text-sm font-semibold text-white">
-                            Login
-                        </a>
-                    @endauth
-
-                </div>
+            <div x-show="open" x-cloak x-transition class="border-t border-[#dde0d6] bg-[#fffef9] px-4 py-4 md:hidden dark:border-[#364339] dark:bg-[#19221c]">
+                <nav class="mx-auto max-w-[1500px] space-y-1" aria-label="Navigasi seluler">
+                    <a href="{{ route('home') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Beranda</a>
+                    <a href="{{ route('news.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Semua berita</a>
+                    <div class="flex items-center gap-2 pt-2">
+                        <x-theme-toggle />
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="portal-button flex-1 rounded-xl">Dashboard ↗</a>
+                        @else
+                            <a href="{{ route('login') }}" class="portal-button flex-1 rounded-xl">Masuk ↗</a>
+                        @endauth
+                    </div>
+                </nav>
             </div>
         </header>
 
+        <main class="w-full flex-1">{{ $slot }}</main>
 
-        <!-- Main Content -->
-        <main class="flex-1 w-full">
-
-            {{ $slot }}
-
-        </main>
-
-
-        <!-- Footer -->
-        <footer class="mt-auto border-t border-[#CFD0C3] bg-[#15201B] px-4 py-12 text-[#CFD0C3] sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-screen-2xl">
-
-                <div class="grid gap-10 md:grid-cols-3">
-
-                    <!-- Brand -->
+        <footer class="mt-auto bg-[#192b23] text-[#e3e8dc] dark:bg-[#0d130f]">
+            <div class="mx-auto max-w-[1500px] px-4 py-12 sm:px-7 lg:px-10 lg:py-16">
+                <div class="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.4fr_.7fr_.9fr]">
                     <div>
-                        <div class="font-editorial text-2xl font-semibold text-white">
-                            Portal Berita NU
+                        <div class="flex items-center gap-3">
+                            <span class="flex h-11 w-11 items-center justify-center border border-[#80ca9d] font-extrabold tracking-tight text-[#a8ddb8]">NU</span>
+                            <div>
+                                <p class="font-editorial text-xl font-extrabold tracking-[-.04em] text-white">Portal NU</p>
+                                <p class="mt-1 text-[9px] font-extrabold uppercase tracking-[.2em] text-[#a8b8a8]">Ranting Pekuncen</p>
+                            </div>
                         </div>
-
-                        <p class="mt-3 max-w-md text-sm leading-6 text-[#CFD0C3]">
-                            Portal informasi dan berita untuk menyajikan
-                            kegiatan serta informasi seputar NU.
-                        </p>
+                        <p class="mt-5 max-w-md text-sm leading-7 text-[#b9c7b8]">Kabar kegiatan, informasi, dan cerita dari lingkungan Nahdlatul Ulama di Pekuncen. Dekat dengan warga, terbuka untuk semua.</p>
                     </div>
-
-                    <!-- Navigation -->
                     <div>
-                        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">
-                            Navigasi
-                        </h3>
-
-                        <div class="mt-4 space-y-2">
-
-                            <a href="{{ route('home') }}" class="block text-sm transition-colors hover:text-[#94DFE0]">
-                                Beranda
-                            </a>
-
-                            <a href="{{ route('news.index') }}"
-                                class="block text-sm transition-colors hover:text-[#94DFE0]">
-                                Berita
-                            </a>
-
+                        <p class="portal-kicker !text-[#a8ddb8]">Jelajahi</p>
+                        <div class="mt-4 space-y-3 text-sm font-semibold text-[#d1dbcf]">
+                            <a href="{{ route('home') }}" class="block transition hover:text-white">Beranda</a>
+                            <a href="{{ route('news.index') }}" class="block transition hover:text-white">Semua berita</a>
                             @auth
-                                <a href="{{ route('dashboard') }}"
-                                    class="block text-sm transition-colors hover:text-[#94DFE0]">
-                                    Dashboard
-                                </a>
+                                <a href="{{ route('dashboard') }}" class="block transition hover:text-white">Dashboard anggota</a>
                             @else
-                                <a href="{{ route('login') }}"
-                                    class="block text-sm transition-colors hover:text-[#94DFE0]">
-                                    Login
-                                </a>
+                                <a href="{{ route('login') }}" class="block transition hover:text-white">Masuk anggota</a>
                             @endauth
-
                         </div>
                     </div>
-
-                    <!-- Organisation -->
                     <div>
-                        <h3 class="text-sm font-semibold uppercase tracking-wider text-white">
-                            Portal
-                        </h3>
-
-                        <p class="mt-4 text-sm leading-6 text-[#CFD0C3]">
-                            Media informasi resmi untuk lingkungan ranting
-                            NU yang menjadi cakupan portal ini.
-                        </p>
+                        <p class="portal-kicker !text-[#a8ddb8]">Tentang portal</p>
+                        <p class="mt-4 text-sm leading-7 text-[#b9c7b8]">Ruang digital untuk mendokumentasikan kegiatan, memperluas informasi, dan menjaga kabar lokal tetap mudah ditemukan.</p>
                     </div>
-
                 </div>
-
-                <div class="mt-10 border-t border-[#2b312d] pt-6">
-                    <p class="text-sm text-[#86948a]">
-                        &copy; {{ date('Y') }} Portal Berita NU. All rights reserved.
-                    </p>
+                <div class="flex flex-col gap-2 pt-6 text-xs text-[#93a393] sm:flex-row sm:items-center sm:justify-between">
+                    <p>© {{ date('Y') }} Portal Berita NU Pekuncen</p>
+                    <p>Informasi lokal. Jejak yang berkelanjutan.</p>
                 </div>
-
             </div>
         </footer>
-
     </div>
 </body>
-
 </html>

@@ -4,22 +4,19 @@ import forms from '@tailwindcss/forms';
 /** @type {import('tailwindcss').Config} */
 export default {
     darkMode: 'class',
-
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
     ],
-
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans],
-                interface: ['Inter', ...defaultTheme.fontFamily.sans],
-                editorial: ['Inter', ...defaultTheme.fontFamily.sans],
+                sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
+                interface: ['DM Sans', ...defaultTheme.fontFamily.sans],
+                editorial: ['Manrope', 'DM Sans', ...defaultTheme.fontFamily.sans],
             },
         },
     },
-
     plugins: [forms],
 };
