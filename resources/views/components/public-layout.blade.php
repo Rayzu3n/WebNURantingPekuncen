@@ -54,9 +54,9 @@
                     <div class="hidden items-center gap-2 sm:flex">
                         <x-theme-toggle />
                         @auth
-                            <a href="{{ route('dashboard') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]">Dashboard <span aria-hidden="true">↗</span></a>
+                            <a href="{{ route('dashboard') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]"> <x-portal-icon name="dashboard" class="h-4 w-4" />Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]">Masuk <span aria-hidden="true">↗</span></a>
+                            <a href="{{ route('login') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]"><x-portal-icon name="log-in" class="h-4 w-4" />Masuk</a>
                         @endauth
                     </div>
 
@@ -77,9 +77,9 @@
                     <div class="flex items-center gap-2 pt-2">
                         <x-theme-toggle />
                         @auth
-                            <a href="{{ route('dashboard') }}" class="portal-button flex-1 rounded-xl">Dashboard ↗</a>
+                            <a href="{{ route('dashboard') }}" class="portal-button flex-1 rounded-xl"><x-portal-icon name="dashboard" class="h-4 w-4" />Dashboard</a>
                         @else
-                            <a href="{{ route('login') }}" class="portal-button flex-1 rounded-xl">Masuk ↗</a>
+                            <a href="{{ route('login') }}" class="portal-button flex-1 rounded-xl"><x-portal-icon name="log-in" class="h-4 w-4" />Masuk</a>
                         @endauth
                     </div>
                 </nav>
