@@ -9,8 +9,9 @@
     <title>{{ config('app.name', 'Portal Berita NU') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=work-sans:400,500,600,700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Theme -->
     <script>
@@ -37,7 +38,7 @@
     </style>
 </head>
 
-<body class="font-sans antialiased bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+<body class="font-sans antialiased bg-stone-50 dark:bg-[#101412] text-stone-900 dark:text-stone-100">
 
     <div x-data="{ sidebarOpen: false }" class="min-h-screen">
 
@@ -117,11 +118,11 @@
                     <a href="{{ route('admin.dashboard') }}"
                         class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
                 {{ request()->routeIs('admin.dashboard')
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-950/30'
+                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
                     : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-gray-500 group-hover:text-blue-400' }}"
+                    {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M3 12l9-9 9 9M5 10v10h14V10M9 20v-6h6v6" />
@@ -134,11 +135,11 @@
                     <a href="{{ route('admin.news.index') }}"
                         class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
                 {{ request()->routeIs('admin.news.*')
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-950/30'
+                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
                     : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.news.*') ? 'text-white' : 'text-gray-500 group-hover:text-blue-400' }}"
+                    {{ request()->routeIs('admin.news.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5" />
@@ -151,11 +152,11 @@
                     <a href="{{ route('admin.categories.index') }}"
                         class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
                 {{ request()->routeIs('admin.categories.*')
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-950/30'
+                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
                     : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.categories.*') ? 'text-white' : 'text-gray-500 group-hover:text-blue-400' }}"
+                    {{ request()->routeIs('admin.categories.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M4 6h6v6H4zM14 6h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" />
@@ -168,11 +169,11 @@
                     <a href="{{ route('admin.members.index') }}"
                         class="group flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all duration-150
                 {{ request()->routeIs('admin.members.*')
-                    ? 'bg-blue-600 text-white shadow-lg shadow-blue-950/30'
+                    ? 'bg-emerald-700 text-white shadow-lg shadow-emerald-950/20'
                     : 'text-gray-300 hover:bg-white/5 hover:text-white' }}">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             class="h-5 w-5 shrink-0
-                    {{ request()->routeIs('admin.members.*') ? 'text-white' : 'text-gray-500 group-hover:text-blue-400' }}"
+                    {{ request()->routeIs('admin.members.*') ? 'text-white' : 'text-gray-500 group-hover:text-emerald-300' }}"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />

@@ -1,436 +1,178 @@
 <x-public-layout>
-
-    {{-- Breaking News --}}
-    @if ($latestNews->isNotEmpty())
-        <section class="border-b border-[#d9ddd9] dark:border-[#2b312d]">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex items-center gap-4 py-3">
-
-                    <span
-                        class="shrink-0 rounded-md bg-[#1C775A] px-3 py-1.5
-                               font-interface text-[10px] font-bold uppercase
-                               tracking-[0.12em] text-white">
-                        TERKINI
-                    </span>
-
-                    <a href="{{ route('news.show', $latestNews->first()->slug) }}"
-                        class="min-w-0 truncate font-interface text-sm
-                               text-[#4A5550] transition-colors
-                               hover:text-[#1C775A]
-                               dark:text-[#b8c1bb]
-                               dark:hover:text-[#53e0a0]">
-                        {{ $latestNews->first()->title }}
-                    </a>
-
-                </div>
+    @if ($latestNews->isNotEmpty() || $featuredNews)
+        @php($tickerNews = $featuredNews ?? $latestNews->first())
+        <div class="border-b border-stone-200 bg-stone-50 dark:border-white/10 dark:bg-[#151a17]">
+            <div class="mx-auto flex max-w-screen-2xl items-center gap-3 px-4 py-3 sm:px-6 lg:px-8">
+                <span class="shrink-0 rounded-sm bg-emerald-800 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-white dark:bg-emerald-400 dark:text-emerald-950">Warta utama</span>
+                <a href="{{ route('news.show', $tickerNews->slug) }}" class="min-w-0 truncate text-sm font-medium text-stone-700 transition hover:text-emerald-800 dark:text-stone-200 dark:hover:text-emerald-300">
+                    {{ $tickerNews->title }}
+                </a>
+                <span class="ml-auto hidden shrink-0 text-xs text-stone-400 sm:block">{{ now()->translatedFormat('l, d F Y') }}</span>
             </div>
-        </section>
+        </div>
     @endif
 
+    <main class="mx-auto w-full max-w-screen-2xl px-4 sm:px-8 lg:px-12 2xl:px-16">
+        <section class="flex flex-col gap-4 border-b border-stone-200 py-8 dark:border-white/10 sm:flex-row sm:items-end sm:justify-between sm:py-10 lg:py-12">
+            <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-emerald-800 dark:text-emerald-300">Informasi • Kabar • Khidmah</p>
+                <h1 class="mt-2 max-w-3xl font-editorial text-3xl font-semibold leading-tight tracking-[-0.04em] text-stone-950 dark:text-stone-50 sm:text-4xl lg:text-5xl">
+                    Kabar terbaru dari <span class="text-emerald-800 dark:text-emerald-300">Pekuncen.</span>
+                </h1>
+            </div>
+            <p class="max-w-sm text-sm leading-6 text-stone-600 dark:text-stone-400 sm:text-right">Berita, kegiatan, dan cerita dari lingkungan Nahdlatul Ulama di Pekuncen.</p>
+        </section>
 
-    {{-- Main Content --}}
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {{-- Hero --}}
         @if ($featuredNews)
-            <section class="py-8 lg:py-12">
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-
-                    {{-- Hero Image --}}
-                    <div class="lg:col-span-8">
-
-                        @if ($featuredNews->thumbnail)
-                            <a href="{{ route('news.show', $featuredNews->slug) }}" class="group block">
-                                <div
-                                    class="relative overflow-hidden rounded-xl
-                                            border border-[#d9ddd9]
-                                            bg-[#eef2ef]
-                                            dark:border-[#2b312d]
-                                            dark:bg-[#181c1a]">
-
-                                    <div class="aspect-[16/9] overflow-hidden">
-
-                                        <img src="{{ asset('storage/' . $featuredNews->thumbnail) }}"
-                                            alt="{{ $featuredNews->title }}"
-                                            class="w-full h-full object-cover
-                                                   transition-transform duration-500
-                                                   group-hover:scale-[1.025]">
-
-                                    </div>
-
-                                    <div class="absolute top-4 left-4">
-                                        <span
-                                            class="rounded-md bg-[#15201B]/85 px-3 py-1.5
-                                                   font-interface text-[10px] font-bold
-                                                   uppercase tracking-[0.1em] text-white">
-                                            Berita Utama
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </a>
-                        @else
-                            <div
-                                class="aspect-[16/9] rounded-xl border
-                                       border-[#d9ddd9] bg-[#eef2ef]
-                                       flex items-center justify-center
-                                       dark:border-[#2b312d]
-                                       dark:bg-[#181c1a]">
-                                <span class="font-interface text-sm text-gray-500 dark:text-gray-400">
-                                    Tidak ada gambar
-                                </span>
+            <section class="grid gap-7 border-b border-stone-200 py-8 dark:border-white/10 sm:py-10 lg:grid-cols-12 lg:items-stretch lg:gap-10 lg:py-12">
+                <div class="lg:col-span-7">
+                    <a href="{{ route('news.show', $featuredNews->slug) }}" class="group block">
+                        <div class="relative overflow-hidden rounded-xl border border-stone-200/80 bg-stone-200 dark:border-white/10 dark:bg-stone-800">
+                            <div class="aspect-[16/10] sm:aspect-[16/9]">
+                                @if ($featuredNews->thumbnail)
+                                    <img src="{{ asset('storage/' . $featuredNews->thumbnail) }}" alt="{{ $featuredNews->title }}" fetchpriority="high" class="h-full w-full object-cover transition duration-700 group-hover:scale-[1.03]">
+                                @else
+                                    <div class="flex h-full items-center justify-center text-sm text-stone-500">Gambar berita belum tersedia</div>
+                                @endif
                             </div>
-                        @endif
-
-                    </div>
-
-
-                    {{-- Hero Information --}}
-                    <div class="lg:col-span-4 flex flex-col justify-center">
-
-                        <div class="flex items-center gap-2">
-                            <span
-                                class="font-interface text-[10px] font-bold
-                                       uppercase tracking-[0.12em]
-                                       text-[#1C775A]
-                                       dark:text-[#53e0a0]">
-                                {{ $featuredNews->category->name }}
-                            </span>
-
-                            <span class="text-gray-400 dark:text-gray-600">
-                                •
-                            </span>
-
-                            <span
-                                class="font-interface text-xs
-                                       text-[#6b7771]
-                                       dark:text-[#889990]">
-                                {{ $featuredNews->published_at?->format('d M Y') }}
-                            </span>
+                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-stone-950/30 via-transparent to-transparent"></div>
+                            <span class="absolute left-3 top-3 bg-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-emerald-900 shadow-sm sm:left-5 sm:top-5">Sorotan utama</span>
                         </div>
-
-
-                        <h1
-                            class="mt-4 font-editorial text-4xl
-                                   leading-[1.08] font-semibold
-                                   tracking-[-0.02em]
-                                   text-[#15201B]
-                                   dark:text-[#e0e3df]
-                                   lg:text-[46px]">
-                            <a href="{{ route('news.show', $featuredNews->slug) }}"
-                                class="transition-colors
-                                       hover:text-[#1C775A]
-                                       dark:hover:text-[#53e0a0]">
-                                {{ $featuredNews->title }}
-                            </a>
-                        </h1>
-
-
-                        @if ($featuredNews->excerpt)
-                            <p
-                                class="mt-5 font-editorial text-lg
-                                       leading-8
-                                       text-[#5b6761]
-                                       dark:text-[#abb6ae]">
-                                {{ $featuredNews->excerpt }}
-                            </p>
-                        @endif
-
-
-                        <div
-                            class="mt-7 pt-5 border-t
-                                    border-[#d9ddd9]
-                                    dark:border-[#2b312d]">
-
-                            <div class="flex items-center gap-3">
-
-                                <div
-                                    class="flex h-10 w-10 shrink-0 items-center
-                                           justify-center rounded-full
-                                           bg-[#2ec486]
-                                           font-interface text-xs font-bold
-                                           text-[#003822]">
-                                    {{ mb_strtoupper(mb_substr($featuredNews->author->name, 0, 2)) }}
-                                </div>
-
-                                <div>
-                                    <p
-                                        class="font-interface text-sm font-semibold
-                                               text-[#15201B]
-                                               dark:text-[#e0e3df]">
-                                        {{ $featuredNews->author->name }}
-                                    </p>
-
-                                    <p
-                                        class="mt-0.5 font-interface text-xs
-                                               text-[#6b7771]
-                                               dark:text-[#889990]">
-                                        {{ $featuredNews->published_at?->format('d M Y H:i') }}
-                                    </p>
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                    </a>
                 </div>
 
+                <div class="flex flex-col justify-center lg:col-span-5 lg:py-2">
+                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] font-bold uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-300">
+                        <span>{{ $featuredNews->category?->name ?? 'Berita' }}</span>
+                        @if ($featuredNews->published_at)
+                            <span aria-hidden="true" class="text-stone-400">/</span>
+                            <time datetime="{{ $featuredNews->published_at->toDateString() }}" class="font-medium tracking-normal text-stone-500 dark:text-stone-400">{{ $featuredNews->published_at->translatedFormat('d F Y') }}</time>
+                        @endif
+                    </div>
+                    <h2 class="mt-3 font-editorial text-3xl font-semibold leading-[1.08] tracking-[-0.035em] text-stone-950 dark:text-stone-50 sm:text-4xl lg:text-[2.65rem]">
+                        <a href="{{ route('news.show', $featuredNews->slug) }}" class="transition-colors hover:text-emerald-800 dark:hover:text-emerald-300">{{ $featuredNews->title }}</a>
+                    </h2>
+                    @if ($featuredNews->excerpt)
+                        <p class="mt-4 line-clamp-4 text-sm leading-7 text-stone-600 dark:text-stone-300 sm:text-base">{{ $featuredNews->excerpt }}</p>
+                    @endif
+                    <div class="mt-6 flex items-center gap-3 border-t border-stone-200 pt-5 dark:border-white/10">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-xs font-bold text-emerald-900 dark:bg-emerald-900 dark:text-emerald-100">{{ mb_strtoupper(mb_substr($featuredNews->author?->name ?? 'NU', 0, 2)) }}</div>
+                        <div class="min-w-0">
+                            <p class="truncate text-sm font-semibold text-stone-900 dark:text-stone-100">{{ $featuredNews->author?->name ?? 'Redaksi' }}</p>
+                            <p class="mt-0.5 text-xs text-stone-500 dark:text-stone-400">Penulis berita</p>
+                        </div>
+                        <a href="{{ route('news.show', $featuredNews->slug) }}" class="ml-auto shrink-0 text-sm font-semibold text-emerald-800 hover:underline dark:text-emerald-300">Baca berita <span aria-hidden="true">↗</span></a>
+                    </div>
+                </div>
             </section>
         @endif
 
-
-        {{-- Latest News --}}
-        <section class="pb-12 lg:pb-16">
-
-            <div class="flex items-end justify-between gap-4
-                       border-b-2 border-[#2ec486] pb-3">
-
+        <section class="py-10 sm:py-12 lg:py-16">
+            <div class="flex items-end justify-between gap-4 border-b-2 border-emerald-800 pb-3 dark:border-emerald-400">
                 <div>
-                    <p
-                        class="font-interface text-[10px] font-bold uppercase
-                               tracking-[0.12em]
-                               text-[#1C775A]
-                               dark:text-[#53e0a0]">
-                        Portal Berita
-                    </p>
-
-                    <h2
-                        class="mt-1 font-editorial text-3xl font-semibold
-                               tracking-[-0.015em]
-                               text-[#15201B]
-                               dark:text-[#e0e3df]">
-                        Berita Terkini
-                    </h2>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Dari redaksi</p>
+                    <h2 class="mt-1 font-editorial text-3xl font-semibold tracking-[-0.03em] text-stone-950 dark:text-stone-50 sm:text-4xl">Berita terkini</h2>
                 </div>
-
-                <a href="{{ route('news.index') }}"
-                    class="hidden sm:inline-flex
-                           font-interface text-sm font-semibold
-                           text-[#1C775A]
-                           transition-colors
-                           hover:text-[#155A44]
-                           dark:text-[#53e0a0]
-                           dark:hover:text-[#71fcb8]">
-                    Lihat semua →
-                </a>
-
+                <a href="{{ route('news.index') }}" class="shrink-0 pb-1 text-xs font-semibold text-emerald-800 hover:underline dark:text-emerald-300 sm:text-sm">Semua berita <span aria-hidden="true">↗</span></a>
             </div>
-
 
             @if ($latestNews->isNotEmpty())
-
-                <div class="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-                    @foreach ($latestNews as $item)
-                        <article
-                            class="group overflow-hidden rounded-xl
-                                   border border-[#d9ddd9]
-                                   bg-white
-                                   transition-all duration-300
-                                   hover:-translate-y-0.5
-                                   hover:border-[#2ec486]/60
-                                   hover:shadow-lg
-                                   dark:border-[#2b312d]
-                                   dark:bg-[#181c1a]">
-
-                            @if ($item->thumbnail)
-                                <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden">
-                                    <div class="aspect-[16/10] overflow-hidden">
-                                        <img src="{{ asset('storage/' . $item->thumbnail) }}"
-                                            alt="{{ $item->title }}"
-                                            class="w-full h-full object-cover
-                                                   transition-transform duration-500
-                                                   group-hover:scale-[1.025]">
+                <div class="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
+                    <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:col-span-8 lg:gap-y-10">
+                        @foreach ($latestNews->take(4) as $item)
+                            <article class="group flex min-w-0 flex-col rounded-xl transition-transform duration-300 hover:-translate-y-1">
+                                <a href="{{ route('news.show', $item->slug) }}" class="block overflow-hidden rounded-xl bg-stone-100 dark:bg-stone-800">
+                                    <div class="aspect-[16/10]">
+                                        @if ($item->thumbnail)
+                                            <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]">
+                                        @else
+                                            <div class="flex h-full items-center justify-center text-xs text-stone-500">Gambar tidak tersedia</div>
+                                        @endif
                                     </div>
                                 </a>
-                            @endif
-
-
-                            <div class="p-5">
-
-                                <div class="flex items-center gap-2">
-
-                                    <span
-                                        class="font-interface text-[10px]
-                                               font-bold uppercase
-                                               tracking-[0.1em]
-                                               text-[#1C775A]
-                                               dark:text-[#53e0a0]">
-                                        {{ $item->category->name }}
-                                    </span>
-
-                                    <span class="text-gray-400 dark:text-gray-600">
-                                        •
-                                    </span>
-
-                                    <span
-                                        class="font-interface text-xs
-                                               text-[#6b7771]
-                                               dark:text-[#889990]">
-                                        {{ $item->published_at?->format('d M Y') }}
-                                    </span>
-
+                                <div class="flex flex-1 flex-col px-1 pt-4">
+                                    <div class="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-bold uppercase tracking-[0.12em] text-emerald-800 dark:text-emerald-300">
+                                        <span>{{ $item->category?->name ?? 'Berita' }}</span>
+                                        @if ($item->published_at)
+                                            <span aria-hidden="true" class="text-stone-400">/</span>
+                                            <time datetime="{{ $item->published_at->toDateString() }}" class="font-medium tracking-normal text-stone-500 dark:text-stone-400">{{ $item->published_at->translatedFormat('d M Y') }}</time>
+                                        @endif
+                                    </div>
+                                    <h3 class="mt-2 font-editorial text-xl font-semibold leading-tight tracking-[-0.025em] text-stone-950 dark:text-stone-50 sm:text-2xl">
+                                        <a href="{{ route('news.show', $item->slug) }}" class="transition-colors group-hover:text-emerald-800 dark:group-hover:text-emerald-300">{{ $item->title }}</a>
+                                    </h3>
+                                    @if ($item->excerpt)
+                                        <p class="mt-2 line-clamp-3 text-sm leading-6 text-stone-600 dark:text-stone-400">{{ \Illuminate\Support\Str::limit($item->excerpt, 125) }}</p>
+                                    @endif
+                                    <div class="mt-4 flex items-center justify-between gap-3 border-t border-stone-200 pt-3 dark:border-white/10">
+                                        <span class="truncate text-xs text-stone-500 dark:text-stone-400">{{ $item->author?->name ?? 'Redaksi' }}</span>
+                                        <a href="{{ route('news.show', $item->slug) }}" class="shrink-0 text-xs font-semibold text-emerald-800 hover:underline dark:text-emerald-300">Baca ↗</a>
+                                    </div>
                                 </div>
+                            </article>
+                        @endforeach
+                    </div>
 
-
-                                <h3
-                                    class="mt-3 font-editorial text-2xl
-                                           leading-tight font-semibold
-                                           text-[#15201B]
-                                           dark:text-[#e0e3df]">
-                                    <a href="{{ route('news.show', $item->slug) }}"
-                                        class="transition-colors
-                                               group-hover:text-[#1C775A]
-                                               dark:group-hover:text-[#53e0a0]">
-                                        {{ $item->title }}
-                                    </a>
-                                </h3>
-
-
-                                @if ($item->excerpt)
-                                    <p
-                                        class="mt-3 font-interface text-sm
-                                               leading-6
-                                               text-[#5f6b65]
-                                               dark:text-[#889990]">
-                                        {{ \Illuminate\Support\Str::limit($item->excerpt, 120) }}
-                                    </p>
-                                @endif
-
-
-                                <div
-                                    class="mt-5 flex items-center justify-between
-                                           gap-3 border-t
-                                           border-[#d9ddd9]
-                                           pt-4
-                                           dark:border-[#2b312d]">
-
-                                    <span
-                                        class="font-interface text-xs
-                                               font-medium
-                                               text-[#5f6b65]
-                                               dark:text-[#889990]">
-                                        {{ $item->author->name }}
-                                    </span>
-
-                                    <a href="{{ route('news.show', $item->slug) }}"
-                                        class="font-interface text-xs
-                                               font-semibold
-                                               text-[#1C775A]
-                                               dark:text-[#53e0a0]">
-                                        Baca →
-                                    </a>
-
-                                </div>
-
+                    @if ($latestNews->count() > 4)
+                        <aside class="lg:col-span-4">
+                            <div class="flex items-center gap-2 border-b border-stone-200 pb-3 dark:border-white/10">
+                                <span class="h-2 w-2 rounded-full bg-amber-500"></span>
+                                <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Warta lainnya</h3>
                             </div>
-
-                        </article>
-                    @endforeach
-
+                            <div class="divide-y divide-stone-200 dark:divide-white/10">
+                                @foreach ($latestNews->slice(4) as $item)
+                                    <article class="group flex gap-4 py-4">
+                                        <a href="{{ route('news.show', $item->slug) }}" class="h-24 w-28 shrink-0 overflow-hidden rounded-xl bg-stone-100 sm:h-28 sm:w-32">
+                                            @if ($item->thumbnail)
+                                                <img src="{{ asset('storage/' . $item->thumbnail) }}" alt="{{ $item->title }}" loading="lazy" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.04]">
+                                            @else
+                                                <span class="flex h-full items-center justify-center px-2 text-center text-[10px] text-stone-500">Tanpa gambar</span>
+                                            @endif
+                                        </a>
+                                        <div class="min-w-0">
+                                            <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">{{ $item->category?->name ?? 'Berita' }}</p>
+                                            <h4 class="mt-1 line-clamp-3 text-sm font-semibold leading-5 text-stone-900 group-hover:text-emerald-800 dark:text-stone-100 dark:group-hover:text-emerald-300">
+                                                <a href="{{ route('news.show', $item->slug) }}">{{ $item->title }}</a>
+                                            </h4>
+                                            @if ($item->published_at)
+                                                <time datetime="{{ $item->published_at->toDateString() }}" class="mt-2 block text-xs text-stone-500 dark:text-stone-400">{{ $item->published_at->translatedFormat('d M Y') }}</time>
+                                            @endif
+                                        </div>
+                                    </article>
+                                @endforeach
+                            </div>
+                        </aside>
+                    @endif
                 </div>
             @else
-                <div
-                    class="mt-7 rounded-xl border
-                           border-[#d9ddd9] p-10 text-center
-                           dark:border-[#2b312d]">
-                    <p
-                        class="font-interface text-sm
-                               text-gray-500
-                               dark:text-gray-400">
-                        Belum ada berita yang dipublikasikan.
-                    </p>
+                <div class="mt-6 rounded-xl border border-dashed border-stone-300 px-5 py-12 text-center dark:border-white/15">
+                    <p class="text-sm text-stone-500 dark:text-stone-400">Belum ada berita yang dipublikasikan.</p>
                 </div>
-
             @endif
+        </section>
 
+        <section class="border-t border-stone-200 py-10 dark:border-white/10 sm:py-12 lg:py-14">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                <div>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-emerald-800 dark:text-emerald-300">Jelajahi topik</p>
+                    <h2 class="mt-1 font-editorial text-2xl font-semibold tracking-[-0.025em] text-stone-950 dark:text-stone-50 sm:text-3xl">Telusuri kategori</h2>
+                </div>
+                <p class="max-w-md text-sm leading-6 text-stone-500 dark:text-stone-400">Temukan kabar berdasarkan topik yang ingin kamu ikuti.</p>
+            </div>
 
-            <div class="mt-7 sm:hidden">
-                <a href="{{ route('news.index') }}"
-                    class="font-interface text-sm font-semibold
-                           text-[#1C775A]
-                           dark:text-[#53e0a0]">
-                    Lihat semua berita →
+            <div class="mt-5 flex gap-2 overflow-x-auto pb-2">
+                <a href="{{ route('news.index') }}" class="inline-flex min-h-10 shrink-0 items-center gap-3 rounded-full border border-emerald-800 bg-emerald-50 px-4 py-2 text-sm font-semibold text-emerald-900 transition hover:bg-emerald-100 dark:border-emerald-400 dark:bg-emerald-950/40 dark:text-emerald-200">
+                    Semua berita <span aria-hidden="true">↗</span>
                 </a>
+                @forelse (\App\Models\NewsCategory::withCount(['news' => fn ($query) => $query->where('status', 'published')])->orderBy('name')->get() as $category)
+                    <a href="{{ route('news.index', ['category' => $category->slug]) }}" class="inline-flex min-h-10 shrink-0 items-center gap-3 rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 transition hover:border-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 dark:border-white/15 dark:text-stone-200 dark:hover:border-emerald-400 dark:hover:bg-emerald-950/40 dark:hover:text-emerald-200">
+                        {{ $category->name }}
+                        <span class="text-xs tabular-nums text-stone-400">{{ $category->news_count }}</span>
+                    </a>
+                @empty
+                    <p class="text-sm text-stone-500 dark:text-stone-400">Belum ada kategori.</p>
+                @endforelse
             </div>
-
         </section>
-
-
-        {{-- Categories --}}
-        <section class="pb-16">
-
-            <div class="border-t border-[#d9ddd9] pt-8
-                       dark:border-[#2b312d]">
-
-                <div class="mb-6">
-                    <p
-                        class="font-interface text-[10px] font-bold
-                               uppercase tracking-[0.12em]
-                               text-[#1C775A]
-                               dark:text-[#53e0a0]">
-                        Jelajahi
-                    </p>
-
-                    <h2
-                        class="mt-1 font-editorial text-2xl font-semibold
-                               text-[#15201B]
-                               dark:text-[#e0e3df]">
-                        Kategori Berita
-                    </h2>
-                </div>
-
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-
-                    @forelse (\App\Models\NewsCategory::orderBy('name')->get() as $category)
-                        <a href="{{ route('news.index') }}"
-                            class="group flex items-center justify-between
-                                   rounded-lg border
-                                   border-[#d9ddd9]
-                                   bg-[#f8faf8]
-                                   px-4 py-4
-                                   transition-colors
-                                   hover:border-[#2ec486]
-                                   hover:bg-[#f0f7f3]
-                                   dark:border-[#2b312d]
-                                   dark:bg-[#181c1a]
-                                   dark:hover:bg-[#1c201e]">
-                            <span
-                                class="font-interface text-sm font-semibold
-                                       text-[#3f4b45]
-                                       group-hover:text-[#1C775A]
-                                       dark:text-[#c0c9c3]
-                                       dark:group-hover:text-[#53e0a0]">
-                                {{ $category->name }}
-                            </span>
-
-                            <span
-                                class="text-[#1C775A] transition-transform
-                                       group-hover:translate-x-1
-                                       dark:text-[#53e0a0]">
-                                →
-                            </span>
-                        </a>
-
-                    @empty
-
-                        <p
-                            class="font-interface text-sm text-gray-500
-                                   dark:text-gray-400">
-                            Belum ada kategori.
-                        </p>
-                    @endforelse
-
-                </div>
-
-            </div>
-
-        </section>
-
     </main>
-
 </x-public-layout>

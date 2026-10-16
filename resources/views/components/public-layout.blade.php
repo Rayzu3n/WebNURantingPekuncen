@@ -16,7 +16,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Work+Sans:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <script>
@@ -39,15 +39,15 @@
         }
 
         html {
-            font-family: 'Work Sans', sans-serif;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .font-editorial {
-            font-family: 'Newsreader', serif;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .font-interface {
-            font-family: 'Work Sans', sans-serif;
+            font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
         }
 
         .public-selection::selection {
@@ -65,9 +65,9 @@
 
         <!-- Navigation -->
         <header x-data="{ open: false }"
-            class="sticky top-0 z-50 border-b border-[#CFD0C3] bg-white/95 backdrop-blur-md dark:border-[#2b312d] dark:bg-[#181c1a]/95">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="h-16 flex items-center justify-between">
+            class="sticky top-0 z-50 border-b border-[#CFD0C3]/80 bg-white/90 shadow-sm shadow-stone-900/[0.02] backdrop-blur-xl dark:border-[#2b312d] dark:bg-[#181c1a]/90">
+            <div class="max-w-screen-2xl mx-auto px-4 sm:px-8 lg:px-12 2xl:px-16">
+                <div class="h-[4.5rem] flex items-center justify-between">
 
                     <!-- Brand -->
                     <div class="flex items-center gap-8">
@@ -78,7 +78,7 @@
                                 NU
                             </div>
 
-                            <div class="font-editorial text-2xl font-semibold tracking-tight text-[#1C775A]">
+                            <div class="font-editorial text-lg font-semibold tracking-tight text-[#1C775A] sm:text-xl lg:text-2xl">
                                 Portal Berita NU
                             </div>
                         </a>
@@ -126,7 +126,7 @@
 
                     <!-- Mobile Button -->
                     <button type="button" @click="open = !open"
-                        class="inline-flex items-center justify-center rounded-md p-2 text-[#4A5550] hover:bg-gray-100 sm:hidden dark:text-[#bbcabf] dark:hover:bg-[#1c201e]"
+                        class="inline-flex items-center justify-center rounded-md p-2 text-[#4A5550] hover:bg-gray-100 md:hidden dark:text-[#bbcabf] dark:hover:bg-[#1c201e]"
                         aria-label="Toggle navigation">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path x-show="!open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -142,7 +142,7 @@
 
             <!-- Mobile Navigation -->
             <div x-show="open" x-transition
-                class="border-t border-[#CFD0C3] bg-white sm:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
+                class="border-t border-[#CFD0C3] bg-white md:hidden dark:border-[#2b312d] dark:bg-[#181c1a]">
                 <div class="space-y-1 px-4 py-3">
 
                     <a href="{{ route('home') }}"
@@ -182,7 +182,7 @@
 
         <!-- Footer -->
         <footer class="mt-auto border-t border-[#CFD0C3] bg-[#15201B] px-4 py-12 text-[#CFD0C3] sm:px-6 lg:px-8">
-            <div class="mx-auto max-w-7xl">
+            <div class="mx-auto max-w-screen-2xl">
 
                 <div class="grid gap-10 md:grid-cols-3">
 

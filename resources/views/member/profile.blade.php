@@ -50,8 +50,8 @@
                     @else
                         <div
                             class="flex h-16 w-16 items-center justify-center rounded-2xl
-                            bg-blue-50 text-xl font-bold text-blue-600
-                            dark:bg-blue-500/10 dark:text-blue-400">
+                            bg-emerald-50 text-xl font-bold text-emerald-600
+                            dark:bg-emerald-500/10 dark:text-emerald-400">
                             {{ strtoupper(substr($member->user->name, 0, 1)) }}
                         </div>
                     @endif
@@ -82,7 +82,7 @@
                     <section>
 
                         <div class="mb-5">
-                            <h2 class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            <h2 class="text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                                 Profile Photo
                             </h2>
                         </div>
@@ -104,12 +104,12 @@
                             <input id="photo" type="file" name="photo" accept=".jpg,.jpeg,.png,.webp"
                                 class="block w-full text-sm text-gray-600
                                 file:mr-4 file:rounded-lg file:border-0
-                                file:bg-blue-50 file:px-4 file:py-2
-                                file:text-sm file:font-semibold file:text-blue-700
-                                hover:file:bg-blue-100
+                                file:bg-emerald-50 file:px-4 file:py-2
+                                file:text-sm file:font-semibold file:text-emerald-700
+                                hover:file:bg-emerald-100
                                 dark:text-gray-400
-                                dark:file:bg-blue-500/10 dark:file:text-blue-400
-                                dark:hover:file:bg-blue-500/20">
+                                dark:file:bg-emerald-500/10 dark:file:text-emerald-400
+                                dark:hover:file:bg-emerald-500/20">
 
                             <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
                                 JPG, JPEG, PNG, or WebP. Maximum 2 MB.
@@ -124,7 +124,7 @@
                     <section>
 
                         <div class="mb-5">
-                            <h2 class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            <h2 class="text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                                 Identity
                             </h2>
                         </div>
@@ -173,9 +173,9 @@
                                 <select id="gender" name="gender"
                                     class="mt-2 block w-full rounded-xl border-gray-300 bg-white
                                     px-4 py-2.5 text-sm text-gray-900 shadow-sm
-                                    focus:border-blue-500 focus:ring-blue-500
+                                    focus:border-emerald-500 focus:ring-emerald-500
                                     dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100
-                                    dark:focus:border-blue-400 dark:focus:ring-blue-400"
+                                    dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
                                     required>
                                     <option value="L" @selected(old('gender', $member->gender) === 'L')>
                                         Laki-laki
@@ -197,7 +197,7 @@
                     <section>
 
                         <div class="mb-5">
-                            <h2 class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+                            <h2 class="text-sm font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
                                 Address
                             </h2>
                         </div>
@@ -205,9 +205,9 @@
                         <textarea id="address" name="address" rows="5"
                             class="block w-full rounded-xl border-gray-300 bg-white
                             px-4 py-3 text-sm leading-6 text-gray-900 shadow-sm
-                            focus:border-blue-500 focus:ring-blue-500
+                            focus:border-emerald-500 focus:ring-emerald-500
                             dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100
-                            dark:focus:border-blue-400 dark:focus:ring-blue-400"
+                            dark:focus:border-emerald-400 dark:focus:ring-emerald-400"
                             required>{{ old('address', $member->address) }}</textarea>
 
                         <x-input-error :messages="$errors->get('address')" class="mt-2" />
@@ -223,11 +223,11 @@
                     dark:border-gray-800 dark:bg-gray-900/40
                     sm:px-8">
                     <x-primary-button
-                        class="rounded-xl bg-blue-600 px-5 py-2.5
-                        shadow-lg shadow-blue-200/40
-                        hover:bg-blue-700
-                        dark:bg-blue-500 dark:shadow-blue-950/20
-                        dark:hover:bg-blue-600">
+                        class="rounded-xl bg-emerald-600 px-5 py-2.5
+                        shadow-lg shadow-emerald-200/40
+                        hover:bg-emerald-700
+                        dark:bg-emerald-500 dark:shadow-emerald-950/20
+                        dark:hover:bg-emerald-600">
                         Save Changes
                     </x-primary-button>
                 </div>
