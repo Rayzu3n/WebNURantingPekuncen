@@ -29,7 +29,7 @@
                         <p class="text-sm font-extrabold text-[#192b23] dark:text-[#ebefe5]">{{ $news->author?->name ?? 'Redaksi' }}</p>
                         <p class="mt-1 text-xs text-[#66746a] dark:text-[#a3b1a5]">Kontributor portal</p>
                     </div>
-                    <a href="{{ route('news.index') }}" class="ml-auto text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8] sm:text-sm">Kembali ke berita ←</a>
+                    <a href="{{ route('news.index') }}" class="ml-auto text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8] sm:text-sm"><x-portal-icon name="arrow-left" class="h-4 w-4" /> Kembali ke berita</a>
                 </div>
             </header>
 
@@ -48,7 +48,7 @@
                 <aside class="h-fit border-t border-[#dde0d6] pt-5 dark:border-[#364339] lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
                     <p class="portal-kicker">Terhubung</p>
                     <p class="mt-4 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Baca kabar lainnya dari lingkungan Pekuncen.</p>
-                    <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Jelajahi berita ↗</a>
+                    <a href="{{ route('news.index') }}" class="mt-4 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Jelajahi berita <x-portal-icon name="newspaper" class="h-4 w-4" /></a>
                 </aside>
             </div>
         </article>
