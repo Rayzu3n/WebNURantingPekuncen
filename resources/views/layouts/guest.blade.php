@@ -44,7 +44,14 @@
         <section class="relative flex min-h-screen flex-col items-center justify-center px-4 py-10 sm:px-8 lg:px-12">
             <div class="absolute right-5 top-5 sm:right-8 sm:top-8"><x-theme-toggle /></div>
             <div class="w-full max-w-md">
-                <a href="{{ route('home') }}" class="mb-8 inline-flex items-center gap-2 text-xs font-extrabold text-[#66746a] transition hover:text-[#1a5b41] dark:text-[#a3b1a5] dark:hover:text-[#a8ddb8]">← Kembali ke portal</a>
+                <a href="{{ route('home') }}" class="mb-8 inline-flex min-h-11 items-center gap-2.5 rounded-xl border border-[#cbd8ca] bg-[#f5f8f1] px-4 py-3 text-sm font-extrabold text-[#1a5b41] shadow-sm transition hover:border-[#1a5b41] hover:bg-[#e7eee5] focus:outline-none focus:ring-2 focus:ring-[#1a5b41] focus:ring-offset-2 dark:border-[#405646] dark:bg-[#213127] dark:text-[#a8ddb8] dark:hover:border-[#80ca9d] dark:hover:bg-[#2a3b2f]">
+                    <svg aria-hidden="true" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m3 10 9-7 9 7"/>
+                        <path d="M5 9v12h14V9"/>
+                        <path d="M9 21v-7h6v7"/>
+                    </svg>
+                    <span>Kembali ke halaman utama</span>
+                </a>
                 <div class="mb-6">
                     <p class="text-[10px] font-extrabold uppercase tracking-[.16em] text-[#b75d3c]">Portal keanggotaan</p>
                     <h2 class="mt-2 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5]">Selamat datang.</h2>
