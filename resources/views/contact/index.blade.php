@@ -50,7 +50,7 @@
                         @error('message')<p class="mt-1.5 text-xs font-semibold text-rose-700 dark:text-rose-300">{{ $message }}</p>@enderror
                     </div>
 
-                    <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center gap-2 bg-[#1a5b41] px-5 text-sm font-extrabold text-white transition hover:bg-[#134832] focus:outline-none focus:ring-2 focus:ring-[#1a5b41] focus:ring-offset-2 dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5] sm:w-auto">Kirim pesan <span aria-hidden="true">↗</span></button>
+                    <button type="submit" class="inline-flex min-h-12 w-full items-center justify-center gap-2 bg-[#1a5b41] px-5 text-sm font-extrabold text-white transition hover:bg-[#134832] focus:outline-none focus:ring-2 focus:ring-[#1a5b41] focus:ring-offset-2 dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5] sm:w-auto">Kirim pesan <x-portal-icon name="send" class="h-4 w-4" /></button>
                 </form>
             </section>
         </div>
