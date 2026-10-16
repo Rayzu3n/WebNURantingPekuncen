@@ -35,6 +35,7 @@
                 @php($navItems = $isAdmin ? [
                     ['label' => 'Ringkasan', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'icon' => '◫'],
                     ['label' => 'Berita', 'route' => 'admin.news.index', 'pattern' => 'admin.news.*', 'icon' => '▤'],
+                    ['label' => 'Kegiatan', 'route' => 'admin.events.index', 'pattern' => 'admin.events.*', 'icon' => '◇'],
                     ['label' => 'Kategori', 'route' => 'admin.categories.index', 'pattern' => 'admin.categories.*', 'icon' => '▦'],
                     ['label' => 'Anggota', 'route' => 'admin.members.index', 'pattern' => 'admin.members.*', 'icon' => '♧'],
                 ] : [
