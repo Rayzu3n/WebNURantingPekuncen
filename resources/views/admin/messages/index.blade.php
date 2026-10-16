@@ -46,7 +46,7 @@
                                 @php($statusLabels = ['new' => 'Baru', 'read' => 'Dibaca', 'replied' => 'Ditindaklanjuti', 'archived' => 'Arsip'])
                                 <span class="inline-flex rounded-full px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[.08em] {{ $message->status === 'new' ? 'bg-[#f3e6dd] text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]' : 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' }}">{{ $statusLabels[$message->status] ?? $message->status }}</span>
                             </td>
-                            <td><div class="flex justify-end"><a href="{{ route('admin.messages.show', $message) }}" class="text-xs font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">Buka pesan ↗</a></div></td>
+                            <td><div class="flex justify-end"><a href="{{ route('admin.messages.show', $message) }}" class="text-xs font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">Buka pesan <x-portal-icon name="mail" class="h-3.5 w-3.5" /></a></div></td>
                         </tr>
                     @empty
                         <tr><td colspan="5" class="px-5 py-14 text-center">
