@@ -46,6 +46,7 @@
                     <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
                         <a href="{{ route('home') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Beranda</a>
                         <a href="{{ route('news.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Semua berita</a>
+                        <a href="{{ route('events.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('events.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Kegiatan</a>
                     </nav>
 
                     <div class="hidden items-center gap-2 sm:flex">
@@ -68,6 +69,7 @@
                 <nav class="mx-auto max-w-[1500px] space-y-1" aria-label="Navigasi seluler">
                     <a href="{{ route('home') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Beranda</a>
                     <a href="{{ route('news.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Semua berita</a>
+                    <a href="{{ route('events.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('events.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Kegiatan</a>
                     <div class="flex items-center gap-2 pt-2">
                         <x-theme-toggle />
                         @auth
