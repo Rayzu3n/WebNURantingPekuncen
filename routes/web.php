@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\MemberController;
 use App\Http\Controllers\Admin\NewsCategoryController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\EventController as PublicEventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\CardController;
 use App\Http\Controllers\Member\ProfileController as MemberProfileController;
