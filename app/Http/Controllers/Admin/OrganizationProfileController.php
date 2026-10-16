@@ -12,10 +12,8 @@ class OrganizationProfileController extends Controller
 {
     public function edit(): View
     {
-        $profile = OrganizationProfile::query()->firstOrNew(
-            ['id' => 1],
-            ['name' => 'NU Ranting Pekuncen']
-        );
+        $profile = OrganizationProfile::query()->first()
+            ?? new OrganizationProfile(['name' => 'NU Ranting Pekuncen']);
 
         return view('admin.organization-profile.edit', compact('profile'));
     }
@@ -38,7 +36,7 @@ class OrganizationProfileController extends Controller
             'instagram_url' => ['nullable', 'url', 'max:255'],
         ]);
 
-        $profile = OrganizationProfile::query()->firstOrNew(['id' => 1]);
+        $profile = OrganizationProfile::query()->first() ?? new OrganizationProfile();
         $profile->fill($validated);
         $profile->save();
 
