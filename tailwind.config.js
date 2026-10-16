@@ -16,7 +16,7 @@ export default {
             fontFamily: {
                 sans: ['Inter', ...defaultTheme.fontFamily.sans],
                 interface: ['Inter', ...defaultTheme.fontFamily.sans],
-                editorial: ['Newsreader', 'Georgia', 'serif'],
+                editorial: ['Inter', ...defaultTheme.fontFamily.sans],
             },
         },
     },
