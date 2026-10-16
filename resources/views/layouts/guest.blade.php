@@ -46,23 +46,6 @@
         dark:bg-[#101827] dark:text-gray-100
         sm:px-6">
 
-        <!-- Background Decoration -->
-        <div class="pointer-events-none absolute inset-0 overflow-hidden">
-
-            <div
-                class="absolute -left-32 -top-32 h-72 w-72 rounded-full
-                bg-blue-500/10 blur-3xl
-                dark:bg-blue-500/10">
-            </div>
-
-            <div
-                class="absolute -bottom-32 -right-32 h-72 w-72 rounded-full
-                bg-cyan-400/10 blur-3xl
-                dark:bg-cyan-400/10">
-            </div>
-
-        </div>
-
         <!-- Theme Toggle -->
         <div class="fixed right-5 top-5 z-50">
             <x-theme-toggle />
