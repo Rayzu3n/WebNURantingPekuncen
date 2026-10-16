@@ -66,6 +66,41 @@
             </section>
         @endif
 
+        @if ($upcomingEvents->isNotEmpty())
+            <section class="border-y border-[#dde0d6] py-10 dark:border-[#364339] sm:py-14">
+                <div class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                    <div>
+                        <p class="portal-kicker">Kalender komunitas</p>
+                        <h2 class="mt-3 font-editorial text-3xl font-extrabold tracking-[-.06em] text-[#192b23] dark:text-[#ebefe5] sm:text-4xl">Agenda mendatang</h2>
+                        <p class="mt-3 max-w-xl text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Catat kegiatan berikutnya dan tetap terhubung dengan lingkungan sekitar.</p>
+                    </div>
+                    <a href="{{ route('events.index') }}" class="inline-flex shrink-0 items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Semua kegiatan ↗</a>
+                </div>
+                <div class="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                    @foreach ($upcomingEvents as $event)
+                        <article class="group flex min-w-0 flex-col border-t-2 border-[#1a5b41] pt-4 dark:border-[#80ca9d]">
+                            <div class="flex items-start gap-4">
+                                <div class="flex w-16 shrink-0 flex-col items-center justify-center bg-[#e4ede2] px-2 py-3 text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">
+                                    <span class="font-editorial text-2xl font-extrabold leading-none">{{ $event->starts_at->format('d') }}</span>
+                                    <span class="mt-1 text-[9px] font-extrabold uppercase tracking-[.14em]">{{ $event->starts_at->translatedFormat('M Y') }}</span>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-[10px] font-extrabold uppercase tracking-[.13em] text-[#b75d3c]">{{ $event->category ?: 'Kegiatan NU' }} / {{ $event->starts_at->format('H:i') }} WIB</p>
+                                    <h3 class="mt-2 font-editorial text-xl font-extrabold leading-tight tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5]"><a href="{{ route('events.show', $event->slug) }}" class="transition-colors group-hover:text-[#1a5b41] dark:group-hover:text-[#a8ddb8]">{{ $event->title }}</a></h3>
+                                    @if ($event->excerpt)
+                                        <p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">{{ \Illuminate\Support\Str::limit($event->excerpt, 110) }}</p>
+                                    @endif
+                                    @if ($event->location)
+                                        <p class="mt-3 text-xs font-semibold text-[#66746a] dark:text-[#a3b1a5]">⌖ {{ $event->location }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </section>
+        @endif
+
         <section class="py-12 sm:py-16 lg:py-20">
             <div class="flex flex-col gap-5 border-b-2 border-[#192b23] pb-5 dark:border-[#ebefe5] sm:flex-row sm:items-end sm:justify-between">
                 <div>
