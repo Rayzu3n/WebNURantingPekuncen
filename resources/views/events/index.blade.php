@@ -1,4 +1,4 @@
-<x-public-layout>
+<x-public-layout title="Agenda kegiatan - Portal NU Pekuncen">
     <main class="mx-auto w-full max-w-[1500px] px-4 py-9 sm:px-7 sm:py-12 lg:px-10 lg:py-16">
         <header class="border-b border-[#dde0d6] pb-8 dark:border-[#364339] sm:pb-10">
             <p class="portal-kicker">Agenda • Kebersamaan • Khidmah</p>
