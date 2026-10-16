@@ -18,9 +18,9 @@
         <section>
             <div
                 class="overflow-hidden rounded-2xl border
-                border-emerald-100 bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-700
+                border-emerald-100 bg-emerald-700
                 px-6 py-7 text-white shadow-lg shadow-emerald-200/50
-                dark:border-emerald-400/10 dark:from-[#123d2c] dark:via-[#123d2c] dark:to-[#115e59]
+                dark:border-emerald-400/10 dark:bg-[#123d2c]
                 dark:shadow-black/30
                 sm:px-8">
                 <p class="text-sm font-medium text-emerald-100">
