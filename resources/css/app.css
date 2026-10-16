@@ -181,8 +181,7 @@
 
 @layer utilities {
     .surface-grid {
-        background-image: linear-gradient(to right, rgb(120 130 120 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(120 130 120 / 0.07) 1px, transparent 1px);
-        background-size: 32px 32px;
+        background-color: rgb(120 130 120 / 0.03);
     }
 }
 
