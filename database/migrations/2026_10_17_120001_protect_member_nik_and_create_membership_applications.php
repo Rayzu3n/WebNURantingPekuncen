@@ -16,6 +16,13 @@ return new class extends Migration
             $table->string('nik_hash', 64)->nullable()->after('nik');
         });
 
+        // Encrypted payloads are longer than the legacy VARCHAR(30) field.
+        // Remove the plaintext unique index and widen the column before backfilling.
+        Schema::table('members', function (Blueprint $table): void {
+            $table->dropUnique(['nik']);
+            $table->text('nik')->change();
+        });
+
         $members = DB::table('members')->select('id', 'nik')->get();
 
         foreach ($members as $member) {
@@ -33,8 +40,6 @@ return new class extends Migration
         }
 
         Schema::table('members', function (Blueprint $table): void {
-            $table->dropUnique(['nik']);
-            $table->text('nik')->change();
             $table->unique('nik_hash');
         });
 
