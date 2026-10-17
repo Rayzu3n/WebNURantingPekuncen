@@ -54,12 +54,29 @@
                     {{ $isAdmin ? 'Workspace redaksi' : 'Ruang anggota' }}</p>
             </div>
             <nav class="min-h-0 flex-1 space-y-1 overflow-y-auto px-4 py-2" aria-label="Navigasi dashboard">
-                @php($navItems = $isAdmin ? [['label' => 'Ringkasan', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'icon' => '◫'], ['label' => 'Berita', 'route' => 'admin.news.index', 'pattern' => 'admin.news.*', 'icon' => '▤'], ['label' => 'Kegiatan', 'route' => 'admin.events.index', 'pattern' => 'admin.events.*', 'icon' => '◇'], ['label' => 'Kategori', 'route' => 'admin.categories.index', 'pattern' => 'admin.categories.*', 'icon' => '▦'], ['label' => 'Anggota', 'route' => 'admin.members.index', 'pattern' => 'admin.members.*', 'icon' => '♧']] : [['label' => 'Ringkasan', 'route' => 'member.dashboard', 'pattern' => 'member.dashboard', 'icon' => '◫'], ['label' => 'Profil saya', 'route' => 'member.profile', 'pattern' => 'member.profile*', 'icon' => '◎'], ['label' => 'Kartu anggota', 'route' => 'member.card', 'pattern' => 'member.card', 'icon' => '▣']])
+                @php
+                    $navItems = $isAdmin
+                        ? [
+                            ['label' => 'Ringkasan', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'icon' => 'dashboard'],
+                            ['label' => 'Berita', 'route' => 'admin.news.index', 'pattern' => 'admin.news.*', 'icon' => 'newspaper'],
+                            ['label' => 'Kegiatan', 'route' => 'admin.events.index', 'pattern' => 'admin.events.*', 'icon' => 'calendar'],
+                            ['label' => 'Kategori', 'route' => 'admin.categories.index', 'pattern' => 'admin.categories.*', 'icon' => 'tags'],
+                            ['label' => 'Anggota', 'route' => 'admin.members.index', 'pattern' => 'admin.members.*', 'icon' => 'users'],
+                        ]
+                        : [
+                            ['label' => 'Ringkasan', 'route' => 'member.dashboard', 'pattern' => 'member.dashboard', 'icon' => 'dashboard'],
+                            ['label' => 'Profil saya', 'route' => 'member.profile', 'pattern' => 'member.profile*', 'icon' => 'user-round'],
+                            ['label' => 'Kartu anggota', 'route' => 'member.card', 'pattern' => 'member.card', 'icon' => 'id-card'],
+                        ];
+                @endphp
                 @foreach ($navItems as $item)
                     <a href="{{ route($item['route']) }}"
                         class="group flex items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-bold transition {{ request()->routeIs($item['pattern']) ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">
                         <span
-                            class="flex h-8 w-8 items-center justify-center rounded-lg border border-current/15 text-base">{{ $item['icon'] }}</span><span>{{ $item['label'] }}</span>
+                            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-current/15">
+                            <x-portal-icon :name="$item['icon']" class="h-4 w-4" />
+                        </span>
+                        <span class="min-w-0 flex-1">{{ $item['label'] }}</span>
                         @if (request()->routeIs($item['pattern']))
                             <span class="ml-auto h-1.5 w-1.5 rounded-full bg-[#b75d3c]"></span>
                         @endif
