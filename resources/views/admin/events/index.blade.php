@@ -23,7 +23,7 @@
             <div role="alert" class="border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200">{{ session('error') }}</div>
         @endif
 
-        <div class="portal-table-wrap">
+        <div class="portal-table-wrap portal-table-wrap--events max-w-full" role="region" aria-label="Daftar kegiatan, geser horizontal untuk melihat semua kolom" tabindex="0">
             <table>
                 <thead><tr><th>Kegiatan</th><th>Jadwal</th><th>Status</th><th class="text-right">Aksi</th></tr></thead>
                 <tbody class="divide-y divide-[#dde0d6] dark:divide-[#364339]">
