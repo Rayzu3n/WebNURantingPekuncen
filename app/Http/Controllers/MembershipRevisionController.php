@@ -9,7 +9,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class MembershipRevisionController extends Controller
@@ -49,7 +48,7 @@ class MembershipRevisionController extends Controller
         if (Member::where('nik_hash', $nikHash)->exists()
             || MembershipApplication::where('nik_hash', $nikHash)->where('id', '!=', $application->id)->exists()) {
             return back()->withInput()->withErrors([
-                'nik' => This NIK is already associated with a member or another registration.,
+                'nik' => 'This NIK is already associated with a member or another registration.',
             ]);
         }
 
