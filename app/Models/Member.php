@@ -20,7 +20,6 @@ class Member extends Model
         'user_id',
         'member_number',
         'nik',
-        'nik_hash',
         'birth_place',
         'birth_date',
         'gender',
