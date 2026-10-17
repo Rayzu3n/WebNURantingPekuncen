@@ -6,24 +6,19 @@ final class NikProtection
 {
     public static function normalize(string $nik): string
     {
-        return preg_replace('/\D+/', '', trim($nik)) ?? '';
+        return preg_replace('/\\D+/', '', trim($nik)) ?? '';
     }
 
     public static function fingerprint(?string $nik): string
     {
         $normalized = self::normalize((string) $nik);
-        $applicationKey = (string) config('app.key');
+        $fingerprintSecret = (string) config('app.nik_hash_key');
 
-        if (str_starts_with($applicationKey, 'base64:')) {
-            $decoded = base64_decode(substr($applicationKey, 7), true);
-            $applicationKey = $decoded === false ? '' : $decoded;
+        if (strlen($fingerprintSecret) < 32) {
+            throw new \\RuntimeException('NIK_HASH_KEY must be configured with at least 32 characters to protect NIK data.');
         }
 
-        if ($applicationKey === '') {
-            throw new \RuntimeException('APP_KEY must be configured to protect NIK data.');
-        }
-
-        $fingerprintKey = hash_hmac('sha256', 'web-nu:member-nik-fingerprint:v1', $applicationKey, true);
+        $fingerprintKey = hash_hmac('sha256', 'web-nu:member-nik-fingerprint:v1', $fingerprintSecret, true);
 
         return hash_hmac('sha256', $normalized, $fingerprintKey);
     }
