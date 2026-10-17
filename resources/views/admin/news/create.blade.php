@@ -38,7 +38,7 @@
             <form method="POST" action="{{ route('admin.news.store') }}" enctype="multipart/form-data">
                 @csrf
 
-                <div class="space-y-6 px-6 py-6 sm:px-8 sm:py-8">
+                <div class="space-y-6 px-4 py-5 sm:px-8 sm:py-8">
 
                     <!-- Title -->
                     <div>
@@ -173,7 +173,7 @@
                             dark:border-gray-700 dark:bg-gray-900/50">
 
                             <input id="thumbnail" type="file" name="thumbnail" accept=".jpg,.jpeg,.png,.webp"
-                                class="block w-full text-sm text-gray-600
+                                class="block min-w-0 w-full max-w-full text-sm text-gray-600
                                 file:mr-4 file:rounded-lg file:border-0
                                 file:bg-blue-50 file:px-4 file:py-2
                                 file:text-sm file:font-semibold file:text-blue-700
@@ -196,13 +196,13 @@
                 <!-- Form Footer -->
                 <div
                     class="flex flex-col-reverse gap-3 border-t
-                    border-gray-200 bg-gray-50/70 px-6 py-5
+                    border-gray-200 bg-gray-50/70 px-4 py-5 sm:px-8
                     dark:border-gray-800 dark:bg-gray-900/40
-                    sm:flex-row sm:items-center sm:justify-end sm:px-8">
+                    sm:flex-row sm:items-center sm:justify-end">
 
                     <a href="{{ route('admin.news.index') }}"
-                        class="inline-flex items-center justify-center rounded-xl
-                        border border-gray-300 bg-white px-4 py-2.5
+                        class="inline-flex w-full items-center justify-center rounded-xl
+                        border border-gray-300 bg-white px-4 py-2.5 sm:w-auto
                         text-sm font-semibold text-gray-700
                         transition-colors hover:bg-gray-50
                         dark:border-gray-700 dark:bg-gray-800
@@ -211,8 +211,8 @@
                     </a>
 
                     <x-primary-button
-                        class="justify-center rounded-xl bg-blue-600
-                        px-5 py-2.5 text-sm font-semibold
+                        class="w-full justify-center rounded-xl bg-blue-600
+                        px-5 py-2.5 text-sm font-semibold sm:w-auto
                         shadow-lg shadow-blue-200/40
                         hover:bg-blue-700
                         dark:bg-blue-500 dark:shadow-blue-950/20
