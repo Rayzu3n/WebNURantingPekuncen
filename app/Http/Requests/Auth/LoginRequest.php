@@ -53,15 +53,25 @@ class LoginRequest extends FormRequest
         $user = Auth::user();
 
         if ($user && $user->role === 'member') {
+            // Applicants must be able to sign in while their application is pending.
+            // Portal access is enforced separately by account-status middleware.
+            if ($user->account_status === 'pending') {
+                RateLimiter::clear($this->throttleKey());
+
+                return;
+            }
+
             $member = $user->member;
 
-            if (! $member || $member->status !== 'active') {
+            if ($user->account_status !== 'active' || ! $member || $member->status !== 'active') {
                 Auth::logout();
 
                 throw ValidationException::withMessages([
-                    'email' => $member
-                        ? 'Your membership is inactive.'
-                        : 'No membership record is associated with this account.',
+                    'email' => $user->account_status === 'suspended'
+                        ? 'This account is suspended. Contact the organization for assistance.'
+                        : ($member
+                            ? 'Your membership is inactive.'
+                            : 'No membership record is associated with this account.'),
                 ]);
             }
         }
