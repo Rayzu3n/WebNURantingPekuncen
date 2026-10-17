@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactMessage;
+use App\Models\Event;
 use App\Models\Member;
 use App\Models\News;
 use App\Models\NewsCategory;
@@ -16,6 +18,8 @@ class DashboardController extends Controller
             'newsCount' => News::count(),
             'memberCount' => Member::count(),
             'categoryCount' => NewsCategory::count(),
+            'upcomingEventCount' => Event::query()->published()->upcomingOrOngoing()->count(),
+            'unreadMessageCount' => ContactMessage::unread()->count(),
         ]);
     }
 }

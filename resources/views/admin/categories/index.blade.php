@@ -81,7 +81,7 @@
             dark:shadow-black/20">
 
             @if ($categories->count())
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto max-w-full" role="region" aria-label="Category table, scroll horizontally to see more columns" tabindex="0">
                     <table class="w-full min-w-[650px] text-left">
                         <thead>
                             <tr

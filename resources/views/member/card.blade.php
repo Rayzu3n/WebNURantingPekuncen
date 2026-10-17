@@ -52,10 +52,10 @@
                 <!-- Card Accent -->
                 <div class="h-2 bg-gradient-to-r from-green-700 via-emerald-600 to-teal-500"></div>
 
-                <div class="p-6 sm:p-8">
+                <div class="p-4 sm:p-6 lg:p-8">
 
                     <!-- Header -->
-                    <div class="flex items-start justify-between gap-5">
+                    <div class="flex items-start justify-between gap-3 sm:gap-5">
 
                         <div class="min-w-0">
 
@@ -63,7 +63,7 @@
                                 ORGANISATION
                             </p>
 
-                            <h1 class="mt-2 text-2xl font-bold tracking-tight text-gray-900">
+                            <h1 class="mt-2 break-words text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
                                 NU MEMBER CARD
                             </h1>
 
@@ -75,7 +75,7 @@
 
                         @if ($member->photo)
                             <img src="{{ asset('storage/' . $member->photo) }}" alt="{{ $member->user->name }}"
-                                class="h-24 w-24 shrink-0 rounded-xl border border-gray-200 object-cover shadow-sm">
+                                class="h-16 w-16 shrink-0 rounded-xl border border-gray-200 object-cover shadow-sm sm:h-24 sm:w-24">
                         @endif
 
                     </div>
@@ -88,7 +88,7 @@
                                 Member Number
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->member_number }}
                             </p>
                         </div>
@@ -98,7 +98,7 @@
                                 Name
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->user->name }}
                             </p>
                         </div>
@@ -108,7 +108,7 @@
                                 Birth
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->birth_place }},
                                 {{ $member->birth_date?->format('d M Y') }}
                             </p>
@@ -129,7 +129,7 @@
                                 Address
                             </p>
 
-                            <p class="mt-1 font-semibold leading-6 text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold leading-6 text-gray-900">
                                 {{ $member->address }}
                             </p>
                         </div>
@@ -139,7 +139,7 @@
                                 Status
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words font-semibold text-gray-900">
                                 {{ ucfirst($member->status) }}
                             </p>
                         </div>
@@ -166,7 +166,7 @@
                 </div>
 
                 <!-- Footer Accent -->
-                <div class="border-t border-gray-200 bg-gray-50 px-6 py-3 text-center">
+                <div class="border-t border-gray-200 bg-gray-50 px-4 py-3 text-center sm:px-6">
                     <p class="text-[10px] font-medium uppercase tracking-[0.2em] text-gray-400">
                         Official Digital Membership Card
                     </p>

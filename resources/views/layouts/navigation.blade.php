@@ -32,6 +32,14 @@
                         <x-nav-link :href="route('admin.members.index')" :active="request()->routeIs('admin.members.*')">
                             {{ __('Members') }}
                         </x-nav-link>
+
+                        <x-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
+                            {{ __('Contact Inbox') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('admin.organization-profile.edit')" :active="request()->routeIs('admin.organization-profile.*')">
+                            {{ __('Organization Profile') }}
+                        </x-nav-link>
                     @endif
 
                     @if (Auth::user()->isMember())
@@ -88,11 +96,14 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
+                            <button type="submit" class="flex w-full items-center gap-2 px-4 py-2 text-start text-sm font-semibold text-rose-700 transition hover:bg-rose-50 hover:text-rose-900 focus:outline-none focus:bg-rose-50 dark:text-rose-300 dark:hover:bg-rose-950/40 dark:hover:text-rose-200 dark:focus:bg-rose-950/40">
+                                <svg aria-hidden="true" class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                    <path d="M16 17l5-5-5-5"/>
+                                    <path d="M21 12H9"/>
+                                </svg>
+                                <span>{{ __('Sign out') }}</span>
+                            </button>
                         </form>
 
                     </x-slot>
@@ -146,6 +157,14 @@
                 <x-responsive-nav-link :href="route('admin.members.index')" :active="request()->routeIs('admin.members.*')">
                     {{ __('Members') }}
                 </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.messages.index')" :active="request()->routeIs('admin.messages.*')">
+                    {{ __('Contact Inbox') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('admin.organization-profile.edit')" :active="request()->routeIs('admin.organization-profile.*')">
+                    {{ __('Organization Profile') }}
+                </x-responsive-nav-link>
             @endif
 
             @if (Auth::user()->isMember())
@@ -182,13 +201,16 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
+                <form method="POST" action="{{ route('logout') }}" class="px-3 pt-2">
                     @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault(); this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
+                    <button type="submit" class="flex min-h-11 w-full items-center gap-2.5 rounded-xl border border-rose-200 bg-rose-50 px-3 py-2.5 text-start text-sm font-bold text-rose-700 transition hover:border-rose-300 hover:bg-rose-100 focus:outline-none focus:ring-2 focus:ring-rose-500 dark:border-rose-900 dark:bg-rose-950/30 dark:text-rose-300 dark:hover:bg-rose-950/60">
+                        <svg aria-hidden="true" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                            <path d="M16 17l5-5-5-5"/>
+                            <path d="M21 12H9"/>
+                        </svg>
+                        <span>{{ __('Sign out of account') }}</span>
+                    </button>
                 </form>
 
             </div>
