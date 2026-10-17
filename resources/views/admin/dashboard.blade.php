@@ -50,7 +50,7 @@
                                 {{ $newsCount }}</p>
                         </div>
                         <span
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e4ede2] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▤</span>
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e4ede2] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]"><x-portal-icon name="newspaper" class="h-5 w-5" /></span>
                     </div>
                     <a href="{{ route('admin.news.index') }}"
                         class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka daftar berita</span>
@@ -65,7 +65,7 @@
                                 {{ $memberCount }}</p>
                         </div>
                         <span
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">♧</span>
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]"><x-portal-icon name="users" class="h-5 w-5" /></span>
                     </div>
                     <a href="{{ route('admin.members.index') }}"
                         class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka daftar anggota</span>
@@ -80,7 +80,7 @@
                                 {{ $categoryCount }}</p>
                         </div>
                         <span
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e7eee5] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▦</span>
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]"><x-portal-icon name="tags" class="h-5 w-5" /></span>
                     </div>
                     <a href="{{ route('admin.categories.index') }}"
                         class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka kategori</span>
@@ -95,7 +95,7 @@
                                 {{ $upcomingEventCount }}</p>
                         </div>
                         <span
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">◷</span>
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]"><x-portal-icon name="calendar" class="h-5 w-5" /></span>
                     </div>
                     <a href="{{ route('admin.events.index') }}"
                         class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Kelola kegiatan</span>
@@ -110,7 +110,7 @@
                                 {{ $unreadMessageCount }}</p>
                         </div>
                         <span
-                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">✉</span>
+                            class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]"><x-portal-icon name="mail" class="h-5 w-5" /></span>
                     </div>
                     <a href="{{ route('admin.messages.index', ['status' => 'new']) }}"
                         class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka inbox</span>
