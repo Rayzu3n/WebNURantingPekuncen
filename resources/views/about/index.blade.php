@@ -15,8 +15,10 @@
                 @endif
                 <div class="mt-8 flex flex-wrap gap-3">
                     <a href="{{ route('events.index') }}"
-                        class="inline-flex min-h-11 items-center justify-center rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">
-                        Lihat kegiatan <x-portal-icon name="calendar" class="ms-1  h-4 w-4" /></a>
+                        class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#fffef9] px-5 text-sm font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5]">
+                        <span>Lihat kegiatan</span>
+                        <x-portal-icon name="calendar" class="h-4 w-4" />
+                    </a>
                     <a href="{{ route('contact.index') }}"
                         class="inline-flex min-h-11 items-center justify-center rounded-full border border-white/40 px-5 text-sm font-bold text-white transition hover:bg-white/10">Hubungi
                         kami</a>
@@ -104,8 +106,10 @@
                             class="mt-5 whitespace-pre-line break-words text-sm leading-8 text-[#526156] dark:text-[#c2cdc1]">
                             {{ $profile->programs }}</div>
                         <a href="{{ route('events.index') }}"
-                            class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">Jelajahi
-                            agenda kegiatan <x-portal-icon name="calendar" class="h-4 w-4" /></a>
+                            class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] hover:underline dark:text-[#a8ddb8]">
+                            <span>Jelajahi agenda kegiatan</span>
+                            <x-portal-icon name="calendar" class="h-4 w-4" />
+                        </a>
                     </div>
                 @endif
             </section>
@@ -171,13 +175,17 @@
                                     class="mt-2 flex flex-wrap gap-4 text-sm font-bold text-[#1a5b41] dark:text-[#a8ddb8]">
                                     @if (filled($profile?->facebook_url))
                                         <a href="{{ $profile->facebook_url }}" target="_blank"
-                                            rel="noopener noreferrer" class="hover:underline">Facebook <x-portal-icon
-                                                name="external-link" class="h-3.5 w-3.5" /></a>
+                                            rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:underline">
+                                            <span>Facebook</span>
+                                            <x-portal-icon name="external-link" class="h-3.5 w-3.5" />
+                                        </a>
                                     @endif
                                     @if (filled($profile?->instagram_url))
                                         <a href="{{ $profile->instagram_url }}" target="_blank"
-                                            rel="noopener noreferrer" class="hover:underline">Instagram <x-portal-icon
-                                                name="external-link" class="h-3.5 w-3.5" /></a>
+                                            rel="noopener noreferrer" class="inline-flex items-center gap-1 hover:underline">
+                                            <span>Instagram</span>
+                                            <x-portal-icon name="external-link" class="h-3.5 w-3.5" />
+                                        </a>
                                     @endif
                                 </div>
                             </div>
