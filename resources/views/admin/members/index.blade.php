@@ -71,7 +71,7 @@
 
             @if ($members->count())
 
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto max-w-full" role="region" aria-label="Members table, scroll horizontally to see more columns" tabindex="0">
 
                     <table class="w-full min-w-[850px] text-left">
 
