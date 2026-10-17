@@ -94,6 +94,8 @@
     .portal-button-secondary:hover { border-color: rgb(var(--green)); color: rgb(var(--green)); }
     .portal-table-wrap { @apply overflow-x-auto rounded-2xl border; border-color: rgb(var(--line)); background: rgb(var(--paper-raised)); }
     .portal-table-wrap table { @apply min-w-full divide-y; border-color: rgb(var(--line)); }
+    .portal-table-wrap--events table { min-width: 760px; }
+    .portal-table-wrap--messages table { min-width: 900px; }
     .portal-table-wrap thead { background: rgb(var(--paper) / .75); }
     .portal-table-wrap th { @apply px-5 py-3.5 text-left text-[11px] font-extrabold uppercase tracking-[.13em]; color: rgb(var(--muted)); }
     .portal-table-wrap td { @apply px-5 py-4 align-middle text-sm; color: rgb(var(--ink)); }
