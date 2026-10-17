@@ -12,6 +12,15 @@ return new class extends Migration
 {
     public function up(): void
     {
+        // Validate both secrets before any schema mutation so a missing key cannot
+        // leave a half-applied migration that fails on the next attempt.
+        if (blank(config('app.key'))) {
+            throw new RuntimeException('APP_KEY must be configured before protecting member NIK values.');
+        }
+
+        Crypt::encryptString('migration-preflight');
+        NikProtection::fingerprint('0000000000000000');
+
         Schema::table('members', function (Blueprint $table): void {
             $table->string('nik_hash', 64)->nullable()->after('nik');
         });
