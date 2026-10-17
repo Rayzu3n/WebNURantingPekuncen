@@ -186,3 +186,33 @@ test('applicants can resubmit a returned application for review', function () {
         ->and($user->name)->toBe('Updated Applicant')
         ->and($user->account_status)->toBe('pending');
 });
+
+test('pending applicants can sign in and are redirected to application status', function () {
+    $user = User::factory()->create([
+        'name' => 'Pending Applicant',
+        'email' => 'pending-login@example.test',
+        'password' => 'StrongPassword123!',
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    MembershipApplication::create([
+        'user_id' => $user->id,
+        'registration_number' => 'REG-20261018-LOGIN001',
+        'access_token_hash' => hash('sha256', 'private-token'),
+        'nik' => '1234567890123456',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'pending_review',
+    ]);
+
+    $this->post('/login', [
+        'email' => 'pending-login@example.test',
+        'password' => 'StrongPassword123!',
+    ])->assertRedirect(route('dashboard'));
+
+    $this->get(route('dashboard'))
+        ->assertRedirect(route('membership.pending'));
+});
