@@ -69,7 +69,7 @@
 
             @if ($news->count())
 
-                <div class="overflow-x-auto">
+                <div class="overflow-x-auto max-w-full" role="region" aria-label="News table, scroll horizontally to see more columns" tabindex="0">
 
                     <table class="min-w-[900px] w-full text-left">
 
