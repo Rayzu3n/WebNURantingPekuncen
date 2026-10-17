@@ -29,9 +29,15 @@ class ProfileController extends Controller
 
         $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
 
+        if (\\App\\Models\\Member::where('nik_hash', $request->input('nik_fingerprint'))
+            ->where('id', '!=', $member->id)
+            ->exists()) {
+            return back()->withInput()->withErrors(['nik' => 'This NIK is already associated with another member.']);
+        }
+
         $validated = $request->validate([
             'nik' => ['required', 'string', 'max:30'],
-            'nik_fingerprint' => ['required', Rule::unique('members', 'nik_hash')->ignore($member->id)],
+            'nik_fingerprint' => ['required'],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:L,P'],
