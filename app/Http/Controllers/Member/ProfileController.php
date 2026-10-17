@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\Member;
 use App\Support\NikProtection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,7 +30,7 @@ class ProfileController extends Controller
 
         $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
 
-        if (\\App\\Models\\Member::where('nik_hash', $request->input('nik_fingerprint'))
+        if (Member::where('nik_hash', $request->input('nik_fingerprint'))
             ->where('id', '!=', $member->id)
             ->exists()) {
             return back()->withInput()->withErrors(['nik' => 'This NIK is already associated with another member.']);
