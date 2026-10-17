@@ -53,8 +53,8 @@
                             class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e4ede2] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▤</span>
                     </div>
                     <a href="{{ route('admin.news.index') }}"
-                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka
-                        daftar berita <x-portal-icon name="newspaper" class="h-3.5 w-3.5" /></a>
+                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka daftar berita</span>
+                        <x-portal-icon name="newspaper" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
@@ -68,8 +68,8 @@
                             class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">♧</span>
                     </div>
                     <a href="{{ route('admin.members.index') }}"
-                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka
-                        daftar anggota <x-portal-icon name="users" class="h-3.5 w-3.5" /></a>
+                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka daftar anggota</span>
+                        <x-portal-icon name="users" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
@@ -83,8 +83,8 @@
                             class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#e7eee5] text-lg text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">▦</span>
                     </div>
                     <a href="{{ route('admin.categories.index') }}"
-                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka
-                        kategori <x-portal-icon name="tags" class="h-3.5 w-3.5" /></a>
+                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka kategori</span>
+                        <x-portal-icon name="tags" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
@@ -98,8 +98,8 @@
                             class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">◷</span>
                     </div>
                     <a href="{{ route('admin.events.index') }}"
-                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Kelola
-                        kegiatan <x-portal-icon name="calendar" class="h-3.5 w-3.5" /></a>
+                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Kelola kegiatan</span>
+                        <x-portal-icon name="calendar" class="h-3.5 w-3.5" /></a>
                 </article>
                 <article class="portal-surface p-5 sm:p-6">
                     <div class="flex items-start justify-between gap-4">
@@ -113,8 +113,8 @@
                             class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f5e9e0] text-lg text-[#a45134] dark:bg-[#412b22] dark:text-[#e7a68c]">✉</span>
                     </div>
                     <a href="{{ route('admin.messages.index', ['status' => 'new']) }}"
-                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka
-                        inbox <x-portal-icon name="inbox" class="h-3.5 w-3.5" /></a>
+                        class="mt-5 inline-flex items-center gap-2 text-xs font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]"><span>Buka inbox</span>
+                        <x-portal-icon name="inbox" class="h-3.5 w-3.5" /></a>
                 </article>
             </div>
         </section>
@@ -172,9 +172,9 @@
                         Kegiatan</h3>
                     <p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Susun agenda mendatang dan
                         simpan arsip acara.</p><span
-                        class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">
-                        Kelola agenda
-                        <x-portal-icon name="calendar" class=" ms-1 mt-1 h-3.5 w-3.5" /></span>
+                        class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">
+                        <span>Kelola agenda</span>
+                        <x-portal-icon name="calendar" class="h-3.5 w-3.5" /></span>
                 </a>
                 <a href="{{ route('admin.messages.index') }}"
                     class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
@@ -186,8 +186,9 @@
                         Inbox kontak</h3>
                     <p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Baca pesan dan catat tindak
                         lanjut dari warga.</p><span
-                        class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Buka inbox
-                        <x-portal-icon name="inbox" class="ms-1 mt-1 h-4 w-4" /></span>
+                        class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">
+                        <span>Buka inbox</span>
+                        <x-portal-icon name="inbox" class="h-4 w-4" /></span>
                 </a>
                 <a href="{{ route('admin.organization-profile.edit') }}"
                     class="group portal-surface p-5 transition hover:-translate-y-1 hover:border-[#1a5b41] sm:p-6">
@@ -199,8 +200,9 @@
                         Profil organisasi</h3>
                     <p class="mt-2 text-sm leading-6 text-[#66746a] dark:text-[#a3b1a5]">Perbarui sejarah, visi, misi,
                         program, dan kontak resmi.</p><span
-                        class="mt-5 inline-flex text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">Edit profil
-                        <x-portal-icon name="building" class="ms-1 mt-1 h-3.5 w-3.5" /></span>
+                        class="mt-5 inline-flex items-center gap-2 text-sm font-extrabold text-[#1a5b41] dark:text-[#a8ddb8]">
+                        <span>Edit profil</span>
+                        <x-portal-icon name="building" class="h-3.5 w-3.5" /></span>
                 </a>
             </div>
         </section>
