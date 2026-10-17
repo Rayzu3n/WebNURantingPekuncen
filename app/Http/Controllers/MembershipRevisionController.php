@@ -35,7 +35,7 @@ class MembershipRevisionController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'nik' => ['required', 'digits:16'],
-            'nik_fingerprint' => ['required', Rule::unique('membership_applications', 'nik_hash')->ignore($application->id)],
+            'nik_fingerprint' => ['required'],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date', 'before_or_equal:today'],
             'gender' => ['required', 'in:L,P'],
@@ -46,9 +46,10 @@ class MembershipRevisionController extends Controller
 
         $nikHash = $validated['nik_fingerprint'];
 
-        if (Member::where('nik_hash', $nikHash)->exists()) {
+        if (Member::where('nik_hash', $nikHash)->exists()
+            || MembershipApplication::where('nik_hash', $nikHash)->where('id', '!=', $application->id)->exists()) {
             return back()->withInput()->withErrors([
-                'nik' => 'This NIK is already associated with an existing member.',
+                'nik' => This NIK is already associated with a member or another registration.,
             ]);
         }
 
