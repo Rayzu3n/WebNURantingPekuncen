@@ -1,0 +1,8 @@
+<x-guest-layout><div class="mb-6"><p class="text-sm font-semibold uppercase tracking-wide text-indigo-600 dark:text-indigo-400">Application status</p><h1 class="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">{{ str($status)->replace('_', ' ')->title() }}</h1><p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Registration number: <code>{{ $registrationNumber }}</code></p></div>
+<div class="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-6 text-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">@switch($status)
+@case('pending_review') Your application has been received and is waiting for admin review. @break
+@case('needs_revision') Your application needs changes. Sign in to the account used during registration to view the reviewer note. @break
+@case('approved') Your membership has been approved. Sign in to access the member portal and digital membership card. @break
+@case('rejected') Your application was not approved. Contact the organization for guidance if you believe this is an error. @break
+@default The application status is available above. @endswitch</div>
+<div class="mt-6 flex items-center justify-between"><a href="{{ route('membership.track') }}" class="text-sm underline text-gray-600 dark:text-gray-400">Track another application</a><a href="{{ route('login') }}" class="text-sm underline text-gray-600 dark:text-gray-400">Log in</a></div></x-guest-layout>

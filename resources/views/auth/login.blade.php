@@ -43,5 +43,6 @@
                 {{ __('Log in') }}
             </x-primary-button>
         </div>
+        <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">Need a membership account? <a class="underline hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('register') }}">Apply here</a> or <a class="underline hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('membership.track') }}">track an application</a>.</p>
     </form>
 </x-guest-layout>

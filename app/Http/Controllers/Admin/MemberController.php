@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use App\Models\User;
+use App\Support\NikProtection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +32,13 @@ class MemberController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
+
+        if (Member::where('nik_hash', $request->input('nik_fingerprint'))->exists()) {
+            return back()->withInput($request->except(['password']))
+                ->withErrors(['nik' => 'This NIK is already associated with a member.']);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -43,12 +51,8 @@ class MemberController extends Controller
                 'unique:members,member_number',
             ],
 
-            'nik' => [
-                'required',
-                'string',
-                'max:30',
-                'unique:members,nik',
-            ],
+            'nik' => ['required', 'string', 'max:30'],
+            'nik_fingerprint' => ['required'],
 
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
@@ -145,6 +149,13 @@ class MemberController extends Controller
     public function update(Request $request, Member $member): RedirectResponse
     {
         $member->load('user');
+        $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
+
+        if (Member::where('nik_hash', $request->input('nik_fingerprint'))
+            ->where('id', '!=', $member->id)
+            ->exists()) {
+            return back()->withInput()->withErrors(['nik' => 'This NIK is already associated with another member.']);
+        }
 
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -163,12 +174,8 @@ class MemberController extends Controller
                 Rule::unique('members', 'member_number')->ignore($member->id),
             ],
 
-            'nik' => [
-                'required',
-                'string',
-                'max:30',
-                Rule::unique('members', 'nik')->ignore($member->id),
-            ],
+            'nik' => ['required', 'string', 'max:30'],
+            'nik_fingerprint' => ['required'],
 
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
