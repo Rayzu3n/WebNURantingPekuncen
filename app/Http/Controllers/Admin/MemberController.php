@@ -34,6 +34,11 @@ class MemberController extends Controller
     {
         $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
 
+        if (Member::where('nik_hash', $request->input('nik_fingerprint'))->exists()) {
+            return back()->withInput($request->except(['password']))
+                ->withErrors(['nik' => 'This NIK is already associated with a member.']);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
@@ -47,7 +52,7 @@ class MemberController extends Controller
             ],
 
             'nik' => ['required', 'string', 'max:30'],
-            'nik_fingerprint' => ['required', Rule::unique('members', 'nik_hash')],
+            'nik_fingerprint' => ['required'],
 
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
@@ -146,6 +151,12 @@ class MemberController extends Controller
         $member->load('user');
         $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
 
+        if (Member::where('nik_hash', $request->input('nik_fingerprint'))
+            ->where('id', '!=', $member->id)
+            ->exists()) {
+            return back()->withInput()->withErrors(['nik' => 'This NIK is already associated with another member.']);
+        }
+
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
 
@@ -164,7 +175,7 @@ class MemberController extends Controller
             ],
 
             'nik' => ['required', 'string', 'max:30'],
-            'nik_fingerprint' => ['required', Rule::unique('members', 'nik_hash')->ignore($member->id)],
+            'nik_fingerprint' => ['required'],
 
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
