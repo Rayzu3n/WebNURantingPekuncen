@@ -30,7 +30,7 @@
             @endforeach
         </div>
 
-        <div class="portal-table-wrap">
+        <div class="portal-table-wrap portal-table-wrap--messages max-w-full" role="region" aria-label="Daftar pesan, geser horizontal untuk melihat semua kolom" tabindex="0">
             <table>
                 <thead><tr><th>Pengirim</th><th>Subjek</th><th>Diterima</th><th>Status</th><th class="text-right">Aksi</th></tr></thead>
                 <tbody class="divide-y divide-[#dde0d6] dark:divide-[#364339]">
