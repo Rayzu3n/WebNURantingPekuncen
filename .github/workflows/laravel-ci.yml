@@ -59,6 +59,7 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          printf '\\nNIK_HASH_KEY=%s\\n' "$(php -r 'echo bin2hex(random_bytes(32));')" >> .env
         env:
           APP_ENV: testing
           DB_CONNECTION: mysql
