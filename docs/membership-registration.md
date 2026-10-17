@@ -22,8 +22,8 @@ NIK values in `members.nik` and `membership_applications.nik` are encrypted with
 **Before deploying the migration to an existing database:**
 
 - Take and verify a database backup.
-- Ensure `APP_KEY` is configured and back it up securely.
-- Keep the same application key available for decryption and fingerprint checks. Rotating it without a planned re-encryption and fingerprint migration will make existing encrypted NIK values unreadable and duplicate lookups inconsistent.
+- Ensure both `APP_KEY` and a strong random `NIK_HASH_KEY` (at least 32 characters) are configured and backed up securely.
+- Keep `APP_KEY` unchanged for encryption/decryption and `NIK_HASH_KEY` unchanged for fingerprint checks. Rotating either key without a planned migration will make existing encrypted NIK values unreadable or duplicate lookups inconsistent.
 - Test the migration and rollback on a recent database copy before production deployment.
 
 The migration converts existing member NIK values to encrypted storage. Rollback decrypts them using the same `APP_KEY`; it must not be run after key rotation.
