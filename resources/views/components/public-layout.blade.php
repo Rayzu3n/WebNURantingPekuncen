@@ -43,7 +43,7 @@
                         </span>
                     </a>
 
-                    <nav class="hidden items-center gap-1 md:flex" aria-label="Navigasi utama">
+                    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navigasi utama">
                         <a href="{{ route('home') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Beranda</a>
                         <a href="{{ route('news.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Semua berita</a>
                         <a href="{{ route('events.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('events.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Kegiatan</a>
@@ -51,7 +51,7 @@
                         <a href="{{ route('contact.index') }}" class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('contact.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Kontak</a>
                     </nav>
 
-                    <div class="hidden items-center gap-2 sm:flex">
+                    <div class="hidden items-center gap-2 lg:flex">
                         <x-theme-toggle />
                         @auth
                             <a href="{{ route('dashboard') }}" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#1a5b41] px-5 text-sm font-bold text-white transition hover:bg-[#134832] dark:bg-[#80ca9d] dark:text-[#17251b] dark:hover:bg-[#a0dfb5]"><x-portal-icon name="dashboard" class="h-4 w-4" />Dashboard</a>
@@ -60,14 +60,14 @@
                         @endauth
                     </div>
 
-                    <button type="button" @click="open = !open" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#dde0d6] text-[#1a5b41] md:hidden dark:border-[#364339] dark:text-[#a8ddb8]" aria-label="Toggle navigation" :aria-expanded="open.toString()">
+                    <button type="button" @click="open = !open" class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[#dde0d6] text-[#1a5b41] lg:hidden dark:border-[#364339] dark:text-[#a8ddb8]" :aria-label="open ? 'Tutup menu navigasi' : 'Buka menu navigasi'" aria-controls="mobile-navigation" :aria-expanded="open.toString()">
                         <svg x-show="!open" class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
                         <svg x-show="open" x-cloak class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 6l12 12M18 6L6 18"/></svg>
                     </button>
                 </div>
             </div>
 
-            <div x-show="open" x-cloak x-transition class="border-t border-[#dde0d6] bg-[#fffef9] px-4 py-4 md:hidden dark:border-[#364339] dark:bg-[#19221c]">
+            <div x-show="open" x-cloak x-transition id="mobile-navigation" class="border-t border-[#dde0d6] bg-[#fffef9] px-4 py-4 lg:hidden dark:border-[#364339] dark:bg-[#19221c]">
                 <nav class="mx-auto max-w-[1500px] space-y-1" aria-label="Navigasi seluler">
                     <a href="{{ route('home') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('home') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Beranda</a>
                     <a href="{{ route('news.index') }}" class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('news.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Semua berita</a>
