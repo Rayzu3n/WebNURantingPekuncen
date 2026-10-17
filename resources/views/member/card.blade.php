@@ -88,7 +88,7 @@
                                 Member Number
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->member_number }}
                             </p>
                         </div>
@@ -98,7 +98,7 @@
                                 Name
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->user->name }}
                             </p>
                         </div>
@@ -108,7 +108,7 @@
                                 Birth
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold text-gray-900">
                                 {{ $member->birth_place }},
                                 {{ $member->birth_date?->format('d M Y') }}
                             </p>
@@ -129,7 +129,7 @@
                                 Address
                             </p>
 
-                            <p class="mt-1 font-semibold leading-6 text-gray-900">
+                            <p class="mt-1 break-words [overflow-wrap:anywhere] font-semibold leading-6 text-gray-900">
                                 {{ $member->address }}
                             </p>
                         </div>
@@ -139,7 +139,7 @@
                                 Status
                             </p>
 
-                            <p class="mt-1 font-semibold text-gray-900">
+                            <p class="mt-1 break-words font-semibold text-gray-900">
                                 {{ ucfirst($member->status) }}
                             </p>
                         </div>
