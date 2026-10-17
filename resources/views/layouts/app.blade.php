@@ -33,7 +33,7 @@
         <div x-show="sidebarOpen" x-cloak x-transition.opacity @click="sidebarOpen = false"
             class="fixed inset-0 z-40 bg-[#101a13]/55 lg:hidden"></div>
         <aside
-            class="fixed inset-y-0 left-0 z-50 flex w-[278px] -translate-x-full flex-col border-r border-[#dde0d6] bg-[#fffef9] transition-transform duration-200 dark:border-[#364339] dark:bg-[#19221c] lg:translate-x-0"
+            class="fixed inset-y-0 left-0 z-50 flex w-[min(84vw,278px)] -translate-x-full flex-col border-r border-[#dde0d6] bg-[#fffef9] transition-transform duration-200 dark:border-[#364339] dark:bg-[#19221c] lg:w-[278px] lg:translate-x-0"
             :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'">
             <div
                 class="flex h-[88px] shrink-0 items-center justify-between border-b border-[#dde0d6] px-6 dark:border-[#364339]">
@@ -53,7 +53,7 @@
                 <p class="px-3 text-[9px] font-extrabold uppercase tracking-[.18em] text-[#88968a]">
                     {{ $isAdmin ? 'Workspace redaksi' : 'Ruang anggota' }}</p>
             </div>
-            <nav class="flex-1 space-y-1 overflow-y-auto px-4 py-2" aria-label="Navigasi dashboard">
+            <nav class="min-h-0 flex-1 space-y-1 overflow-y-auto px-4 py-2" aria-label="Navigasi dashboard">
                 @php($navItems = $isAdmin ? [['label' => 'Ringkasan', 'route' => 'admin.dashboard', 'pattern' => 'admin.dashboard', 'icon' => '◫'], ['label' => 'Berita', 'route' => 'admin.news.index', 'pattern' => 'admin.news.*', 'icon' => '▤'], ['label' => 'Kegiatan', 'route' => 'admin.events.index', 'pattern' => 'admin.events.*', 'icon' => '◇'], ['label' => 'Kategori', 'route' => 'admin.categories.index', 'pattern' => 'admin.categories.*', 'icon' => '▦'], ['label' => 'Anggota', 'route' => 'admin.members.index', 'pattern' => 'admin.members.*', 'icon' => '♧']] : [['label' => 'Ringkasan', 'route' => 'member.dashboard', 'pattern' => 'member.dashboard', 'icon' => '◫'], ['label' => 'Profil saya', 'route' => 'member.profile', 'pattern' => 'member.profile*', 'icon' => '◎'], ['label' => 'Kartu anggota', 'route' => 'member.card', 'pattern' => 'member.card', 'icon' => '▣']])
                 @foreach ($navItems as $item)
                     <a href="{{ route($item['route']) }}"
@@ -67,7 +67,7 @@
                 @endforeach
             </nav>
             <div class="shrink-0 border-t border-[#dde0d6] p-4 dark:border-[#364339]">
-                <div class="flex items-center gap-3 px-1 pb-02">
+                <div class="flex items-center gap-3 px-1 pb-2">
                     <div
                         class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#e4ede2] text-xs font-extrabold text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]">
                         {{ mb_strtoupper(mb_substr(auth()->user()->name, 0, 2)) }}</div>
@@ -87,7 +87,6 @@
                         <path d="M9 21v-7h6v7" />
                     </svg>
                     <span class="flex-1">Kembali ke halaman utama</span>
-
                 </a>
                 <form method="POST" action="{{ route('logout') }}" class="mt-3">
                     @csrf
