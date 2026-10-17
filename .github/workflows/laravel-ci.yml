@@ -4,12 +4,17 @@ on:
   push:
     branches:
       - feature/community-events-and-archive
+      - feature/member-registration-approval
   pull_request:
     branches:
       - main
 
 permissions:
   contents: read
+
+concurrency:
+  group: laravel-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:

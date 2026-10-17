@@ -16,6 +16,9 @@ use App\Http\Controllers\Member\VerificationController;
 use App\Http\Controllers\NewsController as PublicNewsController;
 use App\Http\Controllers\OrganizationProfileController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MembershipTrackingController;
+use App\Http\Controllers\MembershipRevisionController;
+use App\Http\Controllers\Admin\MembershipApplicationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +54,13 @@ Route::post('/kontak', [ContactController::class, 'store'])
     ->middleware('throttle:5,1')
     ->name('contact.store');
 
+Route::get('/membership/track', [MembershipTrackingController::class, 'create'])
+    ->name('membership.track');
+
+Route::post('/membership/track', [MembershipTrackingController::class, 'store'])
+    ->middleware('throttle:10,1')
+    ->name('membership.track.store');
+
 Route::get('/member/verify/{member_number}', [VerificationController::class, 'show'])
     ->middleware('throttle:60,1')
     ->name('member.verify');
@@ -70,9 +80,17 @@ Route::get('/dashboard', function () {
     /** @var User $user */
     $user = Auth::user();
 
-    return $user->isAdmin()
-        ? redirect()->route('admin.dashboard')
-        : redirect()->route('member.dashboard');
+    if ($user->isAdmin()) {
+        return redirect()->route('admin.dashboard');
+    }
+
+    if ($user->account_status === 'pending') {
+        return redirect()->route('membership.pending');
+    }
+
+    abort_unless($user->account_status === 'active', 403);
+
+    return redirect()->route('member.dashboard');
 })->middleware('auth')->name('dashboard');
 
 /*
@@ -81,7 +99,7 @@ Route::get('/dashboard', function () {
 |--------------------------------------------------------------------------
 */
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'active.account'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
 
@@ -130,6 +148,13 @@ Route::middleware(['auth', 'role:admin'])
 
         Route::resource('members', MemberController::class)
             ->except(['show']);
+
+        Route::get('/membership-applications', [MembershipApplicationController::class, 'index'])
+            ->name('membership-applications.index');
+        Route::get('/membership-applications/{membershipApplication}', [MembershipApplicationController::class, 'show'])
+            ->name('membership-applications.show');
+        Route::post('/membership-applications/{membershipApplication}/decision', [MembershipApplicationController::class, 'decide'])
+            ->name('membership-applications.decide');
     });
 
 /*
@@ -138,7 +163,19 @@ Route::middleware(['auth', 'role:admin'])
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'role:member'])
+Route::get('/membership/revise', [MembershipRevisionController::class, 'edit'])
+    ->middleware(['auth', 'role:member'])
+    ->name('membership.revise');
+
+Route::patch('/membership/revise', [MembershipRevisionController::class, 'update'])
+    ->middleware(['auth', 'role:member', 'throttle:5,1'])
+    ->name('membership.revise.update');
+
+Route::get('/membership/pending', [\App\Http\Controllers\Auth\RegisteredUserController::class, 'pending'])
+    ->middleware(['auth', 'role:member'])
+    ->name('membership.pending');
+
+Route::middleware(['auth', 'role:member', 'active.member'])
     ->prefix('member')
     ->name('member.')
     ->group(function () {

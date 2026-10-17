@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Support\NikProtection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -26,8 +27,11 @@ class ProfileController extends Controller
 
         abort_unless($member, 404);
 
+        $request->merge(['nik_fingerprint' => NikProtection::fingerprint((string) $request->input('nik'))]);
+
         $validated = $request->validate([
-            'nik' => ['required', 'string', 'max:30', Rule::unique('members', 'nik')->ignore($member->id)],
+            'nik' => ['required', 'string', 'max:30'],
+            'nik_fingerprint' => ['required', Rule::unique('members', 'nik_hash')->ignore($member->id)],
             'birth_place' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
             'gender' => ['required', 'in:L,P'],
@@ -40,6 +44,8 @@ class ProfileController extends Controller
                 'max:2048',
             ],
         ]);
+
+        unset($validated['nik_fingerprint']);
 
         $originalPhoto = $member->photo;
         $replacementPhoto = null;
