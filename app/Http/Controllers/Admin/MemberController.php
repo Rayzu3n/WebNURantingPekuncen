@@ -1,10 +1,10 @@
 <?php
 
-namespace App\\Http\\Controllers\\Admin;
+namespace App\Http\Controllers\Admin;
 
-use App\\Http\\Controllers\\Controller;
-use App\\Models\\Member;
-use Illuminate\\View\\View;
+use App\Http\Controllers\Controller;
+use App\Models\Member;
+use Illuminate\View\View;
 
 class MemberController extends Controller
 {
