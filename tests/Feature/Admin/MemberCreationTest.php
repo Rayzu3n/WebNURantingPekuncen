@@ -61,3 +61,38 @@ it('does not expose member creation, edit, update, or delete endpoints to admini
         ->delete('/admin/members/'.$member->id)
         ->assertNotFound();
 });
+
+
+it('hides approved applications from the admin review queue and detail route', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $applicant = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'active',
+        'name' => 'Approved Privacy Applicant',
+        'email' => 'approved-private@example.test',
+    ]);
+
+    $application = \\App\\Models\\MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-APPROVED-PRIVACY-001',
+        'access_token_hash' => hash('sha256', 'private-token'),
+        'nik' => '1234567890123456',
+        'birth_place' => 'PRIVATE_BIRTH_PLACE',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'PRIVATE_HOME_ADDRESS',
+        'status' => 'approved',
+    ]);
+
+    $this->actingAs($admin)
+        ->get(route('admin.membership-applications.index'))
+        ->assertOk()
+        ->assertDontSee('REG-APPROVED-PRIVACY-001')
+        ->assertDontSee('approved-private@example.test')
+        ->assertDontSee('PRIVATE_BIRTH_PLACE')
+        ->assertDontSee('PRIVATE_HOME_ADDRESS');
+
+    $this->actingAs($admin)
+        ->get(route('admin.membership-applications.show', $application))
+        ->assertNotFound();
+});
