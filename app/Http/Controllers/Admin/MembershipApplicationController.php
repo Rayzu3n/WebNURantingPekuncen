@@ -17,7 +17,9 @@ class MembershipApplicationController extends Controller
 {
     public function index(): View
     {
-        $applications = MembershipApplication::with('user')
+        $applications = MembershipApplication::query()
+            ->where('status', '!=', 'approved')
+            ->with('user:id,name,email')
             ->latest()
             ->paginate(15);
 
@@ -26,6 +28,9 @@ class MembershipApplicationController extends Controller
 
     public function show(MembershipApplication $membershipApplication): View
     {
+        // Approved applications contain sensitive identity data and are no longer reviewable.
+        abort_if($membershipApplication->status === 'approved', 404);
+
         $membershipApplication->load('user');
 
         return view('admin.membership-applications.show', [
