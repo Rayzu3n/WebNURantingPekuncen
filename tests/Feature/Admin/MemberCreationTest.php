@@ -72,7 +72,7 @@ it('hides approved applications from the admin review queue and detail route', f
         'email' => 'approved-private@example.test',
     ]);
 
-    $application = \\App\\Models\\MembershipApplication::create([
+    $application = \App\Models\MembershipApplication::create([
         'user_id' => $applicant->id,
         'registration_number' => 'REG-APPROVED-PRIVACY-001',
         'access_token_hash' => hash('sha256', 'private-token'),
