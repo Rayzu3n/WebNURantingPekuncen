@@ -1,8 +1,8 @@
 <?php
 
-use App\\Models\\Member;
-use App\\Models\\User;
-use Illuminate\\Foundation\\Testing\\RefreshDatabase;
+use App\Models\Member;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
