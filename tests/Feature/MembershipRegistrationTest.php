@@ -216,3 +216,59 @@ test('pending applicants can sign in and are redirected to application status', 
     $this->get(route('dashboard'))
         ->assertRedirect(route('membership.pending'));
 });
+
+
+test('pending page displays the current application status from the database', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    MembershipApplication::create([
+        'user_id' => $user->id,
+        'registration_number' => 'REG-PENDING-PAGE-001',
+        'access_token_hash' => hash('sha256', 'private-token'),
+        'nik' => '1234567890123456',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'pending_review',
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Pending Review')
+        ->assertSee('Track application')
+        ->assertDontSee('Revise application');
+});
+
+test('pending page shows administrator revision notes and a revise action', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    MembershipApplication::create([
+        'user_id' => $user->id,
+        'registration_number' => 'REG-REVISION-PAGE-001',
+        'access_token_hash' => hash('sha256', 'private-token'),
+        'nik' => '1234567890123456',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'needs_revision',
+        'admin_note' => 'Please upload a clearer identity photo.',
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Your application needs revision')
+        ->assertSee('Please upload a clearer identity photo.')
+        ->assertSee('Revise application')
+        ->assertSee(route('membership.revise'))
+        ->assertDontSee('Track application');
+});
