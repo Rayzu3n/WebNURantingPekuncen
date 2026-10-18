@@ -1,95 +1,63 @@
 <?php
 
-use App\Models\Member;
-use App\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Storage;
+use App\\Models\\Member;
+use App\\Models\\User;
+use Illuminate\\Foundation\\Testing\\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
-it('allows an admin to create a member with a profile photo', function () {
-    Storage::fake('public');
-
-    $admin = User::factory()->create([
-        'role' => 'admin',
-    ]);
-
-    $response = $this->actingAs($admin)->post(
-        route('admin.members.store'),
-        [
-            'name' => 'New Member',
-            'email' => 'new-member@example.test',
-            'password' => 'password123',
-            'member_number' => 'NU-ADMIN-0001',
-            'nik' => '1234567890123456',
-            'birth_place' => 'Pekuncen',
-            'birth_date' => '2000-01-01',
-            'gender' => 'L',
-            'phone' => '081234567890',
-            'address' => 'Pekuncen, Indonesia',
-            'status' => 'active',
-            'photo' => UploadedFile::fake()->image('profile.jpg'),
-        ],
-    );
-
-    $response->assertRedirect(route('admin.members.index'));
-
-    $member = Member::query()
-        ->where('member_number', 'NU-ADMIN-0001')
-        ->firstOrFail();
-
-    expect($member->photo)->not->toBeNull();
-
-    expect(Storage::disk('public')->exists($member->photo))->toBeTrue();
-
-    $this->assertDatabaseHas('users', [
-        'id' => $member->user_id,
-        'email' => 'new-member@example.test',
+it('shows administrators only the minimum member directory fields', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $memberUser = User::factory()->create([
         'role' => 'member',
+        'name' => 'Privacy Test Member',
+        'email' => 'private-member@example.test',
     ]);
+
+    Member::factory()->create([
+        'user_id' => $memberUser->id,
+        'member_number' => 'NU-PRIVACY-001',
+        'nik' => '1234567890123456',
+        'birth_place' => 'PRIVATE_BIRTH_PLACE',
+        'birth_date' => '2001-02-03',
+        'address' => 'PRIVATE_HOME_ADDRESS',
+        'status' => 'active',
+    ]);
+
+    $this->actingAs($admin)
+        ->get('/admin/members')
+        ->assertOk()
+        ->assertSee('Privacy Test Member')
+        ->assertSee('NU-PRIVACY-001')
+        ->assertSee('Aktif')
+        ->assertDontSee('private-member@example.test')
+        ->assertDontSee('1234567890123456')
+        ->assertDontSee('PRIVATE_BIRTH_PLACE')
+        ->assertDontSee('2001-02-03')
+        ->assertDontSee('PRIVATE_HOME_ADDRESS');
 });
 
-it('rolls back member creation and removes the photo when creating the member record fails', function () {
-    Storage::fake('public');
+it('does not expose member creation, edit, update, or delete endpoints to administrators', function () {
+    $admin = User::factory()->create(['role' => 'admin']);
+    $member = Member::factory()->create();
 
-    $admin = User::factory()->create([
-        'role' => 'admin',
-    ]);
+    $this->actingAs($admin)
+        ->get('/admin/members/create')
+        ->assertNotFound();
 
-    Event::listen(
-        'eloquent.creating: '.Member::class,
-        fn (): bool => false,
-    );
+    $this->actingAs($admin)
+        ->post('/admin/members', [])
+        ->assertNotFound();
 
-    $response = $this->actingAs($admin)->post(
-        route('admin.members.store'),
-        [
-            'name' => 'Failed Member',
-            'email' => 'failed-member@example.test',
-            'password' => 'password123',
-            'member_number' => 'NU-ADMIN-0002',
-            'nik' => '6543210987654321',
-            'birth_place' => 'Pekuncen',
-            'birth_date' => '2000-01-01',
-            'gender' => 'P',
-            'phone' => '081234567890',
-            'address' => 'Pekuncen, Indonesia',
-            'status' => 'active',
-            'photo' => UploadedFile::fake()->image('profile.jpg'),
-        ],
-    );
+    $this->actingAs($admin)
+        ->get('/admin/members/'.$member->id.'/edit')
+        ->assertNotFound();
 
-    $response->assertServerError();
+    $this->actingAs($admin)
+        ->put('/admin/members/'.$member->id, [])
+        ->assertNotFound();
 
-    $this->assertDatabaseMissing('users', [
-        'email' => 'failed-member@example.test',
-    ]);
-
-    $this->assertDatabaseMissing('members', [
-        'member_number' => 'NU-ADMIN-0002',
-    ]);
-
-    expect(Storage::disk('public')->allFiles())->toBe([]);
+    $this->actingAs($admin)
+        ->delete('/admin/members/'.$member->id)
+        ->assertNotFound();
 });

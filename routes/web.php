@@ -146,8 +146,7 @@ Route::middleware(['auth', 'role:admin'])
         Route::delete('/messages/{message}', [ContactMessageController::class, 'destroy'])
             ->name('messages.destroy');
 
-        Route::resource('members', MemberController::class)
-            ->except(['show']);
+        Route::resource('members', MemberController::class)->only(['index']);
 
         Route::get('/membership-applications', [MembershipApplicationController::class, 'index'])
             ->name('membership-applications.index');
