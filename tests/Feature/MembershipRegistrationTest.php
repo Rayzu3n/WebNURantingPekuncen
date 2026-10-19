@@ -432,3 +432,108 @@ test('admin must provide a note when requesting an application revision', functi
 
     expect($application->fresh()->status)->toBe('pending_review');
 });
+
+
+test('full membership workflow from revision request through approval grants member access', function () {
+    $applicant = User::factory()->create([
+        'name' => 'Revision Applicant',
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    $application = MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-FULL-WORKFLOW-001',
+        'access_token_hash' => hash('sha256', 'full-workflow-token'),
+        'nik' => '8888999900001111',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'phone' => '081234567890',
+        'address' => 'Old address',
+        'status' => 'pending_review',
+    ]);
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    // Admin requests a revision and provides an actionable note.
+    $this->actingAs($admin)
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'needs_revision',
+            'admin_note' => 'Please confirm your current address.',
+        ])
+        ->assertRedirect(route('admin.membership-applications.index'));
+
+    $application->refresh();
+
+    expect($application->status)->toBe('needs_revision')
+        ->and($application->admin_note)->toBe('Please confirm your current address.');
+
+    // Applicant sees the live status and opens the existing revision form.
+    $this->actingAs($applicant)
+        ->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Needs Revision')
+        ->assertSee('Please confirm your current address.')
+        ->assertSee(route('membership.revise'));
+
+    $this->get(route('membership.revise'))
+        ->assertOk()
+        ->assertViewIs('membership.revise');
+
+    // Applicant corrects the data and resubmits it.
+    $this->patch(route('membership.revise.update'), [
+        'name' => 'Revision Applicant Updated',
+        'nik' => '8888999900001111',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'phone' => '081234567890',
+        'address' => 'Updated address',
+    ])->assertRedirect(route('membership.pending'));
+
+    $application->refresh();
+    $applicant->refresh();
+
+    expect($application->status)->toBe('pending_review')
+        ->and($application->admin_note)->toBeNull()
+        ->and($application->reviewed_by)->toBeNull()
+        ->and($application->reviewed_at)->toBeNull()
+        ->and($application->address)->toBe('Updated address')
+        ->and($applicant->name)->toBe('Revision Applicant Updated')
+        ->and($applicant->account_status)->toBe('pending')
+        ->and(Member::where('user_id', $applicant->id)->exists())->toBeFalse();
+
+    $this->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Pending Review')
+        ->assertDontSee('Please confirm your current address.');
+
+    // Admin approves the corrected application.
+    $this->actingAs($admin)
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'approve',
+            'admin_note' => 'Verified after revision.',
+        ])
+        ->assertRedirect(route('admin.membership-applications.index'));
+
+    $application->refresh();
+    $applicant->refresh();
+    $member = Member::where('user_id', $applicant->id)->firstOrFail();
+
+    expect($application->status)->toBe('approved')
+        ->and($application->admin_note)->toBe('Verified after revision.')
+        ->and($applicant->account_status)->toBe('active')
+        ->and($member->status)->toBe('active')
+        ->and($member->nik)->toBe('8888999900001111')
+        ->and(str_starts_with($member->member_number, 'NU-'))->toBeTrue()
+        ->and(Member::where('user_id', $applicant->id)->count())->toBe(1);
+
+    // The approved applicant can now use member features.
+    $this->actingAs($applicant)
+        ->get(route('dashboard'))
+        ->assertRedirect(route('member.dashboard'));
+
+    $this->get(route('member.dashboard'))->assertOk();
+    $this->get(route('member.card'))->assertOk();
+});
