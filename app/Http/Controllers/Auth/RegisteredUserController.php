@@ -121,12 +121,18 @@ class RegisteredUserController extends Controller
             return redirect()->route('member.dashboard');
         }
 
-        if ($user->account_status !== 'pending') {
-            abort(403, 'This account is not currently permitted to access the member portal.');
-        }
-
         $application = MembershipApplication::where('user_id', $user->id)->firstOrFail();
 
-        return view('membership.pending', compact('application'));
+        if ($user->account_status === 'pending') {
+            return view('membership.pending', compact('application'));
+        }
+
+        // Rejected applicants may access this status-only page to read the decision,
+        // but remain suspended from all member features.
+        if ($user->account_status === 'suspended' && $application->status === 'rejected') {
+            return view('membership.pending', compact('application'));
+        }
+
+        abort(403, 'This account is not currently permitted to access the member portal.');
     }
 }
