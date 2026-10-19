@@ -272,3 +272,36 @@ test('pending page shows administrator revision notes and a revise action', func
         ->assertSee(route('membership.revise'))
         ->assertDontSee('Track application');
 });
+
+
+test('rejected applicants can view the decision while member features stay restricted', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'suspended',
+    ]);
+
+    MembershipApplication::create([
+        'user_id' => $user->id,
+        'registration_number' => 'REG-REJECTED-PAGE-001',
+        'access_token_hash' => hash('sha256', 'private-token'),
+        'nik' => '1234567890123456',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'rejected',
+        'admin_note' => 'Please contact the administrator for further information.',
+    ]);
+
+    $this->actingAs($user)
+        ->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Application rejected')
+        ->assertSee('Please contact the administrator for further information.')
+        ->assertDontSee('Revise application')
+        ->assertDontSee('Track application');
+
+    $this->actingAs($user)
+        ->get(route('member.dashboard'))
+        ->assertForbidden();
+});
