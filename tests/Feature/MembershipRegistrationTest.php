@@ -358,3 +358,77 @@ test('admin rejection suspends the applicant without creating a member record', 
         ->and($applicant->account_status)->toBe('suspended')
         ->and(Member::where('user_id', $applicant->id)->exists())->toBeFalse();
 });
+
+
+test('admin request revision updates the database status and displays it to the applicant', function () {
+    $applicant = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    $application = MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-ADMIN-REVISION-001',
+        'access_token_hash' => hash('sha256', 'revision-token'),
+        'nik' => '6666777788889999',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'pending_review',
+    ]);
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $this->actingAs($admin)
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'needs_revision',
+            'admin_note' => 'Please upload a clearer identity photo.',
+        ])
+        ->assertRedirect(route('admin.membership-applications.index'));
+
+    $application->refresh();
+
+    expect($application->status)->toBe('needs_revision')
+        ->and($application->admin_note)->toBe('Please upload a clearer identity photo.')
+        ->and($applicant->fresh()->account_status)->toBe('pending');
+
+    $this->actingAs($applicant)
+        ->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Needs Revision')
+        ->assertSee('Please upload a clearer identity photo.')
+        ->assertSee(route('membership.revise'));
+});
+
+test('admin must provide a note when requesting an application revision', function () {
+    $applicant = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    $application = MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-ADMIN-REVISION-NOTE-001',
+        'access_token_hash' => hash('sha256', 'revision-note-token'),
+        'nik' => '7777888899990000',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'pending_review',
+    ]);
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $this->actingAs($admin)
+        ->from(route('admin.membership-applications.show', $application))
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'needs_revision',
+            'admin_note' => '',
+        ])
+        ->assertRedirect(route('admin.membership-applications.show', $application))
+        ->assertSessionHasErrors('admin_note');
+
+    expect($application->fresh()->status)->toBe('pending_review');
+});

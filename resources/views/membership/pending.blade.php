@@ -22,7 +22,8 @@
 
         <div class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-900 sm:p-8">
             @if ($application->status === 'needs_revision')
-                <p class="text-sm font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Action required</p>
+                <p class="text-sm font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">Current status</p>
+                <span class="mt-2 inline-flex rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900 dark:bg-amber-900/40 dark:text-amber-200">Needs Revision</span>
                 <h1 class="mt-2 text-2xl font-semibold text-gray-900 dark:text-white">Your application needs revision</h1>
                 <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-300">The administrator reviewed your application and requested changes. Read the note below, update the requested information, and resubmit your application for review.</p>
 
