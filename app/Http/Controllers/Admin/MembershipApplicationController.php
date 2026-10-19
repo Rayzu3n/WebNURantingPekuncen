@@ -18,7 +18,7 @@ class MembershipApplicationController extends Controller
     public function index(): View
     {
         $applications = MembershipApplication::query()
-            ->where('status', '!=', 'approved')
+            ->whereIn('status', ['pending_review', 'needs_revision'])
             ->with('user:id,name,email')
             ->latest()
             ->paginate(15);

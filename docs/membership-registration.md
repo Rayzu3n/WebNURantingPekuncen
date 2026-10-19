@@ -6,7 +6,7 @@
 2. The application creates a `users` record with `role=member` and `account_status=pending`, plus a `membership_applications` record with `status=pending_review`.
 3. The applicant receives a registration number and a random secret access token. The token is shown once after submission; only its SHA-256 hash is stored.
 4. The applicant can track status using both values. The tracking endpoint is rate-limited and does not reveal identity data.
-5. Admins can approve, request revisions, or reject applications. Approval creates the existing `members` record and activates the account in one database transaction. A revision request keeps the account restricted. Rejection suspends the account.
+5. Admins can approve, request revisions, or reject applications. Approval creates the existing `members` record and activates the account in one database transaction. A revision request keeps the account restricted. Rejection suspends member features; the applicant can still sign in to read the rejection decision, but cannot open the member dashboard, profile, or card.
 6. Approved members use the existing member profile, digital card, and public QR verification features.
 
 ## Status fields

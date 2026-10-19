@@ -321,3 +321,40 @@ test('rejected applicants can view the decision while member features stay restr
         ->assertSee('Application rejected')
         ->assertSee('Please contact the administrator for further information.');
 });
+
+
+test('admin rejection suspends the applicant without creating a member record', function () {
+    $applicant = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    $application = MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-REJECT-WORKFLOW-001',
+        'access_token_hash' => hash('sha256', 'reject-workflow-token'),
+        'nik' => '5555666677778888',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'pending_review',
+    ]);
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $this->actingAs($admin)
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'reject',
+            'admin_note' => 'The submitted details could not be verified.',
+        ])
+        ->assertRedirect(route('admin.membership-applications.index'));
+
+    $application->refresh();
+    $applicant->refresh();
+
+    expect($application->status)->toBe('rejected')
+        ->and($application->admin_note)->toBe('The submitted details could not be verified.')
+        ->and($applicant->account_status)->toBe('suspended')
+        ->and(Member::where('user_id', $applicant->id)->exists())->toBeFalse();
+});
