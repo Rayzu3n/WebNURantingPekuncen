@@ -47,7 +47,7 @@ it('does not expose member creation, edit, update, or delete endpoints to admini
 
     $this->actingAs($admin)
         ->post('/admin/members', [])
-        ->assertNotFound();
+        ->assertStatus(405);
 
     $this->actingAs($admin)
         ->get('/admin/members/'.$member->id.'/edit')
