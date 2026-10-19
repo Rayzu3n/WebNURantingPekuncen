@@ -37,6 +37,11 @@ class User extends Authenticatable
         return $this->hasOne(Member::class);
     }
 
+    public function membershipApplication(): HasOne
+    {
+        return $this->hasOne(MembershipApplication::class);
+    }
+
     public function news(): HasMany
     {
         return $this->hasMany(News::class, 'author_id');

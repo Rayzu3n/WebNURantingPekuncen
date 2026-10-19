@@ -304,4 +304,20 @@ test('rejected applicants can view the decision while member features stay restr
     $this->actingAs($user)
         ->get(route('member.dashboard'))
         ->assertForbidden();
+
+    $this->post(route('logout'))
+        ->assertRedirect('/');
+
+    $this->post(route('login'), [
+        'email' => $user->email,
+        'password' => 'password',
+    ])->assertRedirect(route('dashboard', absolute: false));
+
+    $this->get(route('dashboard'))
+        ->assertRedirect(route('membership.pending'));
+
+    $this->get(route('membership.pending'))
+        ->assertOk()
+        ->assertSee('Application rejected')
+        ->assertSee('Please contact the administrator for further information.');
 });

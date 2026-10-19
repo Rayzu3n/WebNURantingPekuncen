@@ -84,7 +84,8 @@ Route::get('/dashboard', function () {
         return redirect()->route('admin.dashboard');
     }
 
-    if ($user->account_status === 'pending') {
+    if ($user->account_status === 'pending'
+        || ($user->account_status === 'suspended' && $user->membershipApplication?->status === 'rejected')) {
         return redirect()->route('membership.pending');
     }
 

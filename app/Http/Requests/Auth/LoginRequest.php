@@ -55,7 +55,8 @@ class LoginRequest extends FormRequest
         if ($user && $user->role === 'member') {
             // Applicants must be able to sign in while their application is pending.
             // Portal access is enforced separately by account-status middleware.
-            if ($user->account_status === 'pending') {
+            if ($user->account_status === 'pending'
+                || ($user->account_status === 'suspended' && $user->membershipApplication?->status === 'rejected')) {
                 RateLimiter::clear($this->throttleKey());
 
                 return;
