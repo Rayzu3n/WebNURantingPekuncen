@@ -3,7 +3,9 @@
 use App\Models\Member;
 use App\Models\MembershipApplication;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 function validMembershipRegistration(array $overrides = []): array
 {
@@ -30,6 +32,78 @@ test('registration requires a valid sixteen digit NIK', function () {
 
     $this->assertDatabaseCount('users', 0);
     $this->assertDatabaseCount('membership_applications', 0);
+});
+
+
+test('applicant photos are private until approval and preview is admin-only', function () {
+    Storage::fake('membership-private');
+    Storage::fake('public');
+
+    $this->post(route('register'), validMembershipRegistration([
+        'photo' => UploadedFile::fake()->image('applicant.png'),
+    ]))->assertRedirect(route('membership.pending'));
+
+    $applicant = User::where('email', 'applicant@example.test')->firstOrFail();
+    $application = MembershipApplication::where('user_id', $applicant->id)->firstOrFail();
+
+    expect($application->photo)->toStartWith('membership-applications/');
+
+    Storage::disk('membership-private')->assertExists($application->photo);
+    Storage::disk('public')->assertMissing($application->photo);
+
+    $this->actingAs($applicant)
+        ->get(route('admin.membership-applications.photo', $application))
+        ->assertForbidden();
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $this->actingAs($admin)
+        ->get(route('admin.membership-applications.photo', $application))
+        ->assertOk()
+        ->assertHeader('x-content-type-options', 'nosniff');
+});
+
+
+test('approval promotes an applicant photo to public member storage and deletes the private copy', function () {
+    Storage::fake('membership-private');
+    Storage::fake('public');
+
+    $photoPath = UploadedFile::fake()->image('applicant.png')
+        ->store('membership-applications', 'membership-private');
+
+    $applicant = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    $application = MembershipApplication::create([
+        'user_id' => $applicant->id,
+        'registration_number' => 'REG-PRIVATE-PHOTO-001',
+        'access_token_hash' => hash('sha256', 'private-photo-token'),
+        'nik' => '4321098765432109',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'photo' => $photoPath,
+        'status' => 'pending_review',
+    ]);
+
+    $admin = User::factory()->create(['role' => 'admin']);
+
+    $this->actingAs($admin)
+        ->post(route('admin.membership-applications.decide', $application), [
+            'decision' => 'approve',
+            'admin_note' => 'Identity verified.',
+        ])
+        ->assertRedirect(route('admin.membership-applications.index'));
+
+    $member = Member::where('user_id', $applicant->id)->firstOrFail();
+
+    expect($member->photo)->toStartWith('members/');
+
+    Storage::disk('public')->assertExists($member->photo);
+    Storage::disk('membership-private')->assertMissing($photoPath);
 });
 
 test('registration creates a pending account and stores NIK encrypted', function () {

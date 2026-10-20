@@ -58,7 +58,7 @@ class RegisteredUserController extends Controller
         $photoPath = null;
 
         if ($request->hasFile('photo')) {
-            $photoPath = $request->file('photo')->store('membership-applications', 'public');
+            $photoPath = $request->file('photo')->store('membership-applications', 'membership-private');
 
             if ($photoPath === false) {
                 return back()->withInput()->withErrors([
@@ -97,7 +97,7 @@ class RegisteredUserController extends Controller
             });
         } catch (\Throwable $exception) {
             if ($photoPath !== null) {
-                Storage::disk('public')->delete($photoPath);
+                Storage::disk('membership-private')->delete($photoPath);
             }
 
             throw $exception;

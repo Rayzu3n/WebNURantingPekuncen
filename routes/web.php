@@ -153,6 +153,8 @@ Route::middleware(['auth', 'role:admin'])
             ->name('membership-applications.index');
         Route::get('/membership-applications/{membershipApplication}', [MembershipApplicationController::class, 'show'])
             ->name('membership-applications.show');
+        Route::get('/membership-applications/{membershipApplication}/photo', [MembershipApplicationController::class, 'photo'])
+            ->name('membership-applications.photo');
         Route::post('/membership-applications/{membershipApplication}/decision', [MembershipApplicationController::class, 'decide'])
             ->name('membership-applications.decide');
     });

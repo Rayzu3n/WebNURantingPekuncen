@@ -19,6 +19,8 @@
 
 NIK values in `members.nik` and `membership_applications.nik` are encrypted with Laravel's encrypted cast / application encrypter. Duplicate checks use a separate HMAC fingerprint stored in `nik_hash`; plaintext NIK is not used for database equality queries.
 
+Applicant photos remain on the `membership-private` disk while an application is pending or returned for revision. The admin preview is streamed through an authenticated route. On approval, the photo is copied to the existing public member-photo path and the private copy is deleted. Never expose an unapproved application photo with `asset('storage/...')`.
+
 **Before deploying the migration to an existing database:**
 
 - Take and verify a database backup.

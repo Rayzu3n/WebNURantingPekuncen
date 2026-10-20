@@ -58,7 +58,7 @@ class MembershipRevisionController extends Controller
         $replacementPhoto = null;
 
         if ($request->hasFile('photo')) {
-            $replacementPhoto = $request->file('photo')->store('membership-applications', 'public');
+            $replacementPhoto = $request->file('photo')->store('membership-applications', 'membership-private');
 
             if ($replacementPhoto === false) {
                 return back()->withInput()->withErrors([
@@ -83,14 +83,14 @@ class MembershipRevisionController extends Controller
             });
         } catch (\Throwable $exception) {
             if ($replacementPhoto !== null) {
-                Storage::disk('public')->delete($replacementPhoto);
+                Storage::disk('membership-private')->delete($replacementPhoto);
             }
 
             throw $exception;
         }
 
         if ($replacementPhoto !== null && $originalPhoto) {
-            Storage::disk('public')->delete($originalPhoto);
+            Storage::disk('membership-private')->delete($originalPhoto);
         }
 
         return redirect()->route('membership.pending')->with('success', 'Your revised application has been resubmitted for review.');

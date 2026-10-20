@@ -32,7 +32,7 @@
             @if ($application->photo)
                 <div class="mt-6">
                     <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Profile photo</p>
-                    <img src="{{ asset('storage/' . $application->photo) }}" alt="Applicant profile" class="max-h-72 rounded-xl border border-gray-200 object-cover dark:border-gray-700">
+                    <img src="{{ route('admin.membership-applications.photo', $application) }}" alt="Applicant profile" class="max-h-72 rounded-xl border border-gray-200 object-cover dark:border-gray-700">
                 </div>
             @endif
 
