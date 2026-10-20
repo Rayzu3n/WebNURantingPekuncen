@@ -31,8 +31,7 @@
         <aside
             class="relative flex min-h-[280px] flex-col justify-between overflow-hidden bg-[#1a5b41] px-6 py-7 text-white sm:px-10 sm:py-9 lg:min-h-screen lg:px-14 lg:py-12 dark:bg-[#183b2a]">
             <div class="flex items-center gap-3">
-                <span
-                    class="flex h-11 w-11 items-center justify-center border border-white/50 text-sm font-extrabold tracking-[-.08em]">NU</span>
+                <span class="flex h-11 w-16 items-center justify-center border border-white/50 bg-white px-1"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Nahdlatul_Ulama_Logo.svg" alt="Lambang resmi Nahdlatul Ulama" class="h-9 w-full object-contain" decoding="async"></span>
                 <div>
                     <p class="font-editorial text-lg font-extrabold tracking-[-.04em]">Portal NU</p>
                     <p class="mt-1 text-[9px] font-bold uppercase tracking-[.2em] text-white/65">Ranting Pekuncen</p>
