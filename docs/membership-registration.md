@@ -30,6 +30,13 @@ Applicant photos remain on the `membership-private` disk while an application is
 
 The migration converts existing member NIK values to encrypted storage. Rollback decrypts them using the same `APP_KEY`; it must not be run after key rotation.
 
+
+### Existing application photo files
+
+If this version replaces an earlier deployment that already accepted membership applications, take a filesystem backup before switching the code. Pending, revision-requested, and rejected application photos may still exist under the old public `storage/app/public/membership-applications/` directory.
+
+For each non-approved application with an existing photo, move the file to `storage/app/membership-private/` while preserving the relative path stored in `membership_applications.photo`. Confirm the admin-only preview works before deleting any old public copy. **Do not blanket-move or delete files used by approved members**, because existing `members.photo` values may still reference public storage. Review rejected applications too; their photo must not remain publicly accessible. New registrations and revision uploads use the private disk automatically.
+
 ## Operational notes
 
 - Do not log the access token or store it in plaintext.
