@@ -61,7 +61,7 @@ class MembershipRevisionController extends Controller
             $replacementPhoto = $request->file('photo')->store('membership-applications', 'membership-private');
 
             if ($replacementPhoto === false) {
-                return back()->withInput()->withErrors([
+                return back()->withInput($request->except(['nik', 'nik_fingerprint']))->withErrors([
                     'photo' => 'The photo could not be saved. Please try again.',
                 ]);
             }

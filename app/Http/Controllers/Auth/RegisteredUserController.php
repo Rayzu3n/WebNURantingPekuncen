@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
             $photoPath = $request->file('photo')->store('membership-applications', 'membership-private');
 
             if ($photoPath === false) {
-                return back()->withInput()->withErrors([
+                return back()->withInput($request->except(['password', 'password_confirmation', 'nik', 'nik_fingerprint']))->withErrors([
                     'photo' => 'The photo could not be saved. Please try again.',
                 ]);
             }

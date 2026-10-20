@@ -64,7 +64,7 @@ class ProfileController extends Controller
 
             if ($replacementPhoto === false) {
                 return back()
-                    ->withInput()
+                    ->withInput($request->except(['nik', 'nik_fingerprint']))
                     ->withErrors([
                         'photo' => 'The profile photo could not be saved. Please try again.',
                     ]);
@@ -89,7 +89,7 @@ class ProfileController extends Controller
             }
 
             return back()
-                ->withInput()
+                ->withInput($request->except(['nik', 'nik_fingerprint']))
                 ->withErrors([
                     'photo' => 'The profile could not be updated. Please try again.',
                 ]);

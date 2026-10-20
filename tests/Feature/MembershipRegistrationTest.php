@@ -123,6 +123,71 @@ test('approval promotes an applicant photo to public member storage and deletes 
     Storage::disk('membership-private')->assertMissing($photoPath);
 });
 
+
+test('revision duplicate NIK errors do not flash identity data', function () {
+    Member::factory()->create(['nik' => '2222333344445555']);
+
+    $user = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'pending',
+    ]);
+
+    MembershipApplication::create([
+        'user_id' => $user->id,
+        'registration_number' => 'REG-REVISION-NIK-PRIVACY-001',
+        'access_token_hash' => hash('sha256', 'revision-nik-privacy-token'),
+        'nik' => '1111222233334444',
+        'birth_place' => 'Pekuncen',
+        'birth_date' => '2000-01-01',
+        'gender' => 'L',
+        'address' => 'Pekuncen, Indonesia',
+        'status' => 'needs_revision',
+    ]);
+
+    $this->actingAs($user)
+        ->from(route('membership.revise'))
+        ->patch(route('membership.revise.update'), [
+            'name' => 'Privacy Test Applicant',
+            'nik' => '2222333344445555',
+            'birth_place' => 'Pekuncen',
+            'birth_date' => '2000-01-01',
+            'gender' => 'L',
+            'address' => 'Pekuncen, Indonesia',
+        ])
+        ->assertRedirect(route('membership.revise'))
+        ->assertSessionHasErrors('nik')
+        ->assertSessionMissing('_old_input.nik')
+        ->assertSessionMissing('_old_input.nik_fingerprint');
+});
+
+
+test('member profile duplicate NIK errors do not flash identity data', function () {
+    $user = User::factory()->create([
+        'role' => 'member',
+        'account_status' => 'active',
+    ]);
+
+    Member::factory()->create([
+        'user_id' => $user->id,
+        'nik' => '3333444455556666',
+    ]);
+    Member::factory()->create(['nik' => '4444555566667777']);
+
+    $this->actingAs($user)
+        ->from(route('member.profile'))
+        ->patch(route('member.profile.update'), [
+            'nik' => '4444555566667777',
+            'birth_place' => 'Pekuncen',
+            'birth_date' => '2000-01-01',
+            'gender' => 'L',
+            'address' => 'Pekuncen, Indonesia',
+        ])
+        ->assertRedirect(route('member.profile'))
+        ->assertSessionHasErrors('nik')
+        ->assertSessionMissing('_old_input.nik')
+        ->assertSessionMissing('_old_input.nik_fingerprint');
+});
+
 test('registration creates a pending account and stores NIK encrypted', function () {
     $response = $this->post(route('register'), validMembershipRegistration());
 
