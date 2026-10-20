@@ -127,13 +127,6 @@
                     <div class="flex items-center gap-2">
                         <span
                             class="hidden text-[10px] font-bold uppercase tracking-[.12em] text-[#88968a] md:inline">{{ now()->translatedFormat('d M Y') }}</span>
-                        <a href="{{ route('banoms.index') }}"
-                            class="inline-flex min-h-10 items-center gap-2 rounded-full border border-[#cbd8ca] px-3.5 text-xs font-extrabold text-[#1a5b41] transition hover:bg-[#e7eee5] sm:px-4 sm:text-sm dark:border-[#405646] dark:text-[#a8ddb8] dark:hover:bg-[#2a3b2f]"
-                            aria-label="Buka halaman publik Banom">
-                            <x-portal-icon name="users" class="h-4 w-4" />
-                            <span class="hidden sm:inline">Lihat Banom</span>
-                            <span class="sm:hidden">Banom</span>
-                        </a>
                         <x-theme-toggle />
                     </div>
                 </div>
