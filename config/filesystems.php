@@ -47,6 +47,14 @@ return [
             'report' => false,
         ],
 
+        // Applicant identity photos are stored outside the public storage symlink.
+        'membership-private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/membership-private'),
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

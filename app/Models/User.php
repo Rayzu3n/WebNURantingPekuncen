@@ -12,12 +12,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-#[Fillable(['name', 'email', 'password','role'])]
+#[Fillable(['name', 'email', 'password', 'role', 'account_status'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    protected $attributes = [
+        'account_status' => 'active',
+    ];
 
     
     protected function casts(): array
@@ -33,6 +37,11 @@ class User extends Authenticatable
         return $this->hasOne(Member::class);
     }
 
+    public function membershipApplication(): HasOne
+    {
+        return $this->hasOne(MembershipApplication::class);
+    }
+
     public function news(): HasMany
     {
         return $this->hasMany(News::class, 'author_id');
@@ -46,5 +55,10 @@ class User extends Authenticatable
     public function isMember(): bool
     {
         return $this->role === 'member';
+    }
+
+    public function hasActiveAccount(): bool
+    {
+        return $this->account_status === 'active';
     }
 }

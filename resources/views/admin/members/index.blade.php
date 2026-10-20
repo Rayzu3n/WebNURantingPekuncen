@@ -1,281 +1,90 @@
 <x-app-layout>
-
     <x-slot name="header">
         <div>
-            <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
-                Members
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Manage member accounts and membership data.
-            </p>
+            <h2 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Direktori Anggota</h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Informasi keanggotaan minimum dengan tetap menjaga privasi anggota.</p>
         </div>
     </x-slot>
 
     <div class="space-y-6">
-
-        <!-- Header -->
-        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-
-            <div>
-                <h1 class="portal-page-title">
-                    Member Management
-                </h1>
-
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                    Manage registered members and their membership status.
-                </p>
+        <section class="flex flex-col gap-3 rounded-2xl border border-emerald-200 bg-emerald-50/70 p-5 dark:border-emerald-900 dark:bg-emerald-950/20 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex items-start gap-3">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-200" aria-hidden="true">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 3 5 6v5c0 4.5 2.8 7.8 7 10 4.2-2.2 7-5.5 7-10V6l-7-3Z"/>
+                        <path d="m9 12 2 2 4-4"/>
+                    </svg>
+                </span>
+                <div>
+                    <h1 class="font-semibold text-emerald-950 dark:text-emerald-100">Privasi anggota dilindungi</h1>
+                    <p class="mt-1 max-w-2xl text-sm leading-6 text-emerald-900/80 dark:text-emerald-100/75">Halaman ini hanya menampilkan nama, nomor anggota, dan status keanggotaan. Data pribadi dan pengeditan profil tidak tersedia dari panel admin.</p>
+                </div>
             </div>
+            <span class="inline-flex w-fit shrink-0 items-center rounded-full border border-emerald-300 bg-white/70 px-3 py-1.5 text-xs font-semibold text-emerald-800 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-200">
+                {{ $members->total() }} anggota
+            </span>
+        </section>
 
-            <a href="{{ route('admin.members.create') }}"
-                class="inline-flex items-center justify-center gap-2 rounded-xl
-                bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white
-                shadow-lg shadow-emerald-200/40 transition-all
-                hover:-translate-y-0.5 hover:bg-emerald-700 hover:shadow-xl
-                dark:bg-emerald-500 dark:shadow-emerald-950/20
-                dark:hover:bg-emerald-600">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12h14" />
-                </svg>
-
-                Add Member
-            </a>
-
-        </div>
-
-        <!-- Success -->
         @if (session('success'))
-            <div
-                class="flex items-start gap-3 rounded-xl border
-                border-green-200 bg-green-50 px-4 py-4
-                text-sm text-green-800 shadow-sm
-                dark:border-green-500/20 dark:bg-green-500/10
-                dark:text-green-300">
-                <svg xmlns="http://www.w3.org/2000/svg" class="mt-0.5 h-5 w-5 shrink-0" fill="none"
-                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-
-                <span>{{ session('success') }}</span>
+            <div role="status" class="rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-500/20 dark:bg-green-500/10 dark:text-green-300">
+                {{ session('success') }}
             </div>
         @endif
 
-        <!-- Members Table -->
-        <div
-            class="overflow-hidden rounded-2xl border
-            border-gray-200 bg-white
-            shadow-lg shadow-gray-300/40
-            dark:border-gray-800 dark:bg-[#111827]
-            dark:shadow-black/20">
-
+        <section class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm dark:border-gray-800 dark:bg-[#111827]">
             @if ($members->count())
-
-                <div class="overflow-x-auto max-w-full" role="region" aria-label="Members table, scroll horizontally to see more columns" tabindex="0">
-
-                    <table class="w-full min-w-[850px] text-left">
-
-                        <thead>
-                            <tr
-                                class="border-b border-gray-200 bg-gray-50/80
-                                dark:border-gray-800 dark:bg-gray-900/60">
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Member Number
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Member
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Email
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Status
-                                </th>
-
-                                <th
-                                    class="px-5 py-4 text-right text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                                    Actions
-                                </th>
+                <div class="overflow-x-auto" role="region" aria-label="Daftar anggota" tabindex="0">
+                    <table class="w-full min-w-[540px] text-left">
+                        <thead class="border-b border-gray-200 bg-gray-50/80 dark:border-gray-800 dark:bg-gray-900/60">
+                            <tr>
+                                <th scope="col" class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Nomor anggota</th>
+                                <th scope="col" class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Nama anggota</th>
+                                <th scope="col" class="px-5 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Status</th>
                             </tr>
                         </thead>
-
                         <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
-
                             @foreach ($members as $member)
-                                <tr class="transition-colors hover:bg-gray-50/80 dark:hover:bg-gray-900/50">
-
-                                    <!-- Member Number -->
-                                    <td class="px-5 py-5">
-
-                                        <code
-                                            class="rounded-lg bg-emerald-50 px-2.5 py-1.5
-                                            text-xs font-semibold text-emerald-700
-                                            dark:bg-emerald-500/10 dark:text-emerald-400">
-                                            {{ $member->member_number }}
-                                        </code>
-
+                                <tr class="transition-colors hover:bg-gray-50/70 dark:hover:bg-gray-900/40">
+                                    <td class="px-5 py-4">
+                                        <code class="rounded-lg bg-gray-100 px-2.5 py-1.5 text-xs font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-200">{{ $member->member_number }}</code>
                                     </td>
-
-                                    <!-- Member -->
-                                    <td class="px-5 py-5">
-
-                                        <div class="flex items-center gap-3">
-
-                                            @if ($member->photo)
-                                                <img src="{{ asset('storage/' . $member->photo) }}"
-                                                    alt="{{ $member->user->name }}"
-                                                    class="h-10 w-10 shrink-0 rounded-full object-cover border border-gray-200 dark:border-gray-700">
-                                            @else
-                                                <div
-                                                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full
-                                                    bg-emerald-50 text-sm font-bold text-emerald-600
-                                                    dark:bg-emerald-500/10 dark:text-emerald-400">
-                                                    {{ strtoupper(substr($member->user->name, 0, 1)) }}
-                                                </div>
-                                            @endif
-
-                                            <div class="min-w-0">
-
-                                                <p class="truncate font-semibold text-gray-900 dark:text-white">
-                                                    {{ $member->user->name }}
-                                                </p>
-
-                                                <p class="mt-0.5 text-xs text-gray-400 dark:text-gray-500">
-                                                    {{ $member->nik }}
-                                                </p>
-
-                                            </div>
-
-                                        </div>
-
+                                    <td class="px-5 py-4">
+                                        <span class="font-medium text-gray-900 dark:text-white">{{ $member->user?->name ?? 'Anggota tidak tersedia' }}</span>
                                     </td>
-
-                                    <!-- Email -->
-                                    <td class="px-5 py-5">
-
-                                        <p class="text-sm text-gray-600 dark:text-gray-300">
-                                            {{ $member->user->email }}
-                                        </p>
-
-                                    </td>
-
-                                    <!-- Status -->
-                                    <td class="px-5 py-5">
-
+                                    <td class="px-5 py-4">
                                         @if ($member->status === 'active')
-                                            <span
-                                                class="inline-flex items-center gap-1.5 rounded-full
-                                                bg-green-50 px-2.5 py-1 text-xs font-semibold
-                                                text-green-700
-                                                dark:bg-green-500/10 dark:text-green-400">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-green-500"></span>
-                                                Active
+                                            <span class="inline-flex items-center gap-2 rounded-full bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-700 dark:bg-green-500/10 dark:text-green-300">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-green-500" aria-hidden="true"></span>Aktif
                                             </span>
                                         @else
-                                            <span
-                                                class="inline-flex items-center gap-1.5 rounded-full
-                                                bg-gray-100 px-2.5 py-1 text-xs font-semibold
-                                                text-gray-700
-                                                dark:bg-gray-700/50 dark:text-gray-300">
-                                                <span class="h-1.5 w-1.5 rounded-full bg-gray-500"></span>
-                                                Inactive
+                                            <span class="inline-flex items-center gap-2 rounded-full bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700 dark:bg-gray-800 dark:text-gray-300">
+                                                <span class="h-1.5 w-1.5 rounded-full bg-gray-500" aria-hidden="true"></span>Tidak aktif
                                             </span>
                                         @endif
-
                                     </td>
-
-                                    <!-- Actions -->
-                                    <td class="px-5 py-5">
-
-                                        <div class="flex items-center justify-end gap-2">
-
-                                            <a href="{{ route('admin.members.edit', $member) }}"
-                                                class="inline-flex items-center rounded-lg border
-                                                border-emerald-200 bg-emerald-50 px-3 py-2
-                                                text-xs font-semibold text-emerald-700
-                                                transition-colors hover:bg-emerald-100
-                                                dark:border-emerald-500/20 dark:bg-emerald-500/10
-                                                dark:text-emerald-400 dark:hover:bg-emerald-500/20">
-                                                Edit
-                                            </a>
-
-                                            <form method="POST"
-                                                action="{{ route('admin.members.destroy', $member) }}">
-                                                @csrf
-                                                @method('DELETE')
-
-                                                <button type="submit"
-                                                    class="inline-flex items-center rounded-lg border
-                                                    border-red-200 bg-red-50 px-3 py-2
-                                                    text-xs font-semibold text-red-700
-                                                    transition-colors hover:bg-red-100
-                                                    dark:border-red-500/20 dark:bg-red-500/10
-                                                    dark:text-red-400 dark:hover:bg-red-500/20">
-                                                    Delete
-                                                </button>
-                                            </form>
-
-                                        </div>
-
-                                    </td>
-
                                 </tr>
                             @endforeach
-
                         </tbody>
-
                     </table>
-
                 </div>
-
-                <!-- Pagination -->
-                <div class="border-t border-gray-200 px-5 py-4 dark:border-gray-800">
-                    {{ $members->links() }}
-                </div>
-            @else
-                <!-- Empty -->
-                <div class="px-6 py-16 text-center">
-
-                    <div
-                        class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl
-                        bg-emerald-50 text-emerald-600
-                        dark:bg-emerald-500/10 dark:text-emerald-400">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="1.8">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
-                        </svg>
+                @if ($members->hasPages())
+                    <div class="border-t border-gray-200 px-5 py-4 dark:border-gray-800">
+                        {{ $members->links() }}
                     </div>
-
-                    <h3 class="mt-5 text-base font-semibold text-gray-900 dark:text-white">
-                        No members found
-                    </h3>
-
-                    <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                        Create a member account to start managing membership data.
-                    </p>
-
-                    <a href="{{ route('admin.members.create') }}"
-                        class="mt-5 inline-flex items-center rounded-xl
-                        bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white
-                        transition hover:bg-emerald-700
-                        dark:bg-emerald-500 dark:hover:bg-emerald-600">
-                        Add your first member
-                    </a>
-
+                @endif
+            @else
+                <div class="px-6 py-14 text-center sm:px-10">
+                    <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-300" aria-hidden="true">
+                        <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                            <circle cx="10" cy="7" r="4"/>
+                            <path d="M20 8v6m3-3h-6"/>
+                        </svg>
+                    </span>
+                    <h3 class="mt-4 text-base font-semibold text-gray-900 dark:text-white">Belum ada anggota terdaftar</h3>
+                    <p class="mx-auto mt-2 max-w-sm text-sm leading-6 text-gray-500 dark:text-gray-400">Anggota yang disetujui akan muncul di sini. Data pribadi tetap dibatasi untuk menjaga privasi.</p>
                 </div>
-
             @endif
-
-        </div>
-
+        </section>
     </div>
-
 </x-app-layout>
