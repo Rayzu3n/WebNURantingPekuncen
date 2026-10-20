@@ -38,8 +38,7 @@
             <div
                 class="flex h-[88px] shrink-0 items-center justify-between border-b border-[#dde0d6] px-6 dark:border-[#364339]">
                 <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                    <span
-                        class="flex h-11 w-11 items-center justify-center border-2 border-[#1a5b41] text-sm font-extrabold tracking-[-.08em] text-[#1a5b41] dark:border-[#80ca9d] dark:text-[#80ca9d]">NU</span>
+                    <span class="flex h-11 w-16 items-center justify-center border border-[#cbd8ca] bg-white px-1 dark:border-[#405646]"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Nahdlatul_Ulama_Logo.svg" alt="Lambang resmi Nahdlatul Ulama" class="h-9 w-full object-contain" decoding="async"></span>
                     <span><span
                             class="block font-editorial text-base font-extrabold tracking-[-.04em] text-[#192b23] dark:text-[#ebefe5]">Portal
                             NU</span><span
