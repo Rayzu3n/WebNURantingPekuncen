@@ -19,6 +19,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // Identity numbers must not be stored in session old input after validation errors.
+        $exceptions->dontFlash(['nik', 'nik_fingerprint']);
+
         $exceptions->shouldRenderJsonWhen(
             fn(Request $request) => $request->is('api/*') || $request->expectsJson(),
         );

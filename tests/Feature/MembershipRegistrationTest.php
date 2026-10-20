@@ -28,12 +28,29 @@ test('registration requires a valid sixteen digit NIK', function () {
     $this->from(route('register'))
         ->post(route('register'), validMembershipRegistration(['nik' => '12345']))
         ->assertRedirect(route('register'))
-        ->assertSessionHasErrors('nik');
+        ->assertSessionHasErrors('nik')
+        ->assertSessionMissing('_old_input.nik');
 
     $this->assertDatabaseCount('users', 0);
     $this->assertDatabaseCount('membership_applications', 0);
 });
 
+
+
+test('duplicate registration does not flash the NIK into session old input', function () {
+    Member::factory()->create([
+        'nik' => '1234567890123456',
+    ]);
+
+    $this->from(route('register'))
+        ->post(route('register'), validMembershipRegistration())
+        ->assertRedirect(route('register'))
+        ->assertSessionHasErrors('nik')
+        ->assertSessionMissing('_old_input.nik')
+        ->assertSessionMissing('_old_input.nik_fingerprint');
+
+    $this->assertDatabaseCount('membership_applications', 0);
+});
 
 test('applicant photos are private until approval and preview is admin-only', function () {
     Storage::fake('membership-private');

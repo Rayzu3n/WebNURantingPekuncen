@@ -50,7 +50,7 @@ class RegisteredUserController extends Controller
 
         if (Member::where('nik_hash', $nikHash)->exists()
             || MembershipApplication::where('nik_hash', $nikHash)->exists()) {
-            return back()->withInput($request->except(['password', 'password_confirmation']))
+            return back()->withInput($request->except(['password', 'password_confirmation', 'nik', 'nik_fingerprint']))
                 ->withErrors(['nik' => 'This NIK is already associated with a member or registration.']);
         }
 

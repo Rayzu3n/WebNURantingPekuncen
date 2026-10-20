@@ -33,7 +33,7 @@ class ProfileController extends Controller
         if (Member::where('nik_hash', $request->input('nik_fingerprint'))
             ->where('id', '!=', $member->id)
             ->exists()) {
-            return back()->withInput()->withErrors(['nik' => 'This NIK is already associated with another member.']);
+            return back()->withInput($request->except(['nik', 'nik_fingerprint']))->withErrors(['nik' => 'This NIK is already associated with another member.']);
         }
 
         $validated = $request->validate([
