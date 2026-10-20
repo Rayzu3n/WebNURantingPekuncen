@@ -46,8 +46,7 @@
             <div class="mx-auto max-w-[1500px] px-4 sm:px-7 lg:px-10">
                 <div class="flex min-h-[82px] items-center justify-between gap-4">
                     <a href="{{ route('home') }}" class="group flex min-w-0 items-center gap-3.5">
-                        <span
-                            class="flex h-12 w-12 shrink-0 items-center justify-center border-2 border-[#1a5b41] text-[15px] font-extrabold tracking-[-.08em] text-[#1a5b41] transition group-hover:bg-[#1a5b41] group-hover:text-white dark:border-[#80ca9d] dark:text-[#80ca9d] dark:group-hover:bg-[#80ca9d] dark:group-hover:text-[#17251b]">NU</span>
+                        <span class="flex h-12 w-16 shrink-0 items-center justify-center border border-[#cbd8ca] bg-white px-1 dark:border-[#405646]"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Nahdlatul_Ulama_Logo.svg" alt="Lambang resmi Nahdlatul Ulama" class="h-10 w-full object-contain" decoding="async"></span>
                         <span class="min-w-0">
                             <span
                                 class="block font-editorial text-lg font-extrabold leading-tight tracking-[-.045em] text-[#192b23] dark:text-[#ebefe5] sm:text-xl">Portal
@@ -148,8 +147,7 @@
                 <div class="grid gap-10 border-b border-white/15 pb-10 md:grid-cols-[1.4fr_.7fr_.9fr]">
                     <div>
                         <div class="flex items-center gap-3">
-                            <span
-                                class="flex h-11 w-11 items-center justify-center border border-[#80ca9d] font-extrabold tracking-tight text-[#a8ddb8]">NU</span>
+                            <span class="flex h-11 w-16 items-center justify-center border border-[#80ca9d] bg-white px-1"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Nahdlatul_Ulama_Logo.svg" alt="Lambang resmi Nahdlatul Ulama" class="h-9 w-full object-contain" loading="lazy" decoding="async"></span>
                             <div>
                                 <p class="font-editorial text-xl font-extrabold tracking-[-.04em] text-white">Portal NU
                                 </p>
