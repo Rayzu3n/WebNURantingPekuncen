@@ -66,6 +66,8 @@
                             berita</a>
                         <a href="{{ route('events.index') }}"
                             class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('events.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Kegiatan</a>
+                        <a href="{{ route('banoms.index') }}"
+                            class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('banoms.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Banom</a>
                         <a href="{{ route('about') }}"
                             class="rounded-full px-4 py-2.5 text-sm font-bold transition {{ request()->routeIs('about') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#66746a] hover:bg-[#f0efe7] hover:text-[#192b23] dark:text-[#bdc8bc] dark:hover:bg-[#253127] dark:hover:text-white' }}">Tentang
                             Kami</a>
@@ -116,6 +118,8 @@
                         berita</a>
                     <a href="{{ route('events.index') }}"
                         class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('events.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Kegiatan</a>
+                    <a href="{{ route('banoms.index') }}"
+                        class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('banoms.*') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Banom &amp; pengurus</a>
                     <a href="{{ route('about') }}"
                         class="block rounded-xl px-4 py-3 text-sm font-bold {{ request()->routeIs('about') ? 'bg-[#e7eee5] text-[#1a5b41] dark:bg-[#2a3b2f] dark:text-[#a8ddb8]' : 'text-[#526156] hover:bg-[#f0efe7] dark:text-[#c2cdc1] dark:hover:bg-[#253127]' }}">Tentang
                         Kami</a>
@@ -162,6 +166,7 @@
                             <a href="{{ route('home') }}" class="block transition hover:text-white">Beranda</a>
                             <a href="{{ route('news.index') }}" class="block transition hover:text-white">Semua
                                 berita</a>
+                            <a href="{{ route('banoms.index') }}" class="block transition hover:text-white">Banom &amp; pengurus</a>
                             <a href="{{ route('about') }}" class="block transition hover:text-white">Tentang Kami</a>
                             <a href="{{ route('contact.index') }}" class="block transition hover:text-white">Hubungi
                                 kami</a>
