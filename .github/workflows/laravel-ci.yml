@@ -4,12 +4,17 @@ on:
   push:
     branches:
       - feature/community-events-and-archive
+      - feature/member-registration-approval
   pull_request:
     branches:
       - main
 
 permissions:
   contents: read
+
+concurrency:
+  group: laravel-ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:
@@ -54,6 +59,8 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
+          NIK_HASH_KEY="$(php -r 'echo bin2hex(random_bytes(32));')"
+          sed -i "s/^NIK_HASH_KEY=.*/NIK_HASH_KEY=${NIK_HASH_KEY}/" .env
         env:
           APP_ENV: testing
           DB_CONNECTION: mysql
