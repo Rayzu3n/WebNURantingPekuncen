@@ -15,15 +15,16 @@
     <main class="mx-auto w-full max-w-[1500px] px-4 sm:px-7 lg:px-10">
         <section class="grid gap-8 border-b border-[#dde0d6] py-10 dark:border-[#364339] sm:py-14 lg:grid-cols-[1.2fr_.8fr] lg:items-end lg:gap-16 lg:py-20">
             <div>
-                <p class="portal-kicker">Kabar • Kegiatan • Khidmah</p>
+                <p class="portal-kicker">Nahdlatul Ulama · Ranting Pekuncen</p>
                 <h1 class="mt-5 max-w-4xl font-editorial text-5xl font-extrabold leading-[.98] tracking-[-.075em] text-[#192b23] dark:text-[#ebefe5] sm:text-6xl lg:text-7xl xl:text-[5.9rem]">
-                    Cerita dari<br><span class="text-[#1a5b41] dark:text-[#80ca9d]">tanah Pekuncen.</span>
+                    Merawat tradisi,<br><span class="text-[#1a5b41] dark:text-[#80ca9d]">menguatkan khidmah.</span>
                 </h1>
             </div>
             <div class="max-w-xl lg:justify-self-end">
                 <div class="mb-5 h-px w-20 bg-[#b75d3c]"></div>
-                <p class="max-w-lg text-base leading-7 text-[#66746a] dark:text-[#a3b1a5] sm:text-lg sm:leading-8">Ruang kabar untuk kegiatan, gagasan, dan gerak bersama Nahdlatul Ulama di lingkungan Pekuncen.</p>
+                <p class="max-w-lg text-base leading-7 text-[#66746a] dark:text-[#a3b1a5] sm:text-lg sm:leading-8">Ruang informasi, berita, dan kegiatan Nahdlatul Ulama yang tumbuh bersama warga Ranting Pekuncen.</p>
                 <a href="{{ route('news.index') }}" class="mt-6 inline-flex items-center gap-3 text-sm font-extrabold text-[#1a5b41] transition hover:gap-4 dark:text-[#a8ddb8]">Jelajahi seluruh berita <span class="flex h-8 w-8 items-center justify-center rounded-full border border-[#c5d0c4] dark:border-[#465648]"><x-portal-icon name="newspaper" class="h-4 w-4" /></span></a>
+                <a href="{{ route('about') }}" class="ml-4 mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#66746a] transition hover:text-[#1a5b41] dark:text-[#a3b1a5] dark:hover:text-[#a8ddb8]">Tentang ranting <span aria-hidden="true">→</span></a>
             </div>
         </section>
 
